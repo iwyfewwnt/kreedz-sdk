@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>kreedz-sdk</artifactId>
+        <groupId>io.github.iwyfewwnt</groupId>
+        <version>0.2.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>kreedz-adapters</artifactId>
+    <version>0.2.0-SNAPSHOT</version>
+
+    <description>Adapters module of iwyfewwnt/kreedz-sdk library</description>
+
+    <properties>
+        <uw-gson.version>0.1.0-SNAPSHOT</uw-gson.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.github.iwyfewwnt</groupId>
+            <artifactId>kreedz-adapter-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.iwyfewwnt</groupId>
+            <artifactId>kreedz-structs</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.iwyfewwnt</groupId>
+            <artifactId>uw-gson</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.auto.service</groupId>
+            <artifactId>auto-service</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+</project>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>io.github.iwyfewwnt</groupId>
+        <artifactId>kreedz-sdk</artifactId>
+        <version>0.2.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>kreedz-structs</artifactId>
+    <version>0.2.0-SNAPSHOT</version>
+
+    <description>Structs module of iwyfewwnt/kreedz-sdk library</description>
+
+    <properties>
+        <steam-id.version>0.2.0-SNAPSHOT</steam-id.version>
+        <joda-time.version>2.12.1</joda-time.version>
+        <gson.version>2.10</gson.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.github.iwyfewwnt</groupId>
+            <artifactId>steam-id</artifactId>
+            <version>${steam-id.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>${joda-time.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson.version}</version>
+        </dependency>
+    </dependencies>
+</project>

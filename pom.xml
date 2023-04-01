@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>io.github.iwyfewwnt</groupId>
+    <artifactId>kreedz-sdk</artifactId>
+    <version>0.2.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>structs</module>
+        <module>client</module>
+        <module>client-api</module>
+<!--        <module>client-aspects</module>-->
+        <module>adapters</module>
+        <module>adapter-api</module>
+        <module>converters</module>
+        <module>converter-api</module>
+    </modules>
+
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description>SDK for the CS:GO Kreedz Global API w/ Java 8+ support</description>
+    <url>https://github.com/iwyfewwnt/kreedz-sdk</url>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>iwyfewwnt</id>
+            <url>https://github.com/iwyfewwnt</url>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/iwyfewwnt/kreedz-sdk.git</connection>
+        <developerConnection>scm:git:ssh://github.com:iwyfewwnt/kreedz-sdk.git</developerConnection>
+        <url>https://github.com/iwyfewwnt/kreedz-sdk/tree/main</url>
+    </scm>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2</url>
+        </repository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>snapshot-repository</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <properties>
+        <!-- Java Version -->
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+
+        <!-- Project Encoding -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <structs.version>0.2.0-SNAPSHOT</structs.version>
+        <client.version>0.2.0-SNAPSHOT</client.version>
+        <client-api.version>0.2.0-SNAPSHOT</client-api.version>
+        <client-aspects.version>0.2.0-SNAPSHOT</client-aspects.version>
+        <adapters.verison>0.2.0-SNAPSHOT</adapters.verison>
+        <adapter-api.version>0.2.0-SNAPSHOT</adapter-api.version>
+        <converters.version>0.2.0-SNAPSHOT</converters.version>
+        <converter-api.version>0.2.0-SNAPSHOT</converter-api.version>
+
+        <retrofit.version>2.9.0</retrofit.version>
+        <uw-retrofit.version>0.2.0-SNAPSHOT</uw-retrofit.version>
+
+        <uw-gson.version>0.1.0-SNAPSHOT</uw-gson.version>
+
+        <auto-service.version>1.0.1</auto-service.version>
+
+        <uwutils.version>0.2.0-SNAPSHOT</uwutils.version>
+
+<!--        <aspectj.version>1.9.8.M1</aspectj.version>-->
+
+        <!-- Project Resources -->
+        <project.resources.dirPath>${user.dir}/resources</project.resources.dirPath>
+
+        <!-- Javadoc Stylesheet -->
+        <javadoc.stylesheet.fileName>javadoc-drakula.css</javadoc.stylesheet.fileName>
+        <javadoc.stylesheet.filePath>${project.resources.dirPath}/${javadoc.stylesheet.fileName}</javadoc.stylesheet.filePath>
+
+        <!-- Maven Plugin Versions -->
+        <maven.install.version>2.5.2</maven.install.version>
+        <maven.surefire.version>3.0.0-M7</maven.surefire.version>
+        <maven.source.version>3.2.1</maven.source.version>
+        <maven.javadoc.version>3.4.1</maven.javadoc.version>
+        <maven.gpg.version>3.0.1</maven.gpg.version>
+        <maven.staging.version>1.6.13</maven.staging.version>
+
+<!--        <maven.aspectj.version>1.13.1</maven.aspectj.version>-->
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.github.iwyfewwnt</groupId>
+                <artifactId>kreedz-structs</artifactId>
+                <version>${structs.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.iwyfewwnt</groupId>
+                <artifactId>kreedz-client</artifactId>
+                <version>${client.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.iwyfewwnt</groupId>
+                <artifactId>kreedz-client-api</artifactId>
+                <version>${client-api.version}</version>
+            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>io.github.iwyfewwnt</groupId>-->
+<!--                <artifactId>kreedz-client-aspects</artifactId>-->
+<!--                <version>${client-aspects.version}</version>-->
+<!--            </dependency>-->
+            <dependency>
+                <groupId>io.github.iwyfewwnt</groupId>
+                <artifactId>kreedz-adapters</artifactId>
+                <version>${adapters.verison}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.iwyfewwnt</groupId>
+                <artifactId>kreedz-adapter-api</artifactId>
+                <version>${adapter-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.iwyfewwnt</groupId>
+                <artifactId>kreedz-converters</artifactId>
+                <version>${converters.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.iwyfewwnt</groupId>
+                <artifactId>kreedz-converter-api</artifactId>
+                <version>${converter-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.retrofit2</groupId>
+                <artifactId>retrofit</artifactId>
+                <version>${retrofit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.iwyfewwnt</groupId>
+                <artifactId>uw-retrofit</artifactId>
+                <version>${uw-retrofit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.iwyfewwnt</groupId>
+                <artifactId>uw-gson</artifactId>
+                <version>${uw-gson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.auto.service</groupId>
+                <artifactId>auto-service</artifactId>
+                <version>${auto-service.version}</version>
+            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.aspectj</groupId>-->
+<!--                <artifactId>aspectjrt</artifactId>-->
+<!--                <version>${aspectj.version}</version>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>org.aspectj</groupId>-->
+<!--                <artifactId>aspectjtools</artifactId>-->
+<!--                <version>${aspectj.version}</version>-->
+<!--            </dependency>-->
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.github.iwyfewwnt</groupId>
+            <artifactId>uwutils</artifactId>
+            <version>0.2.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>${project.resources.dirPath}</directory>
+                <excludes>
+                    <exclude>${javadoc.stylesheet.fileName}</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>${maven.install.version}</version>
+                <configuration>
+                    <createChecksum>false</createChecksum>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.version}</version>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>build</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+                <property>
+                    <name>ossrh</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>${maven.source.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>javadoc</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+                <property>
+                    <name>ossrh</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${maven.javadoc.version}</version>
+                        <configuration>
+                            <doclint>all,-missing</doclint>
+                            <stylesheetfile>${javadoc.stylesheet.filePath}</stylesheetfile>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>release</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+                <property>
+                    <name>ossrh</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-install-plugin</artifactId>
+                        <version>${maven.install.version}</version>
+                        <configuration>
+                            <createChecksum>true</createChecksum>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven.gpg.version}</version>
+                        <configuration>
+                            <keyname>6A79B65D1E24EA0F</keyname>
+                            <passphraseServerId>6A79B65D1E24EA0F</passphraseServerId>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>${maven.staging.version}</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://s01.oss.sonatype.org</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
