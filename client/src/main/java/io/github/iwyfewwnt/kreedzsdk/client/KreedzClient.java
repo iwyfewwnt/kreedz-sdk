@@ -30,9 +30,7 @@ import io.github.iwyfewwnt.uwretrofit.IRetrofitClient;
 import io.github.iwyfewwnt.uwretrofit.converters.QueryConverterFactory;
 import io.github.iwyfewwnt.uwretrofit.services.IServiceWrapper;
 import io.github.iwyfewwnt.uwretrofit.services.impl.RetrofitServiceWrapper;
-import io.github.iwyfewwnt.uwutils.UwBean;
-import io.github.iwyfewwnt.uwutils.UwObject;
-import io.github.iwyfewwnt.uwutils.UwReflect;
+import io.github.iwyfewwnt.uwutils.*;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Converter;
@@ -429,14 +427,14 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	 * @return 	map of kreedz type adapter instances and their associated types
 	 */
 	private static Map<Class<?>, Object> initTypeAdapterSpi() {
-		Map<Class<?>, Object> result = new HashMap<>();
-
 		List<Class<? extends IKreedzTypeAdapter>> classes
 				= UwBean.findSpiTypesOrNull(IKreedzTypeAdapter.class);
 
 		if (classes == null) {
-			return result;
+			return UwMap.EMPTY;
 		}
+
+		Map<Class<?>, Object> result = new HashMap<>(classes.size());
 
 		classes.forEach(clazz -> {
 			String className = clazz.getSimpleName();
@@ -504,14 +502,15 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	 * @return	map of kreedz query converter instances and their associated types
 	 */
 	private static Map<Class<Object>, Converter<Object, String>> initQueryConverterSpi() {
-		Map<Class<Object>, Converter<Object, String>> result = new HashMap<>();
-
 		List<Class<? extends IKreedzQueryConverter>> classes
 				= UwBean.findSpiTypesOrNull(IKreedzQueryConverter.class);
 
 		if (classes == null) {
-			return result;
+			return UwMap.EMPTY;
 		}
+
+		Map<Class<Object>, Converter<Object, String>> result
+				= new HashMap<>(classes.size());
 
 		classes.forEach(clazz -> {
 			String className = clazz.getSimpleName();
@@ -582,14 +581,14 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	 * @return			list of {@literal <T>} instances
 	 */
 	private static <T, U> List<T> initSimpleSpi(Class<U> iClass, Class<T> tClass) {
-		List<T> result = new ArrayList<>();
-
 		List<Class<? extends U>> classes
 				= UwBean.findSpiTypesOrNull(iClass);
 
 		if (classes == null) {
-			return result;
+			return UwList.EMPTY;
 		}
+
+		List<T> result = new ArrayList<>(classes.size());
 
 		String tName = tClass.getSimpleName();
 
