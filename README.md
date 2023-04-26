@@ -4,7 +4,6 @@ library, so everything should be fine if you use it with Android, I guess.
 
 
 ## Modules
-### Linked
  * [/structs](./structs)
    * This module collects all possible and used entities, enumeration types,
      high-level abstractions over the primitive types, and responses both for
@@ -33,12 +32,6 @@ library, so everything should be fine if you use it with Android, I guess.
 
  * [/adapter-api](./adapter-api)
    * A service provider interface API for automation binding of type adapter/s -factories.
-
-### Unlinked
- * [/client-aspects](./client-aspects)
-   * Contains `@AspectJ-lang` classes for intercepting API call methods and client initialization.
-     Canceled due to weak support for multi-module projects and strange-long compilation in 2 cycles
-     ≈ 10-15 seconds for each.
 
 
 ## Example
