@@ -21,6 +21,7 @@ import io.github.iwyfewwnt.kreedzsdk.adapterapi.IKreedzTypeAdapter;
 import io.github.iwyfewwnt.kreedzsdk.adapterapi.IKreedzTypeAdapterFactory;
 import io.github.iwyfewwnt.kreedzsdk.client.services.*;
 import io.github.iwyfewwnt.kreedzsdk.clientapi.*;
+import io.github.iwyfewwnt.kreedzsdk.clientapi.interceptors.MethodVersionInterceptor;
 import io.github.iwyfewwnt.kreedzsdk.converterapi.IKreedzConverterFactory;
 import io.github.iwyfewwnt.kreedzsdk.converterapi.IKreedzQueryConverter;
 import io.github.iwyfewwnt.kreedzsdk.structs.types.EVersion;
@@ -32,6 +33,7 @@ import io.github.iwyfewwnt.uwretrofit.services.impl.RetrofitServiceWrapper;
 import io.github.iwyfewwnt.uwutils.UwBean;
 import io.github.iwyfewwnt.uwutils.UwObject;
 import io.github.iwyfewwnt.uwutils.UwReflect;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
@@ -338,8 +340,12 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	 * @return	{@code OkHttpClient} instance
 	 */
 	private OkHttpClient initHttpClient() {
-		return new OkHttpClient.Builder()
-				.writeTimeout(Duration.ZERO)
+		OkHttpClient.Builder builder = new OkHttpClient.Builder()
+				.addInterceptor(new MethodVersionInterceptor(this.version));
+
+		initInterceptorSpi().forEach(builder::addInterceptor);
+
+		return builder.writeTimeout(Duration.ZERO)
 				.readTimeout(Duration.ZERO)
 				.connectTimeout(Duration.ZERO)
 				.callTimeout(Duration.ZERO)
@@ -420,7 +426,7 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	/**
 	 * Initialize a kreedz type adapter SPI module.
 	 *
-	 * @return 		map of kreedz type adapter instances and their associated types
+	 * @return 	map of kreedz type adapter instances and their associated types
 	 */
 	private static Map<Class<?>, Object> initTypeAdapterSpi() {
 		Map<Class<?>, Object> result = new HashMap<>();
@@ -486,7 +492,7 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	/**
 	 * Initialize a kreedz type adapter factory SPI module.
 	 *
-	 * @return 		list of type adapter factory instances
+	 * @return 	list of type adapter factory instances
 	 */
 	private static List<TypeAdapterFactory> initTypeAdapterFactorySpi() {
 		return initSimpleSpi(IKreedzTypeAdapterFactory.class, TypeAdapterFactory.class);
@@ -495,7 +501,7 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	/**
 	 * Initialize a kreedz query converter SPI module.
 	 *
-	 * @return		map of kreedz
+	 * @return	map of kreedz query converter instances and their associated types
 	 */
 	private static Map<Class<Object>, Converter<Object, String>> initQueryConverterSpi() {
 		Map<Class<Object>, Converter<Object, String>> result = new HashMap<>();
@@ -551,10 +557,19 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	/**
 	 * Initialize a kreedz converter factory SPI module.
 	 *
-	 * @return		list of converter factory instances
+	 * @return	list of converter factory instances
 	 */
 	private static List<Converter.Factory> initConvertFactorySpi() {
 		return initSimpleSpi(IKreedzConverterFactory.class, Converter.Factory.class);
+	}
+
+	/**
+	 * Initialize a kreedz interceptor SPI module.
+	 *
+	 * @return	list of interceptor instances
+	 */
+	private static List<Interceptor> initInterceptorSpi() {
+		return initSimpleSpi(IKreedzInterceptor.class, Interceptor.class);
 	}
 
 	/**
