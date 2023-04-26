@@ -31,13 +31,13 @@ public interface IHealthService {
 	/**
 	 * GET request to /endpoints/statuses/ endpoint.
 	 */
-	@GET("https://health.global-api.com/api/v1/endpoints/statuses")
+	@GET("endpoints/statuses")
 	Call<List<HealthStatusResponseEntity>> getHealthStatus();
 
 	/**
 	 * GET request to /endpoints/.../statuses/ endpoint.
 	 */
-	@GET("https://health.global-api.com/api/v1/endpoints/{group}_{endpoint}/statuses")
+	@GET("endpoints/{group}_{endpoint}/statuses")
 	Call<HealthStatusResponseEntity> getHealthStatusByEndpoint(
 			@Path("group") String group,
 			@Path("endpoint") String endpoint

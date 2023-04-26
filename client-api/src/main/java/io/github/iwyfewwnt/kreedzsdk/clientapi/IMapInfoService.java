@@ -31,24 +31,24 @@ public interface IMapInfoService {
 	/**
 	 * GET request to /main/maps.min.json/ endpoint.
 	 */
-	@GET("https://raw.githubusercontent.com/iwyfewwnt/maps-info/main/maps.min.json")
+	@GET("maps.min.json")
 	Call<List<MapInfoEntity>> getMapsInfo();
 
 	/**
 	 * GET request to /main/global.min.json/ endpoint.
 	 */
-	@GET("https://raw.githubusercontent.com/iwyfewwnt/maps-info/main/global.min.json")
+	@GET("global.min.json")
 	Call<List<MapInfoEntity>> getGlobalMapsInfo();
 
 	/**
 	 * GET request to /main/non-global.min.json/ endpoint.
 	 */
-	@GET("https://raw.githubusercontent.com/iwyfewwnt/maps-info/main/non-global.min.json")
+	@GET("non-global.min.json")
 	Call<List<MapInfoEntity>> getNonGlobalMapsInfo();
 
 	/**
 	 * GET request to /main/uncompleted.min.json/ endpoint.
 	 */
-	@GET("https://raw.githubusercontent.com/iwyfewwnt/maps-info/main/uncompleted.min.json")
+	@GET("uncompleted.min.json")
 	Call<List<MapInfoEntity>> getUncompletedMapsInfo();
 }

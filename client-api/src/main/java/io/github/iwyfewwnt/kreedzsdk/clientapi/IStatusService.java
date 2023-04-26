@@ -28,48 +28,48 @@ public interface IStatusService {
 	/**
 	 * GET request to /summary.json/ endpoint.
 	 */
-	@GET("https://status.global-api.com/api/v2/summary.json")
+	@GET("summary.json")
 	Call<StatusSummaryResponseEntity> getSummary();
 
 	/**
 	 * GET request to /status.json/ endpoint.
 	 */
-	@GET("https://status.global-api.com/api/v2/status.json")
+	@GET("status.json")
 	Call<StatusResponseEntity> getStatus();
 
 	/**
 	 * GET request to /components.json/ endpoint.
 	 */
-	@GET("https://status.global-api.com/api/v2/components.json")
+	@GET("components.json")
 	Call<StatusComponentsResponseEntity> getComponents();
 
 	/**
 	 * GET request to /incidents/unresolved.json/ endpoint.
 	 */
-	@GET("https://status.global-api.com/api/v2/incidents/unresolved.json")
+	@GET("incidents/unresolved.json")
 	Call<StatusIncidentsResponseEntity> getUnresolvedIncidents();
 
 	/**
 	 * GET request to /incidents.json/ endpoint.
 	 */
-	@GET("https://status.global-api.com/api/v2/incidents.json")
+	@GET("incidents.json")
 	Call<StatusIncidentsResponseEntity> getRecentIncidents();
 
 	/**
 	 * GET request to /scheduled-maintenances/upcoming.json/ endpoint.
 	 */
-	@GET("https://status.global-api.com/api/v2/scheduled-maintenances/upcoming.json")
+	@GET("scheduled-maintenances/upcoming.json")
 	Call<StatusScheduledIncidentsResponseEntity> getUpcomingScheduledIncidents();
 
 	/**
 	 * GET request to /scheduled-maintenances/active.json/ endpoint.
 	 */
-	@GET("https://status.global-api.com/api/v2/scheduled-maintenances/active.json")
+	@GET("scheduled-maintenances/active.json")
 	Call<StatusScheduledIncidentsResponseEntity> getActiveScheduledIncidents();
 
 	/**
 	 * GET request to /scheduled-maintenances.json/ endpoint.
 	 */
-	@GET("https://status.global-api.com/api/v2/scheduled-maintenances.json")
+	@GET("scheduled-maintenances.json")
 	Call<StatusScheduledIncidentsResponseEntity> getRecentScheduledIncidents();
 }

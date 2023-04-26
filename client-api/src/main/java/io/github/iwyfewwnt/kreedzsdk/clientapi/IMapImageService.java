@@ -30,6 +30,6 @@ public interface IMapImageService {
 	/**
 	 * GET request to /public/maps.mis.json/ endpoint.
 	 */
-	@GET("https://raw.githubusercontent.com/KZGlobalTeam/map-images/public/maps.min.json")
+	@GET("public/maps.min.json")
 	Call<List<MapImageEntity>> getMapImages();
 }
