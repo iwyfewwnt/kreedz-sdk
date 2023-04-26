@@ -13,7 +13,6 @@
         <module>structs</module>
         <module>client</module>
         <module>client-api</module>
-<!--        <module>client-aspects</module>-->
         <module>adapters</module>
         <module>adapter-api</module>
         <module>converters</module>
@@ -96,8 +95,6 @@
 
         <uwutils.version>0.2.0-SNAPSHOT</uwutils.version>
 
-<!--        <aspectj.version>1.9.8.M1</aspectj.version>-->
-
         <!-- Project Resources -->
         <project.resources.dirPath>${user.dir}/resources</project.resources.dirPath>
 
@@ -112,8 +109,6 @@
         <maven.javadoc.version>3.4.1</maven.javadoc.version>
         <maven.gpg.version>3.0.1</maven.gpg.version>
         <maven.staging.version>1.6.13</maven.staging.version>
-
-<!--        <maven.aspectj.version>1.13.1</maven.aspectj.version>-->
     </properties>
 
     <dependencyManagement>
@@ -133,11 +128,6 @@
                 <artifactId>kreedz-client-api</artifactId>
                 <version>${client-api.version}</version>
             </dependency>
-<!--            <dependency>-->
-<!--                <groupId>io.github.iwyfewwnt</groupId>-->
-<!--                <artifactId>kreedz-client-aspects</artifactId>-->
-<!--                <version>${client-aspects.version}</version>-->
-<!--            </dependency>-->
             <dependency>
                 <groupId>io.github.iwyfewwnt</groupId>
                 <artifactId>kreedz-adapters</artifactId>
@@ -178,16 +168,6 @@
                 <artifactId>auto-service</artifactId>
                 <version>${auto-service.version}</version>
             </dependency>
-<!--            <dependency>-->
-<!--                <groupId>org.aspectj</groupId>-->
-<!--                <artifactId>aspectjrt</artifactId>-->
-<!--                <version>${aspectj.version}</version>-->
-<!--            </dependency>-->
-<!--            <dependency>-->
-<!--                <groupId>org.aspectj</groupId>-->
-<!--                <artifactId>aspectjtools</artifactId>-->
-<!--                <version>${aspectj.version}</version>-->
-<!--            </dependency>-->
         </dependencies>
     </dependencyManagement>
 
