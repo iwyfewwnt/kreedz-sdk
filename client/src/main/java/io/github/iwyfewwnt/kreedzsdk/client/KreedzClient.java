@@ -65,7 +65,7 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	}
 
 	/**
-	 * A kreedz API base URL format.
+	 * A kreedz API base URL format string.
 	 *
 	 * <p>Arguments in order:
 	 * <ul>
