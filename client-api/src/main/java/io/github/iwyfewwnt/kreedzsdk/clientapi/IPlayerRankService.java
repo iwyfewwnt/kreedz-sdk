@@ -16,7 +16,7 @@
 
 package io.github.iwyfewwnt.kreedzsdk.clientapi;
 
-import io.github.iwyfewwnt.kreedzsdk.clientapi.annotations.MethodApiVersion;
+import io.github.iwyfewwnt.kreedzsdk.clientapi.annotations.MethodVersion;
 import io.github.iwyfewwnt.kreedzsdk.structs.entities.PlayerRankEntity;
 import io.github.iwyfewwnt.kreedzsdk.structs.types.EVersion;
 import io.github.iwyfewwnt.kreedzsdk.structs.types.EMode;
@@ -37,7 +37,7 @@ public interface IPlayerRankService {
 	/**
 	 * GET request to /player_ranks/ endpoint.
 	 */
-	@MethodApiVersion(EVersion.V1_0)
+	@MethodVersion(EVersion.V1_0)
 	@GET("player_ranks")
 	Call<List<PlayerRankEntity>> getPlayerRanks(
 			@Query("points_greater_than") Integer pointsGreaterThan,

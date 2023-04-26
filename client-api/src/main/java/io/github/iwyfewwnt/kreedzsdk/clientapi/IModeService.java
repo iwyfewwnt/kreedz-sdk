@@ -16,7 +16,7 @@
 
 package io.github.iwyfewwnt.kreedzsdk.clientapi;
 
-import io.github.iwyfewwnt.kreedzsdk.clientapi.annotations.MethodApiVersion;
+import io.github.iwyfewwnt.kreedzsdk.clientapi.annotations.MethodVersion;
 import io.github.iwyfewwnt.kreedzsdk.structs.entities.ModeEntity;
 import io.github.iwyfewwnt.kreedzsdk.structs.types.EVersion;
 import retrofit2.Call;
@@ -33,14 +33,14 @@ public interface IModeService {
 	/**
 	 * GET request to /modes/ endpoint.
 	 */
-	@MethodApiVersion(EVersion.V1_0)
+	@MethodVersion(EVersion.V1_0)
 	@GET("modes")
 	Call<List<ModeEntity>> getModes();
 
 	/**
 	 * GET request to /modes/id/.../ endpoint.
 	 */
-	@MethodApiVersion(EVersion.V1_0)
+	@MethodVersion(EVersion.V1_0)
 	@GET("modes/id/{id}")
 	Call<ModeEntity> getMode(
 			@Path("id") Integer id
@@ -49,7 +49,7 @@ public interface IModeService {
 	/**
 	 * GET request to /modes/name/.../ endpoint.
 	 */
-	@MethodApiVersion(EVersion.V1_0)
+	@MethodVersion(EVersion.V1_0)
 	@GET("modes/name/{modeName}")
 	Call<ModeEntity> getMode(
 			@Path("modeName") String modeName

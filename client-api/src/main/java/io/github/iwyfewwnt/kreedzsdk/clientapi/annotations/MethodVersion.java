@@ -26,12 +26,12 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface MethodApiVersion {
+public @interface MethodVersion {
 
 	/**
 	 * Get this method API version.
 	 *
-	 * @return	this method API version
+	 * @return	method API version
 	 */
 	EVersion value();
 

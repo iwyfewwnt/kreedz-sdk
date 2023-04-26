@@ -16,7 +16,7 @@
 
 package io.github.iwyfewwnt.kreedzsdk.clientapi;
 
-import io.github.iwyfewwnt.kreedzsdk.clientapi.annotations.MethodApiVersion;
+import io.github.iwyfewwnt.kreedzsdk.clientapi.annotations.MethodVersion;
 import io.github.iwyfewwnt.kreedzsdk.structs.entities.RecordDistributionEntity;
 import io.github.iwyfewwnt.kreedzsdk.structs.entities.RecordFilterEntity;
 import io.github.iwyfewwnt.kreedzsdk.structs.types.EVersion;
@@ -38,7 +38,7 @@ public interface IRecordFilterService {
 	/**
 	 * GET request to /record_filters/ endpoint.
 	 */
-	@MethodApiVersion(EVersion.V1_0)
+	@MethodVersion(EVersion.V1_0)
 	@GET("record_filters")
 	Call<List<RecordFilterEntity>> getRecordFilters(
 			@Query("ids") Set<Integer> ids,
@@ -54,7 +54,7 @@ public interface IRecordFilterService {
 	/**
 	 * GET request to /record_filters/distributions/ endpoint.
 	 */
-	@MethodApiVersion(EVersion.V1_0)
+	@MethodVersion(EVersion.V1_0)
 	@GET("record_filters/distributions")
 	Call<List<RecordDistributionEntity>> getRecordFilterDistributions(
 			@Query("ids") Set<Integer> ids,

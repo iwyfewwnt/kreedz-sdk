@@ -16,7 +16,7 @@
 
 package io.github.iwyfewwnt.kreedzsdk.clientapi;
 
-import io.github.iwyfewwnt.kreedzsdk.clientapi.annotations.MethodApiVersion;
+import io.github.iwyfewwnt.kreedzsdk.clientapi.annotations.MethodVersion;
 import io.github.iwyfewwnt.kreedzsdk.structs.entities.JumpstatEntity;
 import io.github.iwyfewwnt.kreedzsdk.structs.types.EVersion;
 import io.github.iwyfewwnt.kreedzsdk.structs.types.EJumpType;
@@ -37,7 +37,7 @@ public interface IJumpstatService {
 	/**
 	 * GET request to /jumpstats/ endpoint.
 	 */
-	@MethodApiVersion(EVersion.V1_0)
+	@MethodVersion(EVersion.V1_0)
 	@GET("jumpstats")
 	Call<List<JumpstatEntity>> getJumpstats(
 			@Query("id") Integer id,
@@ -60,7 +60,7 @@ public interface IJumpstatService {
 	/**
 	 * GET request to /jumpstats/.../top/ endpoint.
 	 */
-	@MethodApiVersion(EVersion.V1_0)
+	@MethodVersion(EVersion.V1_0)
 	@GET("jumpstats/{jumpType}/top")
 	Call<List<JumpstatEntity>> getJumpstatsTop(
 			@Path("jumpType") EJumpType jumpType,

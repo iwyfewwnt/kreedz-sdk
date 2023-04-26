@@ -16,7 +16,7 @@
 
 package io.github.iwyfewwnt.kreedzsdk.clientapi;
 
-import io.github.iwyfewwnt.kreedzsdk.clientapi.annotations.MethodApiVersion;
+import io.github.iwyfewwnt.kreedzsdk.clientapi.annotations.MethodVersion;
 import io.github.iwyfewwnt.kreedzsdk.structs.entities.ServerEntity;
 import io.github.iwyfewwnt.kreedzsdk.structs.types.EVersion;
 import io.github.iwyfewwnt.kreedzsdk.structs.types.EApprovalStatus;
@@ -36,7 +36,7 @@ public interface IServerService {
 	/**
 	 * GET request to /servers/ endpoint.
 	 */
-	@MethodApiVersion(EVersion.V1_0)
+	@MethodVersion(EVersion.V1_0)
 	@GET("servers")
 	Call<List<ServerEntity>> getServers(
 			@Query("ids") Set<Integer> ids,
@@ -52,7 +52,7 @@ public interface IServerService {
 	/**
 	 * GET request to /servers/.../ endpoint.
 	 */
-	@MethodApiVersion(EVersion.V1_0)
+	@MethodVersion(EVersion.V1_0)
 	@GET("servers/{id}")
 	Call<ServerEntity> getServerById(
 			@Path("id") Integer id

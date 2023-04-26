@@ -16,7 +16,7 @@
 
 package io.github.iwyfewwnt.kreedzsdk.clientapi;
 
-import io.github.iwyfewwnt.kreedzsdk.clientapi.annotations.MethodApiVersion;
+import io.github.iwyfewwnt.kreedzsdk.clientapi.annotations.MethodVersion;
 import io.github.iwyfewwnt.kreedzsdk.structs.entities.MapEntity;
 import io.github.iwyfewwnt.kreedzsdk.structs.types.EVersion;
 import io.github.iwyfewwnt.kreedzsdk.structs.types.EDifficulty;
@@ -37,7 +37,7 @@ public interface IMapService {
 	/**
 	 * GET request to /maps/ endpoint.
 	 */
-	@MethodApiVersion(EVersion.V1_0)
+	@MethodVersion(EVersion.V1_0)
 	@GET("maps")
 	Call<List<MapEntity>> getMaps(
 			@Query("id") Set<Integer> ids,
@@ -55,7 +55,7 @@ public interface IMapService {
 	/**
 	 * GET request to /maps/.../ endpoint.
 	 */
-	@MethodApiVersion(EVersion.V1_0)
+	@MethodVersion(EVersion.V1_0)
 	@GET("maps/{id}")
 	Call<MapEntity> getMap(
 			@Path("id") Integer id
@@ -64,7 +64,7 @@ public interface IMapService {
 	/**
 	 * GET request to /maps/name/.../ endpoint.
 	 */
-	@MethodApiVersion(EVersion.V1_0)
+	@MethodVersion(EVersion.V1_0)
 	@GET("maps/name/{mapName}")
 	Call<MapEntity> getMap(
 			@Path("mapName") String mapName

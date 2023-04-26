@@ -16,7 +16,7 @@
 
 package io.github.iwyfewwnt.kreedzsdk.clientapi;
 
-import io.github.iwyfewwnt.kreedzsdk.clientapi.annotations.MethodApiVersion;
+import io.github.iwyfewwnt.kreedzsdk.clientapi.annotations.MethodVersion;
 import io.github.iwyfewwnt.kreedzsdk.structs.entities.RecordCountEntity;
 import io.github.iwyfewwnt.kreedzsdk.structs.entities.RecordEntity;
 import io.github.iwyfewwnt.kreedzsdk.structs.types.EVersion;
@@ -40,7 +40,7 @@ public interface IRecordService {
 	/**
 	 * GET request to /records/place/.../ endpoint.
 	 */
-	@MethodApiVersion(EVersion.V1_0)
+	@MethodVersion(EVersion.V1_0)
 	@GET("records/place/{id}")
 	Call<Integer> getRecordPlaceById(
 			@Path("id") Integer id
@@ -49,7 +49,7 @@ public interface IRecordService {
 	/**
 	 * GET request to /records/top/ endpoint.
 	 */
-	@MethodApiVersion(EVersion.V1_0)
+	@MethodVersion(EVersion.V1_0)
 	@GET("records/top")
 	Call<List<RecordEntity>> getRecordsTop(
 			@Query("server_id") Integer serverId,
@@ -69,7 +69,7 @@ public interface IRecordService {
 	/**
 	 * GET request to /records/top/world_records/ endpoint.
 	 */
-	@MethodApiVersion(EVersion.V1_0)
+	@MethodVersion(EVersion.V1_0)
 	@GET("records/top/world_records")
 	Call<List<RecordCountEntity>> getWorldRecordsTop(
 			@Query("ids") Set<Integer> ids,
@@ -86,7 +86,7 @@ public interface IRecordService {
 	/**
 	 * GET request to /records/top/recent/ endpoint.
 	 */
-	@MethodApiVersion(EVersion.V1_0)
+	@MethodVersion(EVersion.V1_0)
 	@GET("records/top/recent")
 	Call<List<RecordEntity>> getRecentRecords(
 			@Query("steamid64") Long steamId64,
@@ -106,7 +106,7 @@ public interface IRecordService {
 	/**
 	 * GET request to /records/../ endpoint.
 	 */
-	@MethodApiVersion(EVersion.V2_0)
+	@MethodVersion(EVersion.V2_0)
 	@GET("records/{id}")
 	Call<RecordEntity> getRecordById(
 			@Path("id") Integer id

@@ -16,7 +16,7 @@
 
 package io.github.iwyfewwnt.kreedzsdk.clientapi;
 
-import io.github.iwyfewwnt.kreedzsdk.clientapi.annotations.MethodApiVersion;
+import io.github.iwyfewwnt.kreedzsdk.clientapi.annotations.MethodVersion;
 import io.github.iwyfewwnt.kreedzsdk.structs.entities.PlayerEntity;
 import io.github.iwyfewwnt.kreedzsdk.structs.types.EVersion;
 import retrofit2.Call;
@@ -34,7 +34,7 @@ public interface IPlayerService {
 	/**
 	 * GET request to /players/ endpoint.
 	 */
-	@MethodApiVersion(EVersion.V1_0)
+	@MethodVersion(EVersion.V1_0)
 	@GET("players")
 	Call<List<PlayerEntity>> getPlayers(
 			@Query("name") String playerName,
