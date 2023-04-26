@@ -120,6 +120,13 @@ public final class ScrollPattern implements Serializable, Cloneable {
 		this.jumpInputs = jumpInputs;
 	}
 
+	/**
+	 * Initialize a {@link ScrollPattern} instance.
+	 *
+	 * <p>Defines a copy constructor.
+	 *
+	 * @param that	instance to copy field values from
+	 */
 	private ScrollPattern(ScrollPattern that) {
 		this(that.jumpInputs);
 
