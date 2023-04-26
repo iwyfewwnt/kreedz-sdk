@@ -519,11 +519,21 @@ public enum EDifficulty implements Serializable {
 				+ ":" + Group.class.getSimpleName();
 
 		/**
+		 * A {@link Group#toString()} cache.
+		 */
+		private transient String stringCache;
+
+		/**
 		 * {@inheritDoc}
 		 */
 		@Override
 		public String toString() {
-			return SIMPLE_NAME + "::" + this.name();
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME
+					+ "::" + this.name());
 		}
 	}
 }
