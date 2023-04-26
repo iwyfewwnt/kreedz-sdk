@@ -75,17 +75,17 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	private static final String BASE_URL_FMT = "https://kztimerglobal.com/api/%s/";
 
 	/**
-	 * API-version.
+	 * An API version.
 	 */
 	protected final EVersion version;
 
 	/**
-	 * Base URL.
+	 * A base URL.
 	 */
 	protected final String baseUrl;
 
 	/**
-	 * Retrofit.
+	 * A retrofit.
 	 */
 	protected final Retrofit retrofit;
 
@@ -113,9 +113,9 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	}
 
 	/**
-	 * Get this API-version.
+	 * Get this API version.
 	 *
-	 * @return	API-version
+	 * @return	API version
 	 */
 	public final EVersion getVersion() {
 		return this.version;
