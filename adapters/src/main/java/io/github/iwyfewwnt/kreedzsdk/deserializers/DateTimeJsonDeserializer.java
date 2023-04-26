@@ -22,6 +22,7 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import io.github.iwyfewwnt.kreedzsdk.adapterapi.IKreedzTypeAdapter;
 import io.github.iwyfewwnt.kreedzsdk.structs.utils.UKreedzDate;
+import io.github.iwyfewwnt.uwutils.UwArray;
 import org.joda.time.DateTime;
 
 import java.lang.reflect.Type;
@@ -55,21 +56,18 @@ public final class DateTimeJsonDeserializer implements JsonDeserializer<DateTime
 		try {
 			return DateTime.parse(str, UKreedzDate.FORMATTER);
 		} catch (UnsupportedOperationException
-				| IllegalStateException e) {
+				| IllegalArgumentException e) {
 			throwables[0] = e;
 		}
 
 		try {
 			return DateTime.parse(str);
 		} catch (UnsupportedOperationException
-				| IllegalStateException e) {
+				| IllegalArgumentException e) {
 			throwables[1] = e;
 		}
 
-		//noinspection ForLoopReplaceableByForEach
-		for (int i = 0; i < throwables.length; i++) {
-			throwables[i].printStackTrace();
-		}
+		UwArray.consume(Throwable::printStackTrace, throwables);
 
 		return null;
 	}
