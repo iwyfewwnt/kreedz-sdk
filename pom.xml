@@ -175,7 +175,7 @@
         <dependency>
             <groupId>io.github.iwyfewwnt</groupId>
             <artifactId>uwutils</artifactId>
-            <version>0.2.0-SNAPSHOT</version>
+            <version>${uwutils.version}</version>
         </dependency>
     </dependencies>
 
