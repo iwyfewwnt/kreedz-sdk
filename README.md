@@ -44,27 +44,47 @@ package ...;
 import io.github.iwyfewwnt.kreedzsdk.client.services.BanService;
 import io.github.iwyfewwnt.kreedzsdk.structs.entities.BanEntity;
 import io.github.iwyfewwnt.kreedzsdk.structs.types.EBanType;
+import io.github.iwyfewwnt.uwutils.UwArray;
 
 import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
+        // Initializing a new KreedzClient instance w/ a default API version.
         KreedzClient client = new KreedzClient(/* EVersion.LATEST */);
 
-        BanService banService = client.getBanService();
-		
-        List<BanEntity> entities = banService.bans()
+        // Getting a BanService instance from a previously
+        //  initialized KreedzClient instance.
+        BanService service = client.getBanService();
+
+        // If any exception occurred during the HTTP request
+        //  this array will be filled w/ thrown Throwable objects.
+        Throwable[] throwables = new Throwable[1];
+
+        // Performing an HTTP request to /bans/ endpoint.
+        List<BanEntity> entities = service.bans()
                 .setBanTypes(EBanType.BAN_EVASION)
                 .setIsExpired(true)
                 .setLimit(1)
-                .execute();
+                // Passing a previously declared
+                //  empty array of throwables.
+                .execute(throwables);
+
+        // Printing stack traces of all occurred throwables
+        //  to the system error print stream.
+        UwArray.consume(Throwable::printStackTrace, throwables);
 
         if (entities == null) {
-            // Do something ...
+            // There may be an incorrect HTTP response
+            //  or a thrown exception during the request.
+
+            // Do something responsive.
             return;
         }
 
+        // Printing string representations of all BanEntity
+        //  instances received from the Kreedz Global API.
         entities.forEach(System.out::println);
     }
 }
