@@ -90,9 +90,9 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	protected final Retrofit retrofit;
 
 	/**
-	 * Initialize a {@code KreedzApiClient} instance.
+	 * Initialize a {@link KreedzClient} instance.
 	 *
-	 * @param version	API-version
+	 * @param version	API version
 	 */
 	public KreedzClient(EVersion version) {
 		this.version = UwObject.getIfNull(version, EVersion.LATEST);
@@ -103,10 +103,10 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	}
 
 	/**
-	 * Initialize a {@code KreedzApiClient} instance.
+	 * Initialize a {@link KreedzClient} instance.
 	 *
 	 * <p>Wraps {@link KreedzClient#KreedzClient(EVersion)}
-	 * w/ {@code null} as the API-version.
+	 * w/ {@code null} as the API version.
 	 */
 	public KreedzClient() {
 		this(null);
