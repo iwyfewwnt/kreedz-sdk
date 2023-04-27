@@ -17,6 +17,7 @@
 package io.github.iwyfewwnt.kreedzsdk.clientapi.interceptors;
 
 import io.github.iwyfewwnt.kreedzsdk.clientapi.annotations.ServiceBaseUrl;
+import io.github.iwyfewwnt.uwutils.UwReflect;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -33,6 +34,19 @@ import java.lang.reflect.Method;
  */
 @SuppressWarnings("NullableProblems")
 public final class ServiceBaseUrlInterceptor implements Interceptor {
+
+	/**
+	 * An array of the HTTP method annotation classes from retrofit.
+	 */
+	private static final Class<?>[] HTTP_METHOD_ANNOTATION_CLASSES = {
+			GET.class,
+			HEAD.class,
+			POST.class,
+			PUT.class,
+			DELETE.class,
+			OPTIONS.class,
+			PATCH.class
+	};
 
 	/**
 	 * Initialize a {@link ServiceBaseUrlInterceptor} instance.
@@ -55,12 +69,21 @@ public final class ServiceBaseUrlInterceptor implements Interceptor {
 		Method method = invocation.method();
 		Class<?> clazz = method.getDeclaringClass();
 
-		ServiceBaseUrl baseUrlAnnotation = clazz.getAnnotation(ServiceBaseUrl.class);
+		ServiceBaseUrl baseUrlAnnotation
+				= clazz.getAnnotation(ServiceBaseUrl.class);
+
 		if (baseUrlAnnotation == null) {
 			return chain.proceed(request);
 		}
 
-		String baseUrl = baseUrlAnnotation.value()
+		Annotation httpMethodAnnotation
+				= UwReflect.getAnnotation(HTTP_METHOD_ANNOTATION_CLASSES, method);
+
+		if (httpMethodAnnotation == null) {
+			return chain.proceed(request);
+		}
+
+		String baseUrl = baseUrlAnnotation.value().trim()
 				.replaceFirst("^(https?)://", "")
 				.replaceAll("/+", "/")
 				.replaceAll("/$", "");
@@ -71,34 +94,32 @@ public final class ServiceBaseUrlInterceptor implements Interceptor {
 
 		String endpoint = null;
 
-		Annotation[] annotations = method.getAnnotations();
-		for (Annotation annotation : annotations) {
-			if (annotation instanceof GET
-					|| annotation instanceof HEAD
-					|| annotation instanceof POST
-					|| annotation instanceof PUT
-					|| annotation instanceof DELETE
-					|| annotation instanceof OPTIONS
-					|| annotation instanceof PATCH) {
-				try {
-					endpoint = (String) annotation.getClass()
-							.getMethod("value")
-							.invoke(annotation);
-				} catch (IllegalAccessException
-						| InvocationTargetException
-						| NoSuchMethodException
-						| ClassCastException e) {
-					throw new UnsupportedOperationException(e);
-				}
-			}
+		try {
+			endpoint = (String) httpMethodAnnotation.getClass()
+					.getMethod("value")
+					.invoke(httpMethodAnnotation);
+		} catch (IllegalAccessException
+				| InvocationTargetException
+				| NoSuchMethodException
+				| ClassCastException e) {
+			e.printStackTrace();
 		}
 
-		if (endpoint == null) {
+		if (endpoint == null || endpoint.matches("^(https?)://.*$")) {
 			return chain.proceed(request);
 		}
 
+		endpoint = endpoint.trim()
+				.replaceAll("/+", "/")
+				.replaceAll("^/", "")
+				.replaceAll("/$", "");
+
+		if (!endpoint.isEmpty()) {
+			endpoint = "/" + endpoint;
+		}
+
 		request = request.newBuilder()
-				.url("https://" + baseUrl + "/" + endpoint)
+				.url("https://" + baseUrl + endpoint)
 				.build();
 
 		return chain.proceed(request);
