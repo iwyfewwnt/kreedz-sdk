@@ -61,9 +61,9 @@ public final class KztimerBanStats extends BanStats implements Cloneable {
 		return Stream.of(text.split(JUMP_INPUT_SEPARATOR_REGEX))
 				.map(str -> {
 					try {
-						int postInputCount = Integer.parseInt(str);
+						int inputCount = Integer.parseInt(str);
 
-						return new JumpInput(postInputCount);
+						return new JumpInput(inputCount);
 					} catch (NumberFormatException e) {
 						e.printStackTrace();
 					}
