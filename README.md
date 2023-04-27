@@ -12,7 +12,7 @@ library, so everything should be fine if you use it with Android, I guess.
      or [Status API](https://status.global-api.com).
 
  * [/client](./client)
-   * The main module containing implementation of the IRetrofitClient & IKreedzClient interfaces
+   * The main module containing implementation of the `IRetrofitClient` & `IKreedzClient` interfaces
      and service implementation/wrapper classes. Has a strict relation to the `/client-api` module.
 
  * [/converters](./converters)
@@ -24,7 +24,7 @@ library, so everything should be fine if you use it with Android, I guess.
      Has a strict relation to the `/adapter-api` module.
 
  * [/client-api](./client-api)
-   * This module collects all possible Retrofit service interfaces, service provider interface
+   * This module collects all possible retrofit service interfaces, service provider interface
      for automation binding of services, and annotations for programmatic metadata.
 
  * [/converter-api](./converter-api)
