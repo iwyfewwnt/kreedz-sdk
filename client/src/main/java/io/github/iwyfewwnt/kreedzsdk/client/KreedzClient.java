@@ -21,7 +21,7 @@ import io.github.iwyfewwnt.kreedzsdk.adapterapi.IKreedzTypeAdapter;
 import io.github.iwyfewwnt.kreedzsdk.adapterapi.IKreedzTypeAdapterFactory;
 import io.github.iwyfewwnt.kreedzsdk.client.services.*;
 import io.github.iwyfewwnt.kreedzsdk.clientapi.*;
-import io.github.iwyfewwnt.kreedzsdk.clientapi.interceptors.MethodHostInterceptor;
+import io.github.iwyfewwnt.kreedzsdk.clientapi.interceptors.ServiceBaseUrlInterceptor;
 import io.github.iwyfewwnt.kreedzsdk.clientapi.interceptors.MethodVersionInterceptor;
 import io.github.iwyfewwnt.kreedzsdk.converterapi.IKreedzConverterFactory;
 import io.github.iwyfewwnt.kreedzsdk.converterapi.IKreedzQueryConverter;
@@ -341,7 +341,7 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	private OkHttpClient initHttpClient() {
 		OkHttpClient.Builder builder = new OkHttpClient.Builder()
 				.addInterceptor(new MethodVersionInterceptor(this.version))
-				.addInterceptor(new MethodHostInterceptor());
+				.addInterceptor(new ServiceBaseUrlInterceptor());
 
 		initInterceptorSpi().forEach(builder::addInterceptor);
 

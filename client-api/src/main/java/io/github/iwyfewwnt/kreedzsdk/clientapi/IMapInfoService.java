@@ -16,6 +16,7 @@
 
 package io.github.iwyfewwnt.kreedzsdk.clientapi;
 
+import io.github.iwyfewwnt.kreedzsdk.clientapi.annotations.ServiceBaseUrl;
 import io.github.iwyfewwnt.kreedzsdk.structs.entities.map.MapInfoEntity;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -25,7 +26,7 @@ import java.util.List;
 /**
  * A maps information service interface.
  */
-@SuppressWarnings("unused")
+@ServiceBaseUrl("raw.githubusercontent.com/iwyfewwnt/maps-info/main")
 public interface IMapInfoService {
 
 	/**

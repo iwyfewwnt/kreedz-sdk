@@ -16,10 +16,7 @@
 
 package io.github.iwyfewwnt.kreedzsdk.clientapi.interceptors;
 
-import io.github.iwyfewwnt.kreedzsdk.clientapi.IHealthService;
-import io.github.iwyfewwnt.kreedzsdk.clientapi.IMapImageService;
-import io.github.iwyfewwnt.kreedzsdk.clientapi.IMapInfoService;
-import io.github.iwyfewwnt.kreedzsdk.clientapi.IStatusService;
+import io.github.iwyfewwnt.kreedzsdk.clientapi.annotations.ServiceBaseUrl;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -30,31 +27,17 @@ import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * A method API host interceptor.
  */
 @SuppressWarnings("NullableProblems")
-public final class MethodHostInterceptor implements Interceptor {
+public final class ServiceBaseUrlInterceptor implements Interceptor {
 
 	/**
-	 * A map of host strings by their service class.
+	 * Initialize a {@link ServiceBaseUrlInterceptor} instance.
 	 */
-	private static final Map<Class<?>, String> HOST_MAP = new HashMap<>();
-
-	static {
-		HOST_MAP.put(IHealthService.class, "health.global-api.com/api/v1");
-		HOST_MAP.put(IMapImageService.class, "raw.githubusercontent.com/KZGlobalTeam/map-images");
-		HOST_MAP.put(IMapInfoService.class, "raw.githubusercontent.com/iwyfewwnt/maps-info/main");
-		HOST_MAP.put(IStatusService.class, "status.global-api.com/api/v2");
-	}
-
-	/**
-	 * Initialize a {@link MethodHostInterceptor} instance.
-	 */
-	public MethodHostInterceptor() {
+	public ServiceBaseUrlInterceptor() {
 	}
 
 	/**
@@ -72,9 +55,18 @@ public final class MethodHostInterceptor implements Interceptor {
 		Method method = invocation.method();
 		Class<?> clazz = method.getDeclaringClass();
 
-		String host = HOST_MAP.get(clazz);
-		if (host == null) {
+		ServiceBaseUrl baseUrlAnnotation = clazz.getAnnotation(ServiceBaseUrl.class);
+		if (baseUrlAnnotation == null) {
 			return chain.proceed(request);
+		}
+
+		String baseUrl = baseUrlAnnotation.value()
+				.replaceFirst("^(https?)://", "")
+				.replaceAll("/+", "/")
+				.replaceAll("/$", "");
+
+		if (baseUrl.isEmpty()) {
+			throw new IllegalStateException("Base URL mustn't be empty");
 		}
 
 		String endpoint = null;
@@ -106,7 +98,7 @@ public final class MethodHostInterceptor implements Interceptor {
 		}
 
 		request = request.newBuilder()
-				.url("https://" + host + "/" + endpoint)
+				.url("https://" + baseUrl + "/" + endpoint)
 				.build();
 
 		return chain.proceed(request);

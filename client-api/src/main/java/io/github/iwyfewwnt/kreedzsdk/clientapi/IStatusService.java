@@ -16,6 +16,7 @@
 
 package io.github.iwyfewwnt.kreedzsdk.clientapi;
 
+import io.github.iwyfewwnt.kreedzsdk.clientapi.annotations.ServiceBaseUrl;
 import io.github.iwyfewwnt.kreedzsdk.structs.entities.status.responses.*;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -23,6 +24,7 @@ import retrofit2.http.GET;
 /**
  * A status service interface.
  */
+@ServiceBaseUrl("status.global-api.com/api/v2")
 public interface IStatusService {
 
 	/**

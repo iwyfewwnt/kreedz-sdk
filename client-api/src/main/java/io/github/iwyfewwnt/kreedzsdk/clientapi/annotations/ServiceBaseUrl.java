@@ -14,24 +14,22 @@
  * limitations under the License.
  */
 
-package io.github.iwyfewwnt.kreedzsdk.clientapi;
+package io.github.iwyfewwnt.kreedzsdk.clientapi.annotations;
 
-import io.github.iwyfewwnt.kreedzsdk.clientapi.annotations.ServiceBaseUrl;
-import io.github.iwyfewwnt.kreedzsdk.structs.entities.map.MapImageEntity;
-import retrofit2.Call;
-import retrofit2.http.GET;
-
-import java.util.List;
+import java.lang.annotation.*;
 
 /**
- * A map image service interface.
+ * A service base API URL annotation.
  */
-@ServiceBaseUrl("raw.githubusercontent.com/KZGlobalTeam/map-images")
-public interface IMapImageService {
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface ServiceBaseUrl {
 
 	/**
-	 * GET request to /public/maps.mis.json/ endpoint.
+	 * Get this base API URL string.
+	 *
+	 * @return	base API URL string
 	 */
-	@GET("public/maps.min.json")
-	Call<List<MapImageEntity>> getMapImages();
+	String value();
 }

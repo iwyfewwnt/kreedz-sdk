@@ -16,6 +16,7 @@
 
 package io.github.iwyfewwnt.kreedzsdk.clientapi;
 
+import io.github.iwyfewwnt.kreedzsdk.clientapi.annotations.ServiceBaseUrl;
 import io.github.iwyfewwnt.kreedzsdk.structs.entities.health.responses.HealthStatusResponseEntity;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -26,6 +27,7 @@ import java.util.List;
 /**
  * A health service interface.
  */
+@ServiceBaseUrl("health.global-api.com/api/v1")
 public interface IHealthService {
 
 	/**
