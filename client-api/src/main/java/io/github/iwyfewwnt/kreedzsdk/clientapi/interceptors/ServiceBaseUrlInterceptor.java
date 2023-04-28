@@ -83,16 +83,6 @@ public final class ServiceBaseUrlInterceptor implements Interceptor {
 			return chain.proceed(request);
 		}
 
-		String baseUrl = baseUrlAnnotation.value()
-				.trim()
-				.replaceFirst("^(https?)://", "")
-				.replaceAll("/+", "/")
-				.replaceAll("/$", "");
-
-		if (baseUrl.isEmpty()) {
-			throw new IllegalStateException("Base URL mustn't be empty");
-		}
-
 		String endpoint = null;
 
 		try {
@@ -106,16 +96,26 @@ public final class ServiceBaseUrlInterceptor implements Interceptor {
 			e.printStackTrace();
 		}
 
-		if (endpoint == null || endpoint.matches("^(https?)://.*$")) {
+		if (endpoint == null
+				|| endpoint.matches("^(https?)://.*$")) {
 			return chain.proceed(request);
 		}
 
-		endpoint = endpoint.trim()
+		String baseUrl = baseUrlAnnotation.value()
+				.trim()
+				.replaceFirst("^(https?)://", "")
 				.replaceAll("/+", "/")
-				.replaceAll("^/", "")
 				.replaceAll("/$", "");
 
-		if (!endpoint.isEmpty()) {
+		endpoint = endpoint.trim()
+				.replaceAll("/+", "/")
+				.replaceAll("^/|/$", "");
+
+		if (baseUrl.isEmpty() && endpoint.isEmpty()) {
+			throw new IllegalArgumentException("Both the base URL & endpoint are empty");
+		}
+
+		if (!baseUrl.isEmpty() && !endpoint.isEmpty()) {
 			endpoint = "/" + endpoint;
 		}
 

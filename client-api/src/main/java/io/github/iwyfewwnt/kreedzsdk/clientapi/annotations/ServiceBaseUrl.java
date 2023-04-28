@@ -31,5 +31,5 @@ public @interface ServiceBaseUrl {
 	 *
 	 * @return	base API URL string
 	 */
-	String value();
+	String value() default "";
 }
