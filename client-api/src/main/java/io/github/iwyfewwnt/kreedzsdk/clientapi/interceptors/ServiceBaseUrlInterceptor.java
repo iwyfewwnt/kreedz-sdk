@@ -83,7 +83,8 @@ public final class ServiceBaseUrlInterceptor implements Interceptor {
 			return chain.proceed(request);
 		}
 
-		String baseUrl = baseUrlAnnotation.value().trim()
+		String baseUrl = baseUrlAnnotation.value()
+				.trim()
 				.replaceFirst("^(https?)://", "")
 				.replaceAll("/+", "/")
 				.replaceAll("/$", "");
