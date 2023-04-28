@@ -16,7 +16,7 @@
 
 package io.github.iwyfewwnt.kreedzsdk.client.services.requests.playerrank;
 
-import io.github.iwyfewwnt.kreedzsdk.client.internal.UCommon;
+import io.github.iwyfewwnt.kreedzsdk.client.internal.UKreedzCommon;
 import io.github.iwyfewwnt.kreedzsdk.clientapi.IPlayerRankService;
 import io.github.iwyfewwnt.kreedzsdk.structs.entities.PlayerRankEntity;
 import io.github.iwyfewwnt.kreedzsdk.structs.types.EMode;
@@ -403,7 +403,7 @@ public final class GetPlayerRanksRequest implements IRequest, Cloneable {
 		 */
 		@Override
 		public GetPlayerRanksRequest build() {
-			Set<Long> steamId64s = UCommon.mapSteamIdsToId64Set(this.steamIds);
+			Set<Long> steamId64s = UKreedzCommon.mapSteamIdsToId64Set(this.steamIds);
 
 			return new GetPlayerRanksRequest(
 					this.pointsGreaterThan,

@@ -16,7 +16,7 @@
 
 package io.github.iwyfewwnt.kreedzsdk.client.services.requests.jumpstat;
 
-import io.github.iwyfewwnt.kreedzsdk.client.internal.UCommon;
+import io.github.iwyfewwnt.kreedzsdk.client.internal.UKreedzCommon;
 import io.github.iwyfewwnt.kreedzsdk.clientapi.IJumpstatService;
 import io.github.iwyfewwnt.kreedzsdk.structs.entities.JumpstatEntity;
 import io.github.iwyfewwnt.kreedzsdk.structs.types.EJumpType;
@@ -333,7 +333,7 @@ public class GetJumpstatsRequest implements IRequest, Cloneable {
 		 */
 		@Override
 		public GetJumpstatsRequest build() {
-			Set<Long> steamId64s = UCommon.mapSteamIdsToId64Set(this.steamIds);
+			Set<Long> steamId64s = UKreedzCommon.mapSteamIdsToId64Set(this.steamIds);
 
 			return new GetJumpstatsRequest(
 					this.id,

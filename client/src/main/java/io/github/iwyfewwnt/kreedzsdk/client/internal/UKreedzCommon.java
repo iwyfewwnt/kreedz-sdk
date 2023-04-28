@@ -25,11 +25,11 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * A common utilities.
+ * A kreedz common utilities.
  *
  * <p><b>For internal usage only.</b>
  */
-public final class UCommon {
+public final class UKreedzCommon {
 
 	/**
 	 * Map collection of {@link SteamId} instances to set of 64-type identifiers.
@@ -71,7 +71,7 @@ public final class UCommon {
 		return ids;
 	}
 
-	private UCommon() {
+	private UKreedzCommon() {
 		throw new UnsupportedOperationException();
 	}
 }

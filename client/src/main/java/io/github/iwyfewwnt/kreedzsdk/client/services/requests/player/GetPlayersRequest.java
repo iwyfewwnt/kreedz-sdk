@@ -16,7 +16,7 @@
 
 package io.github.iwyfewwnt.kreedzsdk.client.services.requests.player;
 
-import io.github.iwyfewwnt.kreedzsdk.client.internal.UCommon;
+import io.github.iwyfewwnt.kreedzsdk.client.internal.UKreedzCommon;
 import io.github.iwyfewwnt.kreedzsdk.clientapi.IPlayerService;
 import io.github.iwyfewwnt.kreedzsdk.structs.entities.PlayerEntity;
 import io.github.iwyfewwnt.steamid.SteamId;
@@ -258,7 +258,7 @@ public final class GetPlayersRequest implements IRequest, Cloneable {
 		 */
 		@Override
 		public GetPlayersRequest build() {
-			Set<Long> steamId64s = UCommon.mapSteamIdsToId64Set(this.steamIds);
+			Set<Long> steamId64s = UKreedzCommon.mapSteamIdsToId64Set(this.steamIds);
 
 			return new GetPlayersRequest(
 					this.playerName,
