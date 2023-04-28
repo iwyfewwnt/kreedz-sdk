@@ -403,7 +403,7 @@ public final class GetPlayerRanksRequest implements IRequest, Cloneable {
 		 */
 		@Override
 		public GetPlayerRanksRequest build() {
-			Set<Long> steamId64s = UKreedzCommon.mapSteamIdsToId64Set(this.steamIds);
+			Set<Long> steamId64s = UKreedzCommon.transformToSteamId64Set(this.steamIds);
 
 			return new GetPlayerRanksRequest(
 					this.pointsGreaterThan,

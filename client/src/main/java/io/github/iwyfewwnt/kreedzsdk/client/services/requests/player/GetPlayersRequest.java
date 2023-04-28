@@ -258,7 +258,7 @@ public final class GetPlayersRequest implements IRequest, Cloneable {
 		 */
 		@Override
 		public GetPlayersRequest build() {
-			Set<Long> steamId64s = UKreedzCommon.mapSteamIdsToId64Set(this.steamIds);
+			Set<Long> steamId64s = UKreedzCommon.transformToSteamId64Set(this.steamIds);
 
 			return new GetPlayersRequest(
 					this.playerName,

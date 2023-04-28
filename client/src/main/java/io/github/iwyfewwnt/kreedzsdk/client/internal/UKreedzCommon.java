@@ -32,43 +32,42 @@ import java.util.stream.Collectors;
 public final class UKreedzCommon {
 
 	/**
-	 * Map collection of {@link SteamId} instances to set of 64-type identifiers.
+	 * Transform collection of {@link SteamId} instances to set of 64-type identifiers.
 	 *
 	 * <p><b>For internal usage only.</b>
 	 *
-	 * @param steamIds	collection of identifier instances
+	 * @param steamIds	collection of {@code SteamId} instances
 	 * @return			set of 64-type identifiers
 	 */
-	public static Set<Long> mapSteamIdsToId64Set(Collection<SteamId> steamIds) {
-		return mapSteamIdsToSet(steamIds, SteamId::toSteam64OrNull);
+	public static Set<Long> transformToSteamId64Set(Collection<SteamId> steamIds) {
+		return transformToSet(steamIds, SteamId::toSteam64OrNull);
 	}
 
 	/**
-	 * Map collection of {@link SteamId} instances to set.
+	 * Transform collection of object to a set.
 	 *
-	 * <p><b>For internal usage only.</b>
-	 *
-	 * @param steamIds	collection of identifier instances
-	 * @param function	mapping function
-	 * @param <T>		type to map to
-	 * @return			set of mapped identifier instances
+	 * @param collection	collection of objects to transform
+	 * @param function		function to use for transformation
+	 * @param <T>			initial object type
+	 * @param <R>			result object type
+	 * @return				set of transformed objects
 	 */
-	public static <T> Set<T> mapSteamIdsToSet(Collection<SteamId> steamIds, Function<SteamId, T> function) {
-		if (steamIds == null || function == null
-				|| steamIds.isEmpty()) {
+	private static <T, R> Set<R> transformToSet(Collection<T> collection, Function<T, R> function) {
+		if (collection == null || function == null
+				|| collection.isEmpty()) {
 			return null;
 		}
 
-		Set<T> ids = steamIds.stream()
+		Set<R> set = collection.stream()
 				.map(function)
 				.filter(Objects::nonNull)
 				.collect(Collectors.toSet());
 
-		if (ids.isEmpty()) {
+		if (set.isEmpty()) {
 			return null;
 		}
 
-		return ids;
+		return set;
 	}
 
 	private UKreedzCommon() {

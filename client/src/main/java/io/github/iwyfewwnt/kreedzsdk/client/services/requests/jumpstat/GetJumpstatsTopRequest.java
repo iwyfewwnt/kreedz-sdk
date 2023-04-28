@@ -134,7 +134,7 @@ public final class GetJumpstatsTopRequest extends GetJumpstatsRequest implements
 		 */
 		@Override
 		public GetJumpstatsTopRequest build() {
-			Set<Long> steamId64s = UKreedzCommon.mapSteamIdsToId64Set(this.steamIds);
+			Set<Long> steamId64s = UKreedzCommon.transformToSteamId64Set(this.steamIds);
 
 			return new GetJumpstatsTopRequest(
 					this.id,
