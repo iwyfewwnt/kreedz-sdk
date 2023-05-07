@@ -207,7 +207,7 @@ public enum EDifficulty implements Serializable {
 	 * @return						group value of the difficulty or the default one
 	 */
 	public static Group getGroupOrElse(EDifficulty difficulty, Supplier<Group> defaultValueSupplier) {
-		return UwObject.getIfNull(getGroupOrNull(difficulty), defaultValueSupplier);
+		return UwObject.ifNull(getGroupOrNull(difficulty), defaultValueSupplier);
 	}
 
 	/**
@@ -264,7 +264,7 @@ public enum EDifficulty implements Serializable {
 	 * @return						API-identifier value of the difficulty or the default one
 	 */
 	public static Integer getIdOrElse(EDifficulty difficulty, Supplier<Integer> defaultValueSupplier) {
-		return UwObject.getIfNull(getIdOrNull(difficulty), defaultValueSupplier);
+		return UwObject.ifNull(getIdOrNull(difficulty), defaultValueSupplier);
 	}
 
 	/**
@@ -321,7 +321,7 @@ public enum EDifficulty implements Serializable {
 	 * @return						full name value of the difficulty or the default one
 	 */
 	public static String getFullNameOrElse(EDifficulty difficulty, Supplier<String> defaultValueSupplier) {
-		return UwObject.getIfNull(getFullNameOrNull(difficulty), defaultValueSupplier);
+		return UwObject.ifNull(getFullNameOrNull(difficulty), defaultValueSupplier);
 	}
 
 	/**
@@ -383,7 +383,7 @@ public enum EDifficulty implements Serializable {
 	 * @return						associated {@link EDifficulty} instance or the default value
 	 */
 	public static EDifficulty fromIdOrElse(Integer id, Supplier<EDifficulty> defaultValueSupplier) {
-		return UwObject.getIfNull(fromIdOrNull(id), defaultValueSupplier);
+		return UwObject.ifNull(fromIdOrNull(id), defaultValueSupplier);
 	}
 
 	/**
@@ -421,7 +421,7 @@ public enum EDifficulty implements Serializable {
 	 * @return						associated {@link EDifficulty} instance or the default value
 	 */
 	public static EDifficulty fromFullNameOrElse(String fullName, Supplier<EDifficulty> defaultValueSupplier) {
-		return UwObject.getIfNull(fromFullNameOrNull(fullName), defaultValueSupplier);
+		return UwObject.ifNull(fromFullNameOrNull(fullName), defaultValueSupplier);
 	}
 
 	/**
@@ -459,7 +459,7 @@ public enum EDifficulty implements Serializable {
 	 * @return						associated {@link EDifficulty} instance or the default value
 	 */
 	public static EDifficulty fromIndexOrElse(Integer index, Supplier<EDifficulty> defaultValueSupplier) {
-		return UwObject.getIfNull(fromIndexOrNull(index), defaultValueSupplier);
+		return UwObject.ifNull(fromIndexOrNull(index), defaultValueSupplier);
 	}
 
 	/**

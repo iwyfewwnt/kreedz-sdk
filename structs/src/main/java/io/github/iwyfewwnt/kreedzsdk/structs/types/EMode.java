@@ -222,7 +222,7 @@ public enum EMode implements Serializable {
 	 * @return						API-identifier value of the mode or the default one
 	 */
 	public static Integer getIdOrElse(EMode mode, Supplier<Integer> defaultValueSupplier) {
-		return UwObject.getIfNull(getIdOrNull(mode), defaultValueSupplier);
+		return UwObject.ifNull(getIdOrNull(mode), defaultValueSupplier);
 	}
 
 	/**
@@ -279,7 +279,7 @@ public enum EMode implements Serializable {
 	 * @return						API-name value of the mode or the default one
 	 */
 	public static String getApiNameOrElse(EMode mode, Supplier<String> defaultValueSupplier) {
-		return UwObject.getIfNull(getApiNameOrNull(mode), defaultValueSupplier);
+		return UwObject.ifNull(getApiNameOrNull(mode), defaultValueSupplier);
 	}
 
 	/**
@@ -355,7 +355,7 @@ public enum EMode implements Serializable {
 	 * @return						full name value of the mode or the default one
 	 */
 	public static String getFullNameOrElse(EMode mode, Supplier<String> defaultValueSupplier) {
-		return UwObject.getIfNull(getFullNameOrNull(mode), defaultValueSupplier);
+		return UwObject.ifNull(getFullNameOrNull(mode), defaultValueSupplier);
 	}
 
 	/**
@@ -431,7 +431,7 @@ public enum EMode implements Serializable {
 	 * @return						short name value of the mode or the default one
 	 */
 	public static String getShortNameOrElse(EMode mode, Supplier<String> defaultValueSupplier) {
-		return UwObject.getIfNull(getShortNameOrNull(mode), defaultValueSupplier);
+		return UwObject.ifNull(getShortNameOrNull(mode), defaultValueSupplier);
 	}
 
 	/**
@@ -493,7 +493,7 @@ public enum EMode implements Serializable {
 	 * @return						associated {@link EMode} instance or the default value
 	 */
 	public static EMode fromIdOrElse(Integer id, Supplier<EMode> defaultValueSupplier) {
-		return UwObject.getIfNull(fromIdOrNull(id), defaultValueSupplier);
+		return UwObject.ifNull(fromIdOrNull(id), defaultValueSupplier);
 	}
 
 	/**
@@ -531,7 +531,7 @@ public enum EMode implements Serializable {
 	 * @return						associated {@link EMode} instance or the default value
 	 */
 	public static EMode fromApiNameOrElse(String apiName, Supplier<EMode> defaultValueSupplier) {
-		return UwObject.getIfNull(fromApiNameOrNull(apiName), defaultValueSupplier);
+		return UwObject.ifNull(fromApiNameOrNull(apiName), defaultValueSupplier);
 	}
 
 	/**
@@ -569,7 +569,7 @@ public enum EMode implements Serializable {
 	 * @return						associated {@link EMode} instance or the default value
 	 */
 	public static EMode fromFullNameOrElse(String fullName, Supplier<EMode> defaultValueSupplier) {
-		return UwObject.getIfNull(fromFullNameOrNull(fullName), defaultValueSupplier);
+		return UwObject.ifNull(fromFullNameOrNull(fullName), defaultValueSupplier);
 	}
 
 	/**
@@ -607,7 +607,7 @@ public enum EMode implements Serializable {
 	 * @return						associated {@link EMode} instance or the default value.
 	 */
 	public static EMode fromShortNameOrElse(String shortName, Supplier<EMode> defaultValueSupplier) {
-		return UwObject.getIfNull(fromShortNameOrNull(shortName), defaultValueSupplier);
+		return UwObject.ifNull(fromShortNameOrNull(shortName), defaultValueSupplier);
 	}
 
 	/**
@@ -645,7 +645,7 @@ public enum EMode implements Serializable {
 	 * @return						associated {@link EMode} instance or the default value
 	 */
 	public static EMode fromIndexOrElse(Integer index, Supplier<EMode> defaultValueSupplier) {
-		return UwObject.getIfNull(fromIndexOrNull(index), defaultValueSupplier);
+		return UwObject.ifNull(fromIndexOrNull(index), defaultValueSupplier);
 	}
 
 	/**

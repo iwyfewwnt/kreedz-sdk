@@ -227,7 +227,7 @@ public enum EBanType implements Serializable {
 	 * @return						group value of the ban type or the default one
 	 */
 	public static Group getGroupOrElse(EBanType banType, Supplier<Group> defaultValueSupplier) {
-		return UwObject.getIfNull(getGroupOrNull(banType), defaultValueSupplier);
+		return UwObject.ifNull(getGroupOrNull(banType), defaultValueSupplier);
 	}
 
 	/**
@@ -284,7 +284,7 @@ public enum EBanType implements Serializable {
 	 * @return						API-name value of the ban type or the default one
 	 */
 	public static String getApiNameOrElse(EBanType banType, Supplier<String> defaultValueSupplier) {
-		return UwObject.getIfNull(getApiNameOrNull(banType), defaultValueSupplier);
+		return UwObject.ifNull(getApiNameOrNull(banType), defaultValueSupplier);
 	}
 
 	/**
@@ -360,7 +360,7 @@ public enum EBanType implements Serializable {
 	 * @return						full name value of the ban type or the default one
 	 */
 	public static String getFullNameOrElse(EBanType banType, Supplier<String> defaultValueSupplier) {
-		return UwObject.getIfNull(getFullNameOrNull(banType), defaultValueSupplier);
+		return UwObject.ifNull(getFullNameOrNull(banType), defaultValueSupplier);
 	}
 
 	/**
@@ -436,7 +436,7 @@ public enum EBanType implements Serializable {
 	 * @return						short name value of the ban type or the default one
 	 */
 	public static String getShortNameOrElse(EBanType banType, Supplier<String> defaultValueSupplier) {
-		return UwObject.getIfNull(getShortNameOrNull(banType), defaultValueSupplier);
+		return UwObject.ifNull(getShortNameOrNull(banType), defaultValueSupplier);
 	}
 
 	/**
@@ -498,7 +498,7 @@ public enum EBanType implements Serializable {
 	 * @return						associated {@link EBanType} instance or the default value
 	 */
 	public static EBanType fromApiNameOrElse(String apiName, Supplier<EBanType> defaultValueSupplier) {
-		return UwObject.getIfNull(fromApiNameOrNull(apiName), defaultValueSupplier);
+		return UwObject.ifNull(fromApiNameOrNull(apiName), defaultValueSupplier);
 	}
 
 	/**
@@ -536,7 +536,7 @@ public enum EBanType implements Serializable {
 	 * @return						associated {@link EBanType} instance or the default value
 	 */
 	public static EBanType fromFullNameOrElse(String fullName, Supplier<EBanType> defaultValueSupplier) {
-		return UwObject.getIfNull(fromFullNameOrNull(fullName), defaultValueSupplier);
+		return UwObject.ifNull(fromFullNameOrNull(fullName), defaultValueSupplier);
 	}
 
 	/**
@@ -574,7 +574,7 @@ public enum EBanType implements Serializable {
 	 * @return						associated {@link EBanType} instance or the default value
 	 */
 	public static EBanType fromIndexOrElse(Integer index, Supplier<EBanType> defaultValueSupplier) {
-		return UwObject.getIfNull(fromIndexOrNull(index), defaultValueSupplier);
+		return UwObject.ifNull(fromIndexOrNull(index), defaultValueSupplier);
 	}
 
 	/**

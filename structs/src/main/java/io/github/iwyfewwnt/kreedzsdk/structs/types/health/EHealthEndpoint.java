@@ -209,7 +209,7 @@ public enum EHealthEndpoint implements Serializable {
 	 * @return						API-name value of the health endpoint or the default one
 	 */
 	public static String getNameOrElse(EHealthEndpoint endpoint, Supplier<String> defaultValueSupplier) {
-		return UwObject.getIfNull(getNameOrNull(endpoint), defaultValueSupplier);
+		return UwObject.ifNull(getNameOrNull(endpoint), defaultValueSupplier);
 	}
 
 	/**
@@ -285,7 +285,7 @@ public enum EHealthEndpoint implements Serializable {
 	 * @return						API-group value of the health endpoint or the default one
 	 */
 	public static String getGroupOrElse(EHealthEndpoint endpoint, Supplier<String> defaultValueSupplier) {
-		return UwObject.getIfNull(getGroupOrNull(endpoint), defaultValueSupplier);
+		return UwObject.ifNull(getGroupOrNull(endpoint), defaultValueSupplier);
 	}
 
 	/**
@@ -361,7 +361,7 @@ public enum EHealthEndpoint implements Serializable {
 	 * @return						API-endpoint value of the health endpoint or the default one
 	 */
 	public static String getEndpointOrElse(EHealthEndpoint endpoint, Supplier<String> defaultValueSupplier) {
-		return UwObject.getIfNull(getEndpointOrNull(endpoint), defaultValueSupplier);
+		return UwObject.ifNull(getEndpointOrNull(endpoint), defaultValueSupplier);
 	}
 
 	/**
@@ -437,7 +437,7 @@ public enum EHealthEndpoint implements Serializable {
 	 * @return						API-key value of the health endpoint or the default one
 	 */
 	public static String getKeyOrElse(EHealthEndpoint endpoint, Supplier<String> defaultValueSupplier) {
-		return UwObject.getIfNull(getKeyOrNull(endpoint), defaultValueSupplier);
+		return UwObject.ifNull(getKeyOrNull(endpoint), defaultValueSupplier);
 	}
 
 	/**
@@ -499,7 +499,7 @@ public enum EHealthEndpoint implements Serializable {
 	 * @return						associated {@link EHealthEndpoint} instance or the default value
 	 */
 	public static EHealthEndpoint fromNameOrElse(String name, Supplier<EHealthEndpoint> defaultValueSupplier) {
-		return UwObject.getIfNull(fromNameOrNull(name), defaultValueSupplier);
+		return UwObject.ifNull(fromNameOrNull(name), defaultValueSupplier);
 	}
 
 	/**
@@ -537,7 +537,7 @@ public enum EHealthEndpoint implements Serializable {
 	 * @return						associated {@link EHealthEndpoint} instance or the default value
 	 */
 	public static EHealthEndpoint fromKeyOrElse(String key, Supplier<EHealthEndpoint> defaultValueSupplier) {
-		return UwObject.getIfNull(fromKeyOrNull(key), defaultValueSupplier);
+		return UwObject.ifNull(fromKeyOrNull(key), defaultValueSupplier);
 	}
 
 	/**
@@ -574,7 +574,7 @@ public enum EHealthEndpoint implements Serializable {
 	 * @return						associated {@link EHealthEndpoint} instance or the default value
 	 */
 	public static EHealthEndpoint fromIndexOrElse(Integer index, Supplier<EHealthEndpoint> defaultValueSupplier) {
-		return UwObject.getIfNull(fromIndexOrNull(index), defaultValueSupplier);
+		return UwObject.ifNull(fromIndexOrNull(index), defaultValueSupplier);
 	}
 
 	/**

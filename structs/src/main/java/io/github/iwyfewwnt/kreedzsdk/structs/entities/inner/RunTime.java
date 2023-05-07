@@ -93,7 +93,7 @@ public final class RunTime implements Serializable, Cloneable {
 	 * @param time	total time in seconds
 	 */
 	public RunTime(Float time) {
-		this.time = UwObject.getIfNull(time, 0f);
+		this.time = UwObject.ifNull(time, 0f);
 	}
 
 	/**

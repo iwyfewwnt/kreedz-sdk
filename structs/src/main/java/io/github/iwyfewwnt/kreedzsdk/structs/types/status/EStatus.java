@@ -215,7 +215,7 @@ public enum EStatus implements Serializable {
 	 * @return						API-name value of the status or the default one
 	 */
 	public static String getApiNameOrElse(EStatus status, Supplier<String> defaultValueSupplier) {
-		return UwObject.getIfNull(getApiNameOrNull(status), defaultValueSupplier);
+		return UwObject.ifNull(getApiNameOrNull(status), defaultValueSupplier);
 	}
 
 	/**
@@ -291,7 +291,7 @@ public enum EStatus implements Serializable {
 	 * @return						full name value of the status or the default one
 	 */
 	public static String getFullNameOrElse(EStatus status, Supplier<String> defaultValueSupplier) {
-		return UwObject.getIfNull(getFullNameOrNull(status), defaultValueSupplier);
+		return UwObject.ifNull(getFullNameOrNull(status), defaultValueSupplier);
 	}
 
 	/**
@@ -353,7 +353,7 @@ public enum EStatus implements Serializable {
 	 * @return						associated {@link EStatus} instance or the default value
 	 */
 	public static EStatus fromApiNameOrElse(String apiName, Supplier<EStatus> defaultValueSupplier) {
-		return UwObject.getIfNull(fromApiNameOrNull(apiName), defaultValueSupplier);
+		return UwObject.ifNull(fromApiNameOrNull(apiName), defaultValueSupplier);
 	}
 
 	/**
@@ -391,7 +391,7 @@ public enum EStatus implements Serializable {
 	 * @return						associated {@link EStatus} instance or the default value
 	 */
 	public static EStatus fromFullNameOrElse(String fullName, Supplier<EStatus> defaultValueSupplier) {
-		return UwObject.getIfNull(fromFullNameOrNull(fullName), defaultValueSupplier);
+		return UwObject.ifNull(fromFullNameOrNull(fullName), defaultValueSupplier);
 	}
 
 	/**
@@ -429,7 +429,7 @@ public enum EStatus implements Serializable {
 	 * @return						associated {@link EStatus} instance or the default value
 	 */
 	public static EStatus fromIndexOrElse(Integer index, Supplier<EStatus> defaultValueSupplier) {
-		return UwObject.getIfNull(fromIndexOrNull(index), defaultValueSupplier);
+		return UwObject.ifNull(fromIndexOrNull(index), defaultValueSupplier);
 	}
 
 	/**

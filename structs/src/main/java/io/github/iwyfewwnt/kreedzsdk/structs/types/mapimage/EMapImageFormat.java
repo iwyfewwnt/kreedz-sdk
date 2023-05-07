@@ -201,7 +201,7 @@ public enum EMapImageFormat implements Serializable {
 	 * @return						branch value of the map image format or the default one
 	 */
 	public static String getBranchOrElse(EMapImageFormat format, Supplier<String> defaultValueSupplier) {
-		return UwObject.getIfNull(getBranchOrNull(format), defaultValueSupplier);
+		return UwObject.ifNull(getBranchOrNull(format), defaultValueSupplier);
 	}
 
 	/**
@@ -277,7 +277,7 @@ public enum EMapImageFormat implements Serializable {
 	 * @return						endpoint value of the map image format or the default one
 	 */
 	public static String getEndpointOrElse(EMapImageFormat format, Supplier<String> defaultValueSupplier) {
-		return UwObject.getIfNull(getEndpointOrNull(format), defaultValueSupplier);
+		return UwObject.ifNull(getEndpointOrNull(format), defaultValueSupplier);
 	}
 
 	/**
@@ -353,7 +353,7 @@ public enum EMapImageFormat implements Serializable {
 	 * @return						extension value of the map image format or the default one
 	 */
 	public static String getExtensionOrElse(EMapImageFormat format, Supplier<String> defaultValueSupplier) {
-		return UwObject.getIfNull(getExtensionOrNull(format), defaultValueSupplier);
+		return UwObject.ifNull(getExtensionOrNull(format), defaultValueSupplier);
 	}
 
 	/**
@@ -415,7 +415,7 @@ public enum EMapImageFormat implements Serializable {
 	 * @return						associated {@link EMapImageFormat} instance or the default value
 	 */
 	public static EMapImageFormat fromIndexOrElse(Integer index, Supplier<EMapImageFormat> defaultValueSupplier) {
-		return UwObject.getIfNull(fromIndexOrNull(index), defaultValueSupplier);
+		return UwObject.ifNull(fromIndexOrNull(index), defaultValueSupplier);
 	}
 
 	/**

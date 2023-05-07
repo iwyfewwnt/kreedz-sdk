@@ -246,7 +246,7 @@ public enum EVersion implements Serializable {
 	 * @return						major number of the version or the default value
 	 */
 	public static Integer getMajorOrElse(EVersion version, Supplier<Integer> defaultValueSupplier) {
-		return UwObject.getIfNull(getMajorOrNull(version), defaultValueSupplier);
+		return UwObject.ifNull(getMajorOrNull(version), defaultValueSupplier);
 	}
 
 	/**
@@ -303,7 +303,7 @@ public enum EVersion implements Serializable {
 	 * @return						minor number of the version or the default value
 	 */
 	public static Integer getMinorOrElse(EVersion version, Supplier<Integer> defaultValueSupplier) {
-		return UwObject.getIfNull(getMinorOrNull(version), defaultValueSupplier);
+		return UwObject.ifNull(getMinorOrNull(version), defaultValueSupplier);
 	}
 
 	/**
@@ -360,7 +360,7 @@ public enum EVersion implements Serializable {
 	 * @return						API-name of the version or the default value
 	 */
 	public static String getApiNameOrElse(EVersion version, Supplier<String> defaultValueSupplier) {
-		return UwObject.getIfNull(getApiNameOrNull(version), defaultValueSupplier);
+		return UwObject.ifNull(getApiNameOrNull(version), defaultValueSupplier);
 	}
 
 	/**
@@ -422,7 +422,7 @@ public enum EVersion implements Serializable {
 	 * @return						associated {@link EVersion} instance or the default value
 	 */
 	public static EVersion fromApiNameOrElse(String apiName, Supplier<EVersion> defaultValueSupplier) {
-		return UwObject.getIfNull(fromApiNameOrNull(apiName), defaultValueSupplier);
+		return UwObject.ifNull(fromApiNameOrNull(apiName), defaultValueSupplier);
 	}
 
 	/**
@@ -460,7 +460,7 @@ public enum EVersion implements Serializable {
 	 * @return						associated {@link EVersion} instance or the default value
 	 */
 	public static EVersion fromIndexOrElse(Integer index, Supplier<EVersion> defaultValueSupplier) {
-		return UwObject.getIfNull(fromIndexOrNull(index), defaultValueSupplier);
+		return UwObject.ifNull(fromIndexOrNull(index), defaultValueSupplier);
 	}
 
 	/**

@@ -294,7 +294,7 @@ public final class GetServersRequest implements IRequest, Cloneable {
 		 */
 		@Override
 		public GetServersRequest build() {
-			Long ownersSteamId64 = UwObject.applyIfNotNull(this.ownersSteamId, SteamId::toSteam64OrNull);
+			Long ownersSteamId64 = UwObject.ifNotNull(this.ownersSteamId, SteamId::toSteam64OrNull);
 
 			return new GetServersRequest(
 					this.ids,

@@ -86,7 +86,7 @@ public final class UMapImage {
 	 * @return						map image URL or the default value
 	 */
 	public static String getUrlOrElse(String mapName, EMapImageFormat format, Supplier<String> defaultValueSupplier) {
-		return UwObject.getIfNull(getUrlOrNull(mapName, format), defaultValueSupplier);
+		return UwObject.ifNull(getUrlOrNull(mapName, format), defaultValueSupplier);
 	}
 
 	/**

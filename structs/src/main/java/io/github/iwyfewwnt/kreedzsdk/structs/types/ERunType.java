@@ -141,7 +141,7 @@ public enum ERunType implements Serializable {
 	 * @return						has teleports boolean value or the default one
 	 */
 	public static Boolean getHasTeleportsOrElse(ERunType runType, Supplier<Boolean> defaultValueSupplier) {
-		return UwObject.getIfNull(getHasTeleportsOrNull(runType), defaultValueSupplier);
+		return UwObject.ifNull(getHasTeleportsOrNull(runType), defaultValueSupplier);
 	}
 
 	/**
@@ -198,7 +198,7 @@ public enum ERunType implements Serializable {
 	 * @return						associated {@link ERunType} instance or the default value
 	 */
 	public static ERunType fromIndexOrElse(Integer index, Supplier<ERunType> defaultValueSupplier) {
-		return UwObject.getIfNull(fromIndexOrNull(index), defaultValueSupplier);
+		return UwObject.ifNull(fromIndexOrNull(index), defaultValueSupplier);
 	}
 
 	/**

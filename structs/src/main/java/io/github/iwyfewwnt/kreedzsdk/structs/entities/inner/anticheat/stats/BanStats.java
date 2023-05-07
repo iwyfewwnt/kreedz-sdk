@@ -83,7 +83,7 @@ public class BanStats implements Serializable, Cloneable {
 	 */
 	BanStats(String rawStats, EPluginType pluginType) {
 		rawStats = rawStats != null ? rawStats.trim() : "";
-		pluginType = UwObject.getIfNull(pluginType, EPluginType.UNKNOWN);
+		pluginType = UwObject.ifNull(pluginType, EPluginType.UNKNOWN);
 
 		this.rawStats = rawStats;
 		this.pluginType = pluginType;

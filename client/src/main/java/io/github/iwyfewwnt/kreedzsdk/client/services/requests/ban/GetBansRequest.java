@@ -330,7 +330,7 @@ public final class GetBansRequest implements IRequest, Cloneable {
 		 */
 		@Override
 		public GetBansRequest build() {
-			Long steamId64 = UwObject.applyIfNotNull(this.steamId, SteamId::toSteam64OrNull);
+			Long steamId64 = UwObject.ifNotNull(this.steamId, SteamId::toSteam64OrNull);
 
 			return new GetBansRequest(
 					this.banTypes,

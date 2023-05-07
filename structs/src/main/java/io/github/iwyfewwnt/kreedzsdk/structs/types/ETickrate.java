@@ -164,7 +164,7 @@ public enum ETickrate implements Serializable {
 	 * @return						float value of the tickrate or the default one
 	 */
 	public static Float getAsFloatOrElse(ETickrate tickrate, Supplier<Float> defaultValueSupplier) {
-		return UwObject.getIfNull(getAsFloatOrNull(tickrate), defaultValueSupplier);
+		return UwObject.ifNull(getAsFloatOrNull(tickrate), defaultValueSupplier);
 	}
 
 	/**
@@ -221,7 +221,7 @@ public enum ETickrate implements Serializable {
 	 * @return						integer value of the tickrate or the default one
 	 */
 	public static Integer getAsIntOrElse(ETickrate tickrate, Supplier<Integer> defaultValueSupplier) {
-		return UwObject.getIfNull(getAsIntOrNull(tickrate), defaultValueSupplier);
+		return UwObject.ifNull(getAsIntOrNull(tickrate), defaultValueSupplier);
 	}
 
 	/**
@@ -264,7 +264,7 @@ public enum ETickrate implements Serializable {
 	 * @return						associated {@link ETickrate} instance or the default value
 	 */
 	public static ETickrate fromFloatOrElse(Float fltVal, Supplier<ETickrate> defaultValueSupplier) {
-		return UwObject.getIfNull(fromFloatOrNull(fltVal), defaultValueSupplier);
+		return UwObject.ifNull(fromFloatOrNull(fltVal), defaultValueSupplier);
 	}
 
 	/**
@@ -302,7 +302,7 @@ public enum ETickrate implements Serializable {
 	 * @return						associated {@link ETickrate} instance or the default value
 	 */
 	public static ETickrate fromIntOrElse(Integer intVal, Supplier<ETickrate> defaultValueSupplier) {
-		return UwObject.getIfNull(fromIntOrNull(intVal), defaultValueSupplier);
+		return UwObject.ifNull(fromIntOrNull(intVal), defaultValueSupplier);
 	}
 
 	/**
@@ -340,7 +340,7 @@ public enum ETickrate implements Serializable {
 	 * @return						associated {@link ETickrate} instance or the default value
 	 */
 	public static ETickrate fromIndexOrElse(Integer index, Supplier<ETickrate> defaultValueSupplier) {
-		return UwObject.getIfNull(fromIndexOrNull(index), defaultValueSupplier);
+		return UwObject.ifNull(fromIndexOrNull(index), defaultValueSupplier);
 	}
 
 	/**

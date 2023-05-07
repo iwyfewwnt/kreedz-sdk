@@ -249,8 +249,8 @@ public final class GetRecordsTopRequest extends GetRecordsRequest implements Clo
 		 */
 		@Override
 		public GetRecordsTopRequest build() {
-			Long steamId64 = UwObject.applyIfNotNull(this.steamId, SteamId::toSteam64OrNull);
-			String modeName = UwObject.applyIfNotNull(this.mode, EMode::getApiName);
+			Long steamId64 = UwObject.ifNotNull(this.steamId, SteamId::toSteam64OrNull);
+			String modeName = UwObject.ifNotNull(this.mode, EMode::getApiName);
 
 			// "isOverall" should always be set to a value to avoid undefined behavior.
 			Boolean isOverall = this.runType == null || this.runType == ERunType.NUB;

@@ -96,7 +96,7 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	 * @param version	API version
 	 */
 	public KreedzClient(EVersion version) {
-		this.version = UwObject.getIfNull(version, EVersion.LATEST);
+		this.version = UwObject.ifNull(version, EVersion.LATEST);
 
 		this.baseUrl = String.format(BASE_URL_FMT, this.version.getApiName());
 

@@ -258,8 +258,8 @@ public final class GetRecentRecordsRequest extends GetRecordsRequest implements 
 		 */
 		@Override
 		public GetRecentRecordsRequest build() {
-			Long steamId64 = UwObject.applyIfNotNull(this.steamId, SteamId::toSteam64OrNull);
-			String modeName = UwObject.applyIfNotNull(this.mode, EMode::getApiName);
+			Long steamId64 = UwObject.ifNotNull(this.steamId, SteamId::toSteam64OrNull);
+			String modeName = UwObject.ifNotNull(this.mode, EMode::getApiName);
 
 			return new GetRecentRecordsRequest(
 					steamId64,

@@ -242,7 +242,7 @@ public enum EJumpType implements Serializable {
 	 * @return						API-identifier value of the jump type or the default one
 	 */
 	public static Integer getIdOrElse(EJumpType jumpType, Supplier<Integer> defaultValueSupplier) {
-		return UwObject.getIfNull(getIdOrNull(jumpType), defaultValueSupplier);
+		return UwObject.ifNull(getIdOrNull(jumpType), defaultValueSupplier);
 	}
 
 	/**
@@ -299,7 +299,7 @@ public enum EJumpType implements Serializable {
 	 * @return						API-name value of the jump type or the default one
 	 */
 	public static String getApiNameOrElse(EJumpType jumpType, Supplier<String> defaultValueSupplier) {
-		return UwObject.getIfNull(getApiNameOrNull(jumpType), defaultValueSupplier);
+		return UwObject.ifNull(getApiNameOrNull(jumpType), defaultValueSupplier);
 	}
 
 	/**
@@ -375,7 +375,7 @@ public enum EJumpType implements Serializable {
 	 * @return						full name value of the jump type or the default one
 	 */
 	public static String getFullNameOrElse(EJumpType jumpType, Supplier<String> defaultValueSupplier) {
-		return UwObject.getIfNull(getFullNameOrNull(jumpType), defaultValueSupplier);
+		return UwObject.ifNull(getFullNameOrNull(jumpType), defaultValueSupplier);
 	}
 
 	/**
@@ -451,7 +451,7 @@ public enum EJumpType implements Serializable {
 	 * @return						short name value of the jump type or the default one
 	 */
 	public static String getShortNameOrElse(EJumpType jumpType, Supplier<String> defaultValueSupplier) {
-		return UwObject.getIfNull(getShortNameOrNull(jumpType), defaultValueSupplier);
+		return UwObject.ifNull(getShortNameOrNull(jumpType), defaultValueSupplier);
 	}
 
 	/**
@@ -513,7 +513,7 @@ public enum EJumpType implements Serializable {
 	 * @return						associated {@link EJumpType} instance or the default value
 	 */
 	public static EJumpType fromIdOrElse(Integer id, Supplier<EJumpType> defaultValueSupplier) {
-		return UwObject.getIfNull(fromIdOrNull(id), defaultValueSupplier);
+		return UwObject.ifNull(fromIdOrNull(id), defaultValueSupplier);
 	}
 
 	/**
@@ -551,7 +551,7 @@ public enum EJumpType implements Serializable {
 	 * @return						associated {@link EJumpType} instance or the default value
 	 */
 	public static EJumpType fromApiNameOrElse(String apiName, Supplier<EJumpType> defaultValueSupplier) {
-		return UwObject.getIfNull(fromApiNameOrNull(apiName), defaultValueSupplier);
+		return UwObject.ifNull(fromApiNameOrNull(apiName), defaultValueSupplier);
 	}
 
 	/**
@@ -589,7 +589,7 @@ public enum EJumpType implements Serializable {
 	 * @return						associated {@link EJumpType} instance or the default value
 	 */
 	public static EJumpType fromFullNameOrElse(String fullName, Supplier<EJumpType> defaultValueSupplier) {
-		return UwObject.getIfNull(fromFullNameOrNull(fullName), defaultValueSupplier);
+		return UwObject.ifNull(fromFullNameOrNull(fullName), defaultValueSupplier);
 	}
 
 	/**
@@ -627,7 +627,7 @@ public enum EJumpType implements Serializable {
 	 * @return						associated {@link EJumpType} instance or the default value
 	 */
 	public static EJumpType fromShortNameOrElse(String shortName, Supplier<EJumpType> defaultValueSupplier) {
-		return UwObject.getIfNull(fromShortNameOrNull(shortName), defaultValueSupplier);
+		return UwObject.ifNull(fromShortNameOrNull(shortName), defaultValueSupplier);
 	}
 
 	/**
@@ -665,7 +665,7 @@ public enum EJumpType implements Serializable {
 	 * @return						associated {@link EJumpType} instance or the default value
 	 */
 	public static EJumpType fromIndexOrElse(Integer index, Supplier<EJumpType> defaultValueSupplier) {
-		return UwObject.getIfNull(fromIndexOrNull(index), defaultValueSupplier);
+		return UwObject.ifNull(fromIndexOrNull(index), defaultValueSupplier);
 	}
 
 	/**

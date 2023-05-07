@@ -105,7 +105,7 @@ public final class ScrollPattern implements Serializable, Cloneable {
 	 * @param jumpInputs	array of jump inputs
 	 */
 	public ScrollPattern(JumpInput[] jumpInputs) {
-		this((List<JumpInput>) UwObject.applyIfNotNull(jumpInputs, Arrays::asList));
+		this((List<JumpInput>) UwObject.ifNotNull(jumpInputs, Arrays::asList));
 	}
 
 	/**
@@ -114,7 +114,7 @@ public final class ScrollPattern implements Serializable, Cloneable {
 	 * @param jumpInputs	list of jump inputs
 	 */
 	public ScrollPattern(List<JumpInput> jumpInputs) {
-		jumpInputs = UwObject.getIfNull(jumpInputs, ArrayList::new);
+		jumpInputs = UwObject.ifNull(jumpInputs, ArrayList::new);
 		jumpInputs = UwList.toUnmodifiable(jumpInputs);
 
 		this.jumpInputs = jumpInputs;

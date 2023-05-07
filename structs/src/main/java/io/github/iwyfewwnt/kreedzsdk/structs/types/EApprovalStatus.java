@@ -136,7 +136,7 @@ public enum EApprovalStatus implements Serializable {
 	 * @return						API-identifier value of the approval status or the default one
 	 */
 	public static Integer getIdOrElse(EApprovalStatus approvalStatus, Supplier<Integer> defaultValueSupplier) {
-		return UwObject.getIfNull(getIdOrNull(approvalStatus), defaultValueSupplier);
+		return UwObject.ifNull(getIdOrNull(approvalStatus), defaultValueSupplier);
 	}
 
 	/**
@@ -179,7 +179,7 @@ public enum EApprovalStatus implements Serializable {
 	 * @return						associated {@link EApprovalStatus} instance or the default value
 	 */
 	public static EApprovalStatus fromIdOrElse(Integer id, Supplier<EApprovalStatus> defaultValueSupplier) {
-		return UwObject.getIfNull(fromIdOrNull(id), defaultValueSupplier);
+		return UwObject.ifNull(fromIdOrNull(id), defaultValueSupplier);
 	}
 
 	/**
@@ -217,7 +217,7 @@ public enum EApprovalStatus implements Serializable {
 	 * @return						associated {@link EApprovalStatus} instance or the default value
 	 */
 	public static EApprovalStatus fromIndexOrElse(Integer index, Supplier<EApprovalStatus> defaultValueSupplier) {
-		return UwObject.getIfNull(fromIndexOrNull(index), defaultValueSupplier);
+		return UwObject.ifNull(fromIndexOrNull(index), defaultValueSupplier);
 	}
 
 	/**

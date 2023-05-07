@@ -180,7 +180,7 @@ public enum EStatusIndicator implements Serializable {
 	 * @return						API-name value of the indicator or the default one
 	 */
 	public static String getApiNameOrElse(EStatusIndicator indicator, Supplier<String> defaultValueSupplier) {
-		return UwObject.getIfNull(getApiNameOrNull(indicator), defaultValueSupplier);
+		return UwObject.ifNull(getApiNameOrNull(indicator), defaultValueSupplier);
 	}
 
 	/**
@@ -256,7 +256,7 @@ public enum EStatusIndicator implements Serializable {
 	 * @return						full name value of the indicator or the default one
 	 */
 	public static String getFullNameOrElse(EStatusIndicator indicator, Supplier<String> defaultValueSupplier) {
-		return UwObject.getIfNull(getFullNameOrNull(indicator), defaultValueSupplier);
+		return UwObject.ifNull(getFullNameOrNull(indicator), defaultValueSupplier);
 	}
 
 	/**
@@ -318,7 +318,7 @@ public enum EStatusIndicator implements Serializable {
 	 * @return						associated {@link EStatusIndicator} instance or the default value
 	 */
 	public static EStatusIndicator fromApiNameOrElse(String apiName, Supplier<EStatusIndicator> defaultValueSupplier) {
-		return UwObject.getIfNull(fromApiNameOrNull(apiName), defaultValueSupplier);
+		return UwObject.ifNull(fromApiNameOrNull(apiName), defaultValueSupplier);
 	}
 
 	/**
@@ -356,7 +356,7 @@ public enum EStatusIndicator implements Serializable {
 	 * @return						associated {@link EStatusIndicator} instance or the default value
 	 */
 	public static EStatusIndicator fromFullNameOrElse(String fullName, Supplier<EStatusIndicator> defaultValueSupplier) {
-		return UwObject.getIfNull(fromFullNameOrNull(fullName), defaultValueSupplier);
+		return UwObject.ifNull(fromFullNameOrNull(fullName), defaultValueSupplier);
 	}
 
 	/**
@@ -394,7 +394,7 @@ public enum EStatusIndicator implements Serializable {
 	 * @return						associated {@link EStatusIndicator} instance or the default value
 	 */
 	public static EStatusIndicator fromIndexOrElse(Integer index, Supplier<EStatusIndicator> defaultValueSupplier) {
-		return UwObject.getIfNull(fromIndexOrNull(index), defaultValueSupplier);
+		return UwObject.ifNull(fromIndexOrNull(index), defaultValueSupplier);
 	}
 
 	/**

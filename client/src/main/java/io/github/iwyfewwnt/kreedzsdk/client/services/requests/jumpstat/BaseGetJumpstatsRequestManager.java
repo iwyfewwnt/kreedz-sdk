@@ -213,7 +213,7 @@ public abstract class BaseGetJumpstatsRequestManager<T extends BaseGetJumpstatsR
 	 * @return						this instance
 	 */
 	public final T setDistanceGreaterThan(Integer distanceGreaterThan) {
-		return this.setDistanceGreaterThan(UwObject.applyIfNotNull(distanceGreaterThan, Integer::floatValue));
+		return this.setDistanceGreaterThan(UwObject.ifNotNull(distanceGreaterThan, Integer::floatValue));
 	}
 
 	/**
@@ -234,7 +234,7 @@ public abstract class BaseGetJumpstatsRequestManager<T extends BaseGetJumpstatsR
 	 * @return					this instance
 	 */
 	public final T setDistanceLessThan(Integer distanceLessThan) {
-		return this.setDistanceLessThan(UwObject.applyIfNotNull(distanceLessThan, Integer::floatValue));
+		return this.setDistanceLessThan(UwObject.ifNotNull(distanceLessThan, Integer::floatValue));
 	}
 
 	/**
@@ -299,7 +299,7 @@ public abstract class BaseGetJumpstatsRequestManager<T extends BaseGetJumpstatsR
 	 * @return				this instance
 	 */
 	public final T setDataUpdater(DataUpdater dataUpdater) {
-		return this.setDataUpdater(UwObject.applyIfNotNull(dataUpdater, DataUpdater::getId));
+		return this.setDataUpdater(UwObject.ifNotNull(dataUpdater, DataUpdater::getId));
 	}
 
 	/**
@@ -309,7 +309,7 @@ public abstract class BaseGetJumpstatsRequestManager<T extends BaseGetJumpstatsR
 	 * @return			this instance
 	 */
 	public final T setDataUpdater(SteamId steamId) {
-		return this.setDataUpdater(UwObject.applyIfNotNull(steamId, SteamId::toSteam64OrNull));
+		return this.setDataUpdater(UwObject.ifNotNull(steamId, SteamId::toSteam64OrNull));
 	}
 
 	/**
