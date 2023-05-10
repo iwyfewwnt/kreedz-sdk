@@ -21,7 +21,6 @@ import io.github.iwyfewwnt.uwutils.UwEnum;
 import io.github.iwyfewwnt.uwutils.UwMap;
 import io.github.iwyfewwnt.uwutils.UwObject;
 
-import java.io.Serializable;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -29,7 +28,7 @@ import java.util.function.Supplier;
  * An enumeration of kreedz API approval statuses.
  */
 @SuppressWarnings("unused")
-public enum EApprovalStatus implements Serializable {
+public enum EApprovalStatus {
 
 	/**
 	 * A kreedz API approval status - [0] Approved.
@@ -66,7 +65,7 @@ public enum EApprovalStatus implements Serializable {
 	/**
 	 * A {@link EApprovalStatus#toString()} cache.
 	 */
-	private transient String stringCache;
+	private String stringCache;
 
 	/**
 	 * Initialize an {@link EApprovalStatus} instance.

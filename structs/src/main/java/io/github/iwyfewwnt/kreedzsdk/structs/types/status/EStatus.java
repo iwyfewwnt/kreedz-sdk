@@ -18,7 +18,6 @@ package io.github.iwyfewwnt.kreedzsdk.structs.types.status;
 
 import io.github.iwyfewwnt.uwutils.*;
 
-import java.io.Serializable;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -26,7 +25,7 @@ import java.util.function.Supplier;
  * An enumeration of kreedz API statuses.
  */
 @SuppressWarnings("unused")
-public enum EStatus implements Serializable {
+public enum EStatus {
 
 	/**
 	 * A kreedz API status - Operational.
@@ -125,7 +124,7 @@ public enum EStatus implements Serializable {
 	/**
 	 * A {@link EStatus#toString()} cache.
 	 */
-	private transient String stringCache;
+	private String stringCache;
 
 	/**
 	 * Initialize an {@link EStatus} instance.

@@ -21,7 +21,6 @@ import io.github.iwyfewwnt.uwutils.UwEnum;
 import io.github.iwyfewwnt.uwutils.UwMap;
 import io.github.iwyfewwnt.uwutils.UwObject;
 
-import java.io.Serializable;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -29,7 +28,7 @@ import java.util.function.Supplier;
  * An enumeration of kreedz API tickrates.
  */
 @SuppressWarnings("unused")
-public enum ETickrate implements Serializable {
+public enum ETickrate {
 
 	/**
 	 * A kreedz API tickrate - 128.0 t/s
@@ -83,7 +82,7 @@ public enum ETickrate implements Serializable {
 	/**
 	 * A {@link ETickrate#toString()} cache.
 	 */
-	private transient String stringCache;
+	private String stringCache;
 
 	/**
 	 * Initialize an {@link ETickrate} instance.

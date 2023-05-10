@@ -16,12 +16,10 @@
 
 package io.github.iwyfewwnt.kreedzsdk.structs.types;
 
-import java.io.Serializable;
-
 /**
  * An enumeration of SourceMod plugins.
  */
-public enum EPluginType implements Serializable {
+public enum EPluginType {
 
 	/**
 	 * A SourceMod plugin - GOKZ.
@@ -46,7 +44,7 @@ public enum EPluginType implements Serializable {
 	/**
 	 * A {@link EPluginType#toString()} cache.
 	 */
-	private transient String stringCache;
+	private String stringCache;
 
 	/**
 	 * {@inheritDoc}

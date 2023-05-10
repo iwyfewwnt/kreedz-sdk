@@ -18,7 +18,6 @@ package io.github.iwyfewwnt.kreedzsdk.structs.types.health;
 
 import io.github.iwyfewwnt.uwutils.*;
 
-import java.io.Serializable;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -26,7 +25,7 @@ import java.util.function.Supplier;
  * An enumeration of health API endpoints.
  */
 @SuppressWarnings("unused")
-public enum EHealthEndpoint implements Serializable {
+public enum EHealthEndpoint {
 
 	/**
 	 * A health API endpoint - GlobalAPI.
@@ -91,7 +90,7 @@ public enum EHealthEndpoint implements Serializable {
 	/**
 	 * A {@link EHealthEndpoint#toString()} cache.
 	 */
-	private transient String stringCache;
+	private String stringCache;
 
 	/**
 	 * Initialize an {@link EHealthEndpoint} instance.

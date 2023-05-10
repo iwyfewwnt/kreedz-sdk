@@ -18,7 +18,6 @@ package io.github.iwyfewwnt.kreedzsdk.structs.types;
 
 import io.github.iwyfewwnt.uwutils.*;
 
-import java.io.Serializable;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -26,7 +25,7 @@ import java.util.function.Supplier;
  * An enumeration of kreedz API versions.
  */
 @SuppressWarnings("unused")
-public enum EVersion implements Serializable {
+public enum EVersion {
 
 	/**
 	 * A kreedz API version - `1.0`.
@@ -89,7 +88,7 @@ public enum EVersion implements Serializable {
 	/**
 	 * A {@link EVersion#toString()} cache.
 	 */
-	private transient String stringCache;
+	private String stringCache;
 
 	/**
 	 * Initialize an {@link EVersion} instance.

@@ -18,7 +18,6 @@ package io.github.iwyfewwnt.kreedzsdk.structs.types;
 
 import io.github.iwyfewwnt.uwutils.*;
 
-import java.io.Serializable;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -26,7 +25,7 @@ import java.util.function.Supplier;
  * An enumeration of kreedz API ban types.
  */
 @SuppressWarnings("unused")
-public enum EBanType implements Serializable {
+public enum EBanType {
 
 	/**
 	 * A kreedz API ban type - Bhop Macro.
@@ -105,7 +104,7 @@ public enum EBanType implements Serializable {
 	/**
 	 * A {@link EBanType#toString()} cache.
 	 */
-	private transient String stringCache;
+	private String stringCache;
 
 	/**
 	 * Initialize an {@link EBanType} instance.
@@ -594,7 +593,7 @@ public enum EBanType implements Serializable {
 	/**
 	 * An enumeration of kreedz API ban type groups.
 	 */
-	public enum Group implements Serializable {
+	public enum Group {
 
 		/**
 		 * A kreedz API ban type group - Macro.
@@ -629,7 +628,7 @@ public enum EBanType implements Serializable {
 		/**
 		 * A {@link Group#toString()} cache.
 		 */
-		private transient String stringCache;
+		private String stringCache;
 
 		/**
 		 * {@inheritDoc}

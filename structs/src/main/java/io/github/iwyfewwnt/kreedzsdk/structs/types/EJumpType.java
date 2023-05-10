@@ -18,7 +18,6 @@ package io.github.iwyfewwnt.kreedzsdk.structs.types;
 
 import io.github.iwyfewwnt.uwutils.*;
 
-import java.io.Serializable;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -26,7 +25,7 @@ import java.util.function.Supplier;
  * An enumeration of kreedz API jump types.
  */
 @SuppressWarnings("unused")
-public enum EJumpType implements Serializable {
+public enum EJumpType {
 
 	/**
 	 * A kreedz API jump type - [1] LongJump.
@@ -124,7 +123,7 @@ public enum EJumpType implements Serializable {
 	/**
 	 * A {@link EJumpType#toString()} cache.
 	 */
-	private transient String stringCache;
+	private String stringCache;
 
 	/**
 	 * Initialize an {@link EJumpType} instance.

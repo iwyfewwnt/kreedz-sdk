@@ -20,14 +20,13 @@ import io.github.iwyfewwnt.uwutils.UwArray;
 import io.github.iwyfewwnt.uwutils.UwEnum;
 import io.github.iwyfewwnt.uwutils.UwObject;
 
-import java.io.Serializable;
 import java.util.function.Supplier;
 
 /**
  * An enumeration of kreedz API map run types.
  */
 @SuppressWarnings("unused")
-public enum ERunType implements Serializable {
+public enum ERunType {
 
 	/**
 	 * A kreedz API map run type - PRO.
@@ -71,7 +70,7 @@ public enum ERunType implements Serializable {
 	/**
 	 * A {@link ERunType#toString()} cache.
 	 */
-	private transient String stringCache;
+	private String stringCache;
 
 	/**
 	 * Initialize an {@link ERunType} instance.

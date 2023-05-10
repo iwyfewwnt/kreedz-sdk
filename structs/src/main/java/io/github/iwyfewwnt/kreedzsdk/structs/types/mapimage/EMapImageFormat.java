@@ -21,7 +21,6 @@ import io.github.iwyfewwnt.uwutils.UwEnum;
 import io.github.iwyfewwnt.uwutils.UwObject;
 import io.github.iwyfewwnt.uwutils.UwString;
 
-import java.io.Serializable;
 import java.util.function.Supplier;
 
 /**
@@ -30,7 +29,7 @@ import java.util.function.Supplier;
  * @see <a href="https://vk.cc/ckedm3">map-images by KZGlobalTeam on GitHub</a>
  */
 @SuppressWarnings("unused")
-public enum EMapImageFormat implements Serializable {
+public enum EMapImageFormat {
 
 	/**
 	 * A kreedz map image format type - [JPG # ≥1920x1080] Source.
@@ -95,7 +94,7 @@ public enum EMapImageFormat implements Serializable {
 	/**
 	 * A {@link EMapImageFormat#toString()} cache.
 	 */
-	private transient String stringCache;
+	private String stringCache;
 
 	/**
 	 * Initialize an {@link EMapImageFormat} instance.

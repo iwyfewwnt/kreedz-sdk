@@ -18,7 +18,6 @@ package io.github.iwyfewwnt.kreedzsdk.structs.types;
 
 import io.github.iwyfewwnt.uwutils.*;
 
-import java.io.Serializable;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -26,7 +25,7 @@ import java.util.function.Supplier;
  * An enumeration of kreedz API game modes.
  */
 @SuppressWarnings("unused")
-public enum EMode implements Serializable {
+public enum EMode {
 
 	/**
 	 * A kreedz API game mode - [200] KZTimer.
@@ -104,7 +103,7 @@ public enum EMode implements Serializable {
 	/**
 	 * A {@link EMode#toString()} cache.
 	 */
-	private transient String stringCache;
+	private String stringCache;
 
 	/**
 	 * Initialize an {@link EMode} instance.

@@ -18,7 +18,6 @@ package io.github.iwyfewwnt.kreedzsdk.structs.types;
 
 import io.github.iwyfewwnt.uwutils.*;
 
-import java.io.Serializable;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -26,7 +25,7 @@ import java.util.function.Supplier;
  * An enumeration of kreedz API difficulties.
  */
 @SuppressWarnings("unused")
-public enum EDifficulty implements Serializable {
+public enum EDifficulty {
 
 	/**
 	 * A kreedz API difficulty - [1] Very Easy.
@@ -105,7 +104,7 @@ public enum EDifficulty implements Serializable {
 	/**
 	 * A {@link EDifficulty#toString()} cache.
 	 */
-	private transient String stringCache;
+	private String stringCache;
 
 	/**
 	 * Initialize an {@link EDifficulty} instance.
@@ -479,7 +478,7 @@ public enum EDifficulty implements Serializable {
 	/**
 	 * An enumeration of kreedz API difficulty groups.
 	 */
-	public enum Group implements Serializable {
+	public enum Group {
 
 		/**
 		 * A kreedz API difficulty group - Green.
@@ -521,7 +520,7 @@ public enum EDifficulty implements Serializable {
 		/**
 		 * A {@link Group#toString()} cache.
 		 */
-		private transient String stringCache;
+		private String stringCache;
 
 		/**
 		 * {@inheritDoc}
