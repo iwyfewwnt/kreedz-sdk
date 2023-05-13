@@ -1,7 +1,4 @@
 # CS:GO Kreedz Global API SDK
-This project is built under the [Retrofit2](https://github.com/square/retrofit)
-library, so everything should be fine if you use it with Android, I guess.
-
 
 ## Modules
  * [/structs](./structs)
@@ -107,7 +104,7 @@ service module.
 ### Examples
 #### IKreedzQueryConverter
 Taken from [RunTypeQueryConverter](https://github.com/iwyfewwnt/kreedz-sdk/blob/main/converters/src/main/java/io/github/iwyfewwnt/kreedzsdk/converters/RunTypeQueryConverter.java#L17-L50)
-class. Make sure your 2nd generic type in the Converter interface is a `String`
+class. Make sure your 2nd generic type in the Converter interface is `String`
 or you will get an `IllegalStateException` at the `KreedzClient` initialization.
 ```java
 package ...;
@@ -202,7 +199,7 @@ BanService banService = (BanService) client.getService(IBanService.class);
  * [iwyfewwnt/steam-id](https://github.com/iwyfewwnt/steam-id)
  * [iwyfewwnt/uw-retrofit](https://github.com/iwyfewwnt/uw-retrofit)
  * [retrofit2/retrofit](https://github.com/square/retrofit)
- * [retrofit2/converter-gson](https://github.com/square/retrofit/tree/main/retrofit-converters/gson)
+ * [retrofit2/converter-gson](https://github.com/square/retrofit/tree/master/retrofit-converters/gson)
  * [google/gson](https://github.com/google/gson)
  * [joda-time/joda-time](https://github.com/JodaOrg/joda-time)
 
