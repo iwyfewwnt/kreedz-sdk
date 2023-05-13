@@ -206,11 +206,7 @@ public enum EStatus {
 	 * @return				API-name value of the status or the default one
 	 */
 	public static String getApiNameOrElse(EStatus status, String defaultValue) {
-		if (status == null) {
-			return defaultValue;
-		}
-
-		return status.getApiName();
+		return UwObject.ifNotNull(status, EStatus::getApiName, defaultValue);
 	}
 
 	/**
@@ -282,11 +278,7 @@ public enum EStatus {
 	 * @return				full name value of the status or the default one
 	 */
 	public static String getFullNameOrElse(EStatus status, String defaultValue) {
-		if (status == null) {
-			return defaultValue;
-		}
-
-		return status.getFullName();
+		return UwObject.ifNotNull(status, EStatus::getFullName, defaultValue);
 	}
 
 	/**

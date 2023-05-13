@@ -171,11 +171,7 @@ public enum EStatusIndicator {
 	 * @return				API-name value of the indicator or the default one
 	 */
 	public static String getApiNameOrElse(EStatusIndicator indicator, String defaultValue) {
-		if (indicator == null) {
-			return defaultValue;
-		}
-
-		return indicator.getApiName();
+		return UwObject.ifNotNull(indicator, EStatusIndicator::getApiName, defaultValue);
 	}
 
 	/**
@@ -247,11 +243,7 @@ public enum EStatusIndicator {
 	 * @return				full name value of the indicator or the default one
 	 */
 	public static String getFullNameOrElse(EStatusIndicator indicator, String defaultValue) {
-		if (indicator == null) {
-			return defaultValue;
-		}
-
-		return indicator.getFullName();
+		return UwObject.ifNotNull(indicator, EStatusIndicator::getFullName, defaultValue);
 	}
 
 	/**

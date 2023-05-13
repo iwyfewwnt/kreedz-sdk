@@ -20,6 +20,7 @@ import io.github.iwyfewwnt.kreedzsdk.structs.entities.inner.anticheat.JumpInput;
 import io.github.iwyfewwnt.kreedzsdk.structs.entities.inner.anticheat.ScrollPattern;
 import io.github.iwyfewwnt.kreedzsdk.structs.types.EPluginType;
 import io.github.iwyfewwnt.uwutils.UwObject;
+import io.github.iwyfewwnt.uwutils.UwString;
 
 import java.io.Serializable;
 import java.util.List;
@@ -118,8 +119,7 @@ public class BanStats implements Serializable, Cloneable {
 	 * @param pluginType	plugin type
 	 */
 	BanStats(String rawStats, EPluginType pluginType) {
-		// TODO: Replace w/ UwObject#ifNotNull method call
-		rawStats = rawStats != null ? rawStats.trim() : "";
+		rawStats = UwObject.ifNotNull(rawStats, String::trim, UwString.EMPTY);
 		pluginType = UwObject.ifNull(pluginType, EPluginType.UNKNOWN);
 
 		this.rawStats = rawStats;

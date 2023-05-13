@@ -192,11 +192,7 @@ public enum EMapImageFormat {
 	 * @return				branch value of the map image format or the default one
 	 */
 	public static String getBranchOrElse(EMapImageFormat format, String defaultValue) {
-		if (format == null) {
-			return defaultValue;
-		}
-
-		return format.getBranch();
+		return UwObject.ifNotNull(format, EMapImageFormat::getBranch, defaultValue);
 	}
 
 	/**
@@ -268,11 +264,7 @@ public enum EMapImageFormat {
 	 * @return				endpoint value of the map image format or the default one
 	 */
 	public static String getEndpointOrElse(EMapImageFormat format, String defaultValue) {
-		if (format == null) {
-			return defaultValue;
-		}
-
-		return format.getEndpoint();
+		return UwObject.ifNotNull(format, EMapImageFormat::getEndpoint, defaultValue);
 	}
 
 	/**
@@ -344,11 +336,7 @@ public enum EMapImageFormat {
 	 * @return				extension value of the map image format or the default one
 	 */
 	public static String getExtensionOrElse(EMapImageFormat format, String defaultValue) {
-		if (format == null) {
-			return defaultValue;
-		}
-
-		return format.getExtension();
+		return UwObject.ifNotNull(format, EMapImageFormat::getExtension, defaultValue);
 	}
 
 	/**

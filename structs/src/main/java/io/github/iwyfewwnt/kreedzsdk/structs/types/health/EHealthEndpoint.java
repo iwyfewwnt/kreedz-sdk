@@ -200,11 +200,7 @@ public enum EHealthEndpoint {
 	 * @return				API-name value of the health endpoint or the default one
 	 */
 	public static String getNameOrElse(EHealthEndpoint endpoint, String defaultValue) {
-		if (endpoint == null) {
-			return defaultValue;
-		}
-
-		return endpoint.getName();
+		return UwObject.ifNotNull(endpoint, EHealthEndpoint::getName, defaultValue);
 	}
 
 	/**
@@ -276,11 +272,7 @@ public enum EHealthEndpoint {
 	 * @return				API-group value of the health endpoint or the default one
 	 */
 	public static String getGroupOrElse(EHealthEndpoint endpoint, String defaultValue) {
-		if (endpoint == null) {
-			return defaultValue;
-		}
-
-		return endpoint.getGroup();
+		return UwObject.ifNotNull(endpoint, EHealthEndpoint::getGroup, defaultValue);
 	}
 
 	/**
@@ -352,11 +344,7 @@ public enum EHealthEndpoint {
 	 * @return				API-endpoint value of the health endpoint or the default one
 	 */
 	public static String getEndpointOrElse(EHealthEndpoint endpoint, String defaultValue) {
-		if (endpoint == null) {
-			return defaultValue;
-		}
-
-		return endpoint.getEndpoint();
+		return UwObject.ifNotNull(endpoint, EHealthEndpoint::getEndpoint, defaultValue);
 	}
 
 	/**
@@ -428,11 +416,7 @@ public enum EHealthEndpoint {
 	 * @return				API-key value of the health endpoint or the default one
 	 */
 	public static String getKeyOrElse(EHealthEndpoint endpoint, String defaultValue) {
-		if (endpoint == null) {
-			return defaultValue;
-		}
-
-		return endpoint.getKey();
+		return UwObject.ifNotNull(endpoint, EHealthEndpoint::getKey, defaultValue);
 	}
 
 	/**

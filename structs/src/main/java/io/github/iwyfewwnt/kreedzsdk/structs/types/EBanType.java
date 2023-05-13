@@ -218,11 +218,7 @@ public enum EBanType {
 	 * @return				group value of the ban type or the default one
 	 */
 	public static Group getGroupOrElse(EBanType banType, Group defaultValue) {
-		if (banType == null) {
-			return defaultValue;
-		}
-
-		return banType.getGroup();
+		return UwObject.ifNotNull(banType, EBanType::getGroup, defaultValue);
 	}
 
 	/**
@@ -275,11 +271,7 @@ public enum EBanType {
 	 * @return				API-name value of the ban type or the default one
 	 */
 	public static String getApiNameOrElse(EBanType banType, String defaultValue) {
-		if (banType == null) {
-			return defaultValue;
-		}
-
-		return banType.getApiName();
+		return UwObject.ifNotNull(banType, EBanType::getApiName, defaultValue);
 	}
 
 	/**
@@ -351,11 +343,7 @@ public enum EBanType {
 	 * @return				full name value of the ban type or the default one
 	 */
 	public static String getFullNameOrElse(EBanType banType, String defaultValue) {
-		if (banType == null) {
-			return defaultValue;
-		}
-
-		return banType.getFullName();
+		return UwObject.ifNotNull(banType, EBanType::getFullName, defaultValue);
 	}
 
 	/**
@@ -427,11 +415,7 @@ public enum EBanType {
 	 * @return				short name value of the ban type or the default one
 	 */
 	public static String getShortNameOrElse(EBanType banType, String defaultValue) {
-		if (banType == null) {
-			return defaultValue;
-		}
-
-		return banType.getShortName();
+		return UwObject.ifNotNull(banType, EBanType::getShortName, defaultValue);
 	}
 
 	/**

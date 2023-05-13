@@ -233,11 +233,7 @@ public enum EJumpType {
 	 * @return				API-identifier value of the jump type or the default one
 	 */
 	public static Integer getIdOrElse(EJumpType jumpType, Integer defaultValue) {
-		if (jumpType == null) {
-			return defaultValue;
-		}
-
-		return jumpType.getId();
+		return UwObject.ifNotNull(jumpType, EJumpType::getId, defaultValue);
 	}
 
 	/**
@@ -290,11 +286,7 @@ public enum EJumpType {
 	 * @return				API-name value of the jump type or the default one
 	 */
 	public static String getApiNameOrElse(EJumpType jumpType, String defaultValue) {
-		if (jumpType == null) {
-			return defaultValue;
-		}
-
-		return jumpType.getApiName();
+		return UwObject.ifNotNull(jumpType, EJumpType::getApiName, defaultValue);
 	}
 
 	/**
@@ -366,11 +358,7 @@ public enum EJumpType {
 	 * @return				full name value of the jump type or the default one
 	 */
 	public static String getFullNameOrElse(EJumpType jumpType, String defaultValue) {
-		if (jumpType == null) {
-			return defaultValue;
-		}
-
-		return jumpType.getFullName();
+		return UwObject.ifNotNull(jumpType, EJumpType::getFullName, defaultValue);
 	}
 
 	/**
@@ -442,11 +430,7 @@ public enum EJumpType {
 	 * @return				short name value of the jump type or the default one
 	 */
 	public static String getShortNameOrElse(EJumpType jumpType, String defaultValue) {
-		if (jumpType == null) {
-			return defaultValue;
-		}
-
-		return jumpType.getShortName();
+		return UwObject.ifNotNull(jumpType, EJumpType::getShortName, defaultValue);
 	}
 
 	/**

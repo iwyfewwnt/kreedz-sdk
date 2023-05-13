@@ -132,11 +132,7 @@ public enum ERunType {
 	 * @return				has teleports boolean value or the default one
 	 */
 	public static Boolean getHasTeleportsOrElse(ERunType runType, Boolean defaultValue) {
-		if (runType == null) {
-			return defaultValue;
-		}
-
-		return runType.getHasTeleports();
+		return UwObject.ifNotNull(runType, ERunType::getHasTeleports, defaultValue);
 	}
 
 	/**

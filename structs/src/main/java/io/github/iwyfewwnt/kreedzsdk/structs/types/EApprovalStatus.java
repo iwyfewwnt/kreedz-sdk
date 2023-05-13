@@ -127,11 +127,7 @@ public enum EApprovalStatus {
 	 * @return					API-identifier value of the approval status or the default one
 	 */
 	public static Integer getIdOrElse(EApprovalStatus approvalStatus, Integer defaultValue) {
-		if (approvalStatus == null) {
-			return defaultValue;
-		}
-
-		return approvalStatus.getId();
+		return UwObject.ifNotNull(approvalStatus, EApprovalStatus::getId, defaultValue);
 	}
 
 	/**

@@ -214,11 +214,7 @@ public enum EMode {
 	 * @return				API-identifier value of the mode or the default one
 	 */
 	public static Integer getIdOrElse(EMode mode, Integer defaultValue) {
-		if (mode == null) {
-			return defaultValue;
-		}
-
-		return mode.getId();
+		return UwObject.ifNotNull(mode, EMode::getId, defaultValue);
 	}
 
 	/**
@@ -271,11 +267,7 @@ public enum EMode {
 	 * @return				API-name value of the mode or the default one
 	 */
 	public static String getApiNameOrElse(EMode mode, String defaultValue) {
-		if (mode == null) {
-			return defaultValue;
-		}
-
-		return mode.getApiName();
+		return UwObject.ifNotNull(mode, EMode::getApiName, defaultValue);
 	}
 
 	/**
@@ -347,11 +339,7 @@ public enum EMode {
 	 * @return				full name value of the mode or the default one
 	 */
 	public static String getFullNameOrElse(EMode mode, String defaultValue) {
-		if (mode == null) {
-			return defaultValue;
-		}
-
-		return mode.getFullName();
+		return UwObject.ifNotNull(mode, EMode::getFullName, defaultValue);
 	}
 
 	/**
@@ -423,11 +411,7 @@ public enum EMode {
 	 * @return				short name value of the mode or the default one
 	 */
 	public static String getShortNameOrElse(EMode mode, String defaultValue) {
-		if (mode == null) {
-			return defaultValue;
-		}
-
-		return mode.getShortName();
+		return UwObject.ifNotNull(mode, EMode::getShortName, defaultValue);
 	}
 
 	/**

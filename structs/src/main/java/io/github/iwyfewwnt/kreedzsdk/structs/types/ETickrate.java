@@ -155,11 +155,7 @@ public enum ETickrate {
 	 * @return				float value of the tickrate or the default one
 	 */
 	public static Float getAsFloatOrElse(ETickrate tickrate, Float defaultValue) {
-		if (tickrate == null) {
-			return defaultValue;
-		}
-
-		return tickrate.getAsFloat();
+		return UwObject.ifNotNull(tickrate, ETickrate::getAsFloat, defaultValue);
 	}
 
 	/**
@@ -212,11 +208,7 @@ public enum ETickrate {
 	 * @return				integer value of the tickrate or the default one
 	 */
 	public static Integer getAsIntOrElse(ETickrate tickrate, Integer defaultValue) {
-		if (tickrate == null) {
-			return defaultValue;
-		}
-
-		return tickrate.getAsInt();
+		return UwObject.ifNotNull(tickrate, ETickrate::getAsInt, defaultValue);
 	}
 
 	/**

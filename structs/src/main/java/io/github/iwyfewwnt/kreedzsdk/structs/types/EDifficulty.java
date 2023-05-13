@@ -198,11 +198,7 @@ public enum EDifficulty {
 	 * @return				group value of the difficulty or the default one
 	 */
 	public static Group getGroupOrElse(EDifficulty difficulty, Group defaultValue) {
-		if (difficulty == null) {
-			return defaultValue;
-		}
-
-		return difficulty.getGroup();
+		return UwObject.ifNotNull(difficulty, EDifficulty::getGroup, defaultValue);
 	}
 
 	/**
@@ -255,11 +251,7 @@ public enum EDifficulty {
 	 * @return				API-identifier value of the difficulty or the default one
 	 */
 	public static Integer getIdOrElse(EDifficulty difficulty, Integer defaultValue) {
-		if (difficulty == null) {
-			return defaultValue;
-		}
-
-		return difficulty.getId();
+		return UwObject.ifNotNull(difficulty, EDifficulty::getId, defaultValue);
 	}
 
 	/**
@@ -312,11 +304,7 @@ public enum EDifficulty {
 	 * @return				full name value of the difficulty or the default one
 	 */
 	public static String getFullNameOrElse(EDifficulty difficulty, String defaultValue) {
-		if (difficulty == null) {
-			return defaultValue;
-		}
-
-		return difficulty.getFullName();
+		return UwObject.ifNotNull(difficulty, EDifficulty::getFullName, defaultValue);
 	}
 
 	/**

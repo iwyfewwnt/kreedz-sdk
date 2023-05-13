@@ -237,11 +237,7 @@ public enum EVersion {
 	 * @return				major number of the version or the default value
 	 */
 	public static Integer getMajorOrElse(EVersion version, Integer defaultValue) {
-		if (version == null) {
-			return defaultValue;
-		}
-
-		return version.getMajor();
+		return UwObject.ifNotNull(version, EVersion::getMajor, defaultValue);
 	}
 
 	/**
@@ -294,11 +290,7 @@ public enum EVersion {
 	 * @return				minor number of the version or the default value
 	 */
 	public static Integer getMinorOrElse(EVersion version, Integer defaultValue) {
-		if (version == null) {
-			return defaultValue;
-		}
-
-		return version.getMinor();
+		return UwObject.ifNotNull(version, EVersion::getMinor, defaultValue);
 	}
 
 	/**
@@ -351,11 +343,7 @@ public enum EVersion {
 	 * @return				API-name of the version or the default value
 	 */
 	public static String getApiNameOrElse(EVersion version, String defaultValue) {
-		if (version == null) {
-			return defaultValue;
-		}
-
-		return version.getApiName();
+		return UwObject.ifNotNull(version, EVersion::getApiName, defaultValue);
 	}
 
 	/**
