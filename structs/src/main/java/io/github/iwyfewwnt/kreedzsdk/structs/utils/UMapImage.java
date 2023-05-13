@@ -66,7 +66,11 @@ public final class UMapImage {
 			return defaultValue;
 		}
 
-		return String.format(URL_FMT, format.getBranch(), format.getEndpoint(), mapName, format.getExtension());
+		String branch = format.getBranch();
+		String endpoint = format.getEndpoint();
+		String extension = format.getExtension();
+
+		return String.format(URL_FMT, branch, endpoint, mapName, extension);
 	}
 
 	/**
