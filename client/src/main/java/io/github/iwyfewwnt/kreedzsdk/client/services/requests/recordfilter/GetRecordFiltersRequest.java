@@ -30,7 +30,7 @@ import java.util.*;
 /**
  * A request for /record_filters/ endpoint.
  */
-@SuppressWarnings("MethodDoesntCallSuperMethod")
+@SuppressWarnings({"MethodDoesntCallSuperMethod", "SynchronizeOnNonFinalField"})
 public class GetRecordFiltersRequest implements IRequest, Cloneable {
 
 	/**
@@ -76,12 +76,42 @@ public class GetRecordFiltersRequest implements IRequest, Cloneable {
 	/**
 	 * A {@link GetRecordFiltersRequest#hashCode()} cache.
 	 */
-	private transient Integer hashCodeCache;
+	protected transient volatile Integer hashCodeCache;
 
 	/**
 	 * A {@link GetRecordFiltersRequest#toString()} cache.
 	 */
-	private transient String stringCache;
+	protected transient volatile String stringCache;
+
+	/**
+	 * A {@link #hashCodeCache} mutex.
+	 */
+	protected transient Object hashCodeCaheMutex;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	protected transient Object stringCacheMutex;
+
+	/**
+	 * Initialize this mutex objects.
+	 */
+	protected void initMutexObjects() {
+		this.hashCodeCaheMutex = new Object();
+		this.stringCacheMutex = new Object();
+	}
+
+	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
 
 	/**
 	 * Initialize a {@link GetRecordFiltersRequest} instance.
@@ -119,6 +149,8 @@ public class GetRecordFiltersRequest implements IRequest, Cloneable {
 		this.runType = runType;
 		this.offset = offset;
 		this.limit = limit;
+
+		this.initMutexObjects();
 	}
 
 	/**
@@ -178,18 +210,24 @@ public class GetRecordFiltersRequest implements IRequest, Cloneable {
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(
-						this.ids,
-						this.mapIds,
-						this.stages,
-						this.modes,
-						this.tickrates,
-						this.runType,
-						this.offset,
-						this.limit
-				)
-		);
+		synchronized (this.hashCodeCaheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(
+							this.ids,
+							this.mapIds,
+							this.stages,
+							this.modes,
+							this.tickrates,
+							this.runType,
+							this.offset,
+							this.limit
+					)
+			);
+		}
 	}
 
 	/**
@@ -201,19 +239,25 @@ public class GetRecordFiltersRequest implements IRequest, Cloneable {
 			return this.stringCache;
 		}
 
-		String simpleName = this.getClass()
-				.getSimpleName();
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
 
-		return (this.stringCache = simpleName + "["
-				+ "ids=" + this.ids
-				+ ", mapIds=" + this.mapIds
-				+ ", stages=" + this.stages
-				+ ", modes=" + this.modes
-				+ ", tickrates=" + this.tickrates
-				+ ", runType=" + this.runType
-				+ ", offset=" + this.offset
-				+ ", limit=" + this.limit
-				+ "]");
+			String simpleName = this.getClass()
+					.getSimpleName();
+
+			return (this.stringCache = simpleName + "["
+					+ "ids=" + this.ids
+					+ ", mapIds=" + this.mapIds
+					+ ", stages=" + this.stages
+					+ ", modes=" + this.modes
+					+ ", tickrates=" + this.tickrates
+					+ ", runType=" + this.runType
+					+ ", offset=" + this.offset
+					+ ", limit=" + this.limit
+					+ "]");
+		}
 	}
 
 	/**

@@ -46,6 +46,18 @@ public final class GokzBanStats extends BanStats implements Cloneable {
 	private static final String JUMP_INPUT_SEPARATOR_REGEX = "\\)\\(";
 
 	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
+
+	/**
 	 * Initialize a {@link GokzBanStats} instance.
 	 *
 	 * @param rawStats	raw stats

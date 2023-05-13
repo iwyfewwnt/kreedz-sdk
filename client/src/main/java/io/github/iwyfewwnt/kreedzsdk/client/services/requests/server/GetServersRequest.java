@@ -33,7 +33,7 @@ import java.util.stream.Stream;
 /**
  * A request for /servers/ endpoint.
  */
-@SuppressWarnings("MethodDoesntCallSuperMethod")
+@SuppressWarnings({"MethodDoesntCallSuperMethod", "SynchronizeOnNonFinalField"})
 public final class GetServersRequest implements IRequest, Cloneable {
 
 	/**
@@ -84,12 +84,42 @@ public final class GetServersRequest implements IRequest, Cloneable {
 	/**
 	 * A {@link GetServersRequest#hashCode()} cache.
 	 */
-	private transient Integer hashCodeCache;
+	private transient volatile Integer hashCodeCache;
 
 	/**
 	 * A {@link GetServersRequest#toString()} cache.
 	 */
-	private transient String stringCache;
+	private transient volatile String stringCache;
+
+	/**
+	 * A {@link #hashCodeCache} mutex.
+	 */
+	private transient Object hashCodeCacheMutex;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private transient Object stringCacheMutex;
+
+	/**
+	 * Initialize this mutex objects.
+	 */
+	private void initMutexObjects() {
+		this.hashCodeCacheMutex = new Object();
+		this.stringCacheMutex = new Object();
+	}
+
+	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
 
 	/**
 	 * Initialize a {@link GetServersRequest} instance.
@@ -123,6 +153,8 @@ public final class GetServersRequest implements IRequest, Cloneable {
 		this.approvalStatus = approvalStatus;
 		this.offset = offset;
 		this.limit = limit;
+
+		this.initMutexObjects();
 	}
 
 	/**
@@ -182,18 +214,24 @@ public final class GetServersRequest implements IRequest, Cloneable {
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(
-						this.ids,
-						this.serverPort,
-						this.serverIp,
-						this.serverName,
-						this.ownersSteamId64,
-						this.approvalStatus,
-						this.offset,
-						this.limit
-				)
-		);
+		synchronized (this.hashCodeCacheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(
+							this.ids,
+							this.serverPort,
+							this.serverIp,
+							this.serverName,
+							this.ownersSteamId64,
+							this.approvalStatus,
+							this.offset,
+							this.limit
+					)
+			);
+		}
 	}
 
 	/**
@@ -205,16 +243,22 @@ public final class GetServersRequest implements IRequest, Cloneable {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME + "["
-				+ "ids=" + this.ids
-				+ ", serverPort=" + this.serverPort
-				+ ", serverIp=\"" + this.serverIp + "\""
-				+ ", serverName=\"" + this.serverName + "\""
-				+ ", ownersSteamId64=" + this.ownersSteamId64
-				+ ", approvalStatus=" + this.approvalStatus
-				+ ", offset=" + this.offset
-				+ ", limit=" + this.limit
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME + "["
+					+ "ids=" + this.ids
+					+ ", serverPort=" + this.serverPort
+					+ ", serverIp=\"" + this.serverIp + "\""
+					+ ", serverName=\"" + this.serverName + "\""
+					+ ", ownersSteamId64=" + this.ownersSteamId64
+					+ ", approvalStatus=" + this.approvalStatus
+					+ ", offset=" + this.offset
+					+ ", limit=" + this.limit
+					+ "]");
+		}
 	}
 
 	/**

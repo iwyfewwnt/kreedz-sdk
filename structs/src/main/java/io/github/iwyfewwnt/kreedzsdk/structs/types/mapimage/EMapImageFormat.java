@@ -97,6 +97,11 @@ public enum EMapImageFormat {
 	private String stringCache;
 
 	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private final Object stringCacheMutex;
+
+	/**
 	 * Initialize an {@link EMapImageFormat} instance.
 	 *
 	 * @param branch		branch
@@ -119,6 +124,8 @@ public enum EMapImageFormat {
 		this.branch = branch.value;
 		this.endpoint = endpoint;
 		this.extension = extension.value;
+
+		this.stringCacheMutex = new Object();
 	}
 
 	/**
@@ -157,12 +164,18 @@ public enum EMapImageFormat {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME
-				+ "::" + this.name() + "["
-				+ "branch=\"" + this.branch + "\""
-				+ ", endpoint=\"" + this.endpoint + "\""
-				+ ", extension=\"" + this.extension + "\""
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME
+					+ "::" + this.name() + "["
+					+ "branch=\"" + this.branch + "\""
+					+ ", endpoint=\"" + this.endpoint + "\""
+					+ ", extension=\"" + this.extension + "\""
+					+ "]");
+		}
 	}
 
 	/**

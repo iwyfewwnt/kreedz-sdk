@@ -198,6 +198,8 @@ BanService banService = (BanService) client.getService(IBanService.class);
  * [iwyfewwnt/uwutils](https://github.com/iwyfewwnt/uwutils)
  * [iwyfewwnt/steam-id](https://github.com/iwyfewwnt/steam-id)
  * [iwyfewwnt/uw-retrofit](https://github.com/iwyfewwnt/uw-retrofit)
+ * [iwyfewwnt/uw-gson](https://github.com/iwyfewwnt/uw-gson)
+ * [iwyfewwnt/gson-native](https://github.com/iwyfewwnt/gson-native)
  * [retrofit2/retrofit](https://github.com/square/retrofit)
  * [retrofit2/converter-gson](https://github.com/square/retrofit/tree/master/retrofit-converters/gson)
  * [google/gson](https://github.com/google/gson)

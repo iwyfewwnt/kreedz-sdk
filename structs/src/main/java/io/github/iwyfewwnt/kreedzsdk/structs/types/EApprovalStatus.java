@@ -68,12 +68,19 @@ public enum EApprovalStatus {
 	private String stringCache;
 
 	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private final Object stringCacheMutex;
+
+	/**
 	 * Initialize an {@link EApprovalStatus} instance.
 	 *
 	 * @param id	API-identifier
 	 */
 	EApprovalStatus(int id) {
 		this.id = id;
+
+		this.stringCacheMutex = new Object();
 	}
 
 	/**
@@ -94,10 +101,16 @@ public enum EApprovalStatus {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME
-				+ "::" + this.name() + "["
-				+ "id=" + this.id
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME
+					+ "::" + this.name() + "["
+					+ "id=" + this.id
+					+ "]");
+		}
 	}
 
 	/**

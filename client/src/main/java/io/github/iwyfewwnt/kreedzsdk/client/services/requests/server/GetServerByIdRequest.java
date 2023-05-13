@@ -27,7 +27,7 @@ import java.util.Objects;
 /**
  * A request for /servers/.../ endpoint.
  */
-@SuppressWarnings("MethodDoesntCallSuperMethod")
+@SuppressWarnings({"MethodDoesntCallSuperMethod", "SynchronizeOnNonFinalField"})
 public final class GetServerByIdRequest implements IRequest, Cloneable {
 
 	/**
@@ -43,12 +43,36 @@ public final class GetServerByIdRequest implements IRequest, Cloneable {
 	/**
 	 * A {@link GetServerByIdRequest#hashCode()} cache.
 	 */
-	private transient Integer hashCodeCache;
+	private transient volatile Integer hashCodeCache;
 
 	/**
 	 * A {@link GetServerByIdRequest#toString()} cache.
 	 */
-	private transient String stringCache;
+	private transient volatile String stringCache;
+
+	/**
+	 * A {@link #hashCodeCache} mutex.
+	 */
+	private transient Object hashCodeCacheMutex;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private transient Object stringCacheMutex;
+
+	/**
+	 * Initialize this mutex objects.
+	 */
+	private void initMutexObjects() {
+		this.hashCodeCacheMutex = new Object();
+		this.stringCacheMutex = new Object();
+	}
+
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
 
 	/**
 	 * Initialize a {@link GetServerByIdRequest} instance.
@@ -57,6 +81,8 @@ public final class GetServerByIdRequest implements IRequest, Cloneable {
 	 */
 	private GetServerByIdRequest(Integer id) {
 		this.id = id;
+
+		this.initMutexObjects();
 	}
 
 	/**
@@ -100,8 +126,14 @@ public final class GetServerByIdRequest implements IRequest, Cloneable {
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(this.id));
+		synchronized (this.hashCodeCacheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(this.id));
+		}
 	}
 
 	/**
@@ -109,13 +141,20 @@ public final class GetServerByIdRequest implements IRequest, Cloneable {
 	 */
 	@Override
 	public String toString() {
+		//noinspection DuplicatedCode
 		if (this.stringCache != null) {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME + "["
-				+ "id=" + this.id
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME + "["
+					+ "id=" + this.id
+					+ "]");
+		}
 	}
 
 	/**

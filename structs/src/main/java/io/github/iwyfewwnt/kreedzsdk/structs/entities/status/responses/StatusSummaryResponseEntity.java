@@ -26,7 +26,7 @@ import java.util.Objects;
 /**
  * A kreedz status API summary response entity.
  */
-@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod"})
+@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod", "SynchronizeOnNonFinalField"})
 public final class StatusSummaryResponseEntity implements Serializable, Cloneable {
 
 	/**
@@ -67,12 +67,42 @@ public final class StatusSummaryResponseEntity implements Serializable, Cloneabl
 	/**
 	 * A {@link StatusSummaryResponseEntity#hashCode()} cache.
 	 */
-	private transient Integer hashCodeCache;
+	private transient volatile Integer hashCodeCache;
 
 	/**
 	 * A {@link StatusSummaryResponseEntity#toString()} cache.
 	 */
-	private transient String stringCache;
+	private transient volatile String stringCache;
+
+	/**
+	 * A {@link #hashCodeCache} mutex.
+	 */
+	private transient Object hashCodeCacheMutex;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private transient Object stringCacheMutex;
+
+	/**
+	 * Initialize this mutex objects.
+	 */
+	private void initMutexObjects() {
+		this.hashCodeCacheMutex = new Object();
+		this.stringCacheMutex = new Object();
+	}
+
+	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
 
 	/**
 	 * Get this page.
@@ -150,15 +180,21 @@ public final class StatusSummaryResponseEntity implements Serializable, Cloneabl
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(
-						this.page,
-						this.components,
-						this.incidents,
-						this.scheduledIncidents,
-						this.status
-				)
-		);
+		synchronized (this.hashCodeCacheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(
+							this.page,
+							this.components,
+							this.incidents,
+							this.scheduledIncidents,
+							this.status
+					)
+			);
+		}
 	}
 
 	/**
@@ -170,13 +206,19 @@ public final class StatusSummaryResponseEntity implements Serializable, Cloneabl
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME + "["
-				+ "page=" + this.page
-				+ ", components=" + this.components
-				+ ", incidents=" + this.incidents
-				+ ", scheduledIncidents=" + this.scheduledIncidents
-				+ ", status=" + this.status
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME + "["
+					+ "page=" + this.page
+					+ ", components=" + this.components
+					+ ", incidents=" + this.incidents
+					+ ", scheduledIncidents=" + this.scheduledIncidents
+					+ ", status=" + this.status
+					+ "]");
+		}
 	}
 
 	/**
@@ -208,6 +250,8 @@ public final class StatusSummaryResponseEntity implements Serializable, Cloneabl
 		this.incidents = incidents;
 		this.scheduledIncidents = scheduledIncidents;
 		this.status = status;
+
+		this.initMutexObjects();
 	}
 
 	/**

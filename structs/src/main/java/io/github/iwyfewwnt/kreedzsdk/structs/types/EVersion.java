@@ -91,6 +91,11 @@ public enum EVersion {
 	private String stringCache;
 
 	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private final Object stringCacheMutex;
+
+	/**
 	 * Initialize an {@link EVersion} instance.
 	 *
 	 * @param major		major version
@@ -101,6 +106,8 @@ public enum EVersion {
 		this.minor = minor;
 
 		this.apiName = String.format(FMT, this.major, this.minor);
+
+		this.stringCacheMutex = new Object();
 	}
 
 	/**
@@ -163,12 +170,18 @@ public enum EVersion {
 			return stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME
-				+ "::" + this.name() + "["
-				+ "major=" + this.major
-				+ ", minor=" + this.minor
-				+ ", apiName=\"" + this.apiName + "\""
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME
+					+ "::" + this.name() + "["
+					+ "major=" + this.major
+					+ ", minor=" + this.minor
+					+ ", apiName=\"" + this.apiName + "\""
+					+ "]");
+		}
 	}
 
 	/**

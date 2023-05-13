@@ -26,7 +26,7 @@ import java.util.Objects;
 /**
  * A kreedz health API status entity.
  */
-@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod"})
+@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod", "SynchronizeOnNonFinalField"})
 public final class HealthStatusEntity implements Serializable, Cloneable {
 
 	/**
@@ -75,12 +75,42 @@ public final class HealthStatusEntity implements Serializable, Cloneable {
 	/**
 	 * A {@link HealthStatusEntity#hashCode()} cache.
 	 */
-	private transient Integer hashCodeCache;
+	private transient volatile Integer hashCodeCache;
 
 	/**
 	 * A {@link HealthStatusEntity#toString()} cache.
 	 */
-	private transient String stringCache;
+	private transient volatile String stringCache;
+
+	/**
+	 * A {@link #hashCodeCache} mutex.
+	 */
+	private transient Object hashCodeCacheMutex;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private transient Object stringCacheMutex;
+
+	/**
+	 * Initialize this mutex objects.
+	 */
+	private void initMutexObjects() {
+		this.hashCodeCacheMutex = new Object();
+		this.stringCacheMutex = new Object();
+	}
+
+	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
 
 	/**
 	 * Get this response code.
@@ -168,16 +198,22 @@ public final class HealthStatusEntity implements Serializable, Cloneable {
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(
-						this.code,
-						this.hostName,
-						this.duration,
-						this.conditions,
-						this.isSuccessful,
-						this.date
-				)
-		);
+		synchronized (this.hashCodeCacheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(
+							this.code,
+							this.hostName,
+							this.duration,
+							this.conditions,
+							this.isSuccessful,
+							this.date
+					)
+			);
+		}
 	}
 
 	/**
@@ -189,14 +225,20 @@ public final class HealthStatusEntity implements Serializable, Cloneable {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME + "["
-				+ "code=" + this.code
-				+ ", hostName=\"" + this.hostName + "\""
-				+ ", duration=" + this.duration
-				+ ", conditions=" + this.conditions
-				+ ", isSuccessful=" + this.isSuccessful
-				+ ", date=" + this.date
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME + "["
+					+ "code=" + this.code
+					+ ", hostName=\"" + this.hostName + "\""
+					+ ", duration=" + this.duration
+					+ ", conditions=" + this.conditions
+					+ ", isSuccessful=" + this.isSuccessful
+					+ ", date=" + this.date
+					+ "]");
+		}
 	}
 
 	/**
@@ -231,6 +273,8 @@ public final class HealthStatusEntity implements Serializable, Cloneable {
 		this.conditions = conditions;
 		this.isSuccessful = isSuccessful;
 		this.date = date;
+
+		this.initMutexObjects();
 	}
 
 	/**

@@ -30,7 +30,7 @@ import java.util.Objects;
 /**
  * A kreedz API record entity.
  */
-@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod"})
+@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod", "SynchronizeOnNonFinalField"})
 public final class RecordEntity implements Serializable, Cloneable {
 
 	/**
@@ -149,12 +149,42 @@ public final class RecordEntity implements Serializable, Cloneable {
 	/**
 	 * A {@link RecordEntity#hashCode()} cache.
 	 */
-	private transient Integer hashCodeCache;
+	private transient volatile Integer hashCodeCache;
 
 	/**
 	 * A {@link RecordEntity#toString()} cache.
 	 */
-	private transient String stringCache;
+	private transient volatile String stringCache;
+
+	/**
+	 * A {@link #hashCodeCache} mutex.
+	 */
+	private transient Object hashCodeCacheMutex;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private transient Object stringCacheMutex;
+
+	/**
+	 * Initialize this mutex objects.
+	 */
+	private void initMutexObjects() {
+		this.hashCodeCacheMutex = new Object();
+		this.stringCacheMutex = new Object();
+	}
+
+	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
 
 	/**
 	 * Get this identifier.
@@ -362,28 +392,34 @@ public final class RecordEntity implements Serializable, Cloneable {
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(
-						this.id,
-						this.steamId,
-						this.playerName,
-						this.serverId,
-						this.mapId,
-						this.stage,
-						this.mode,
-						this.tickrate,
-						this.time,
-						this.teleportCount,
-						this.createDate,
-						this.updateDate,
-						this.dataUpdater,
-						this.recordFilterId,
-						this.serverName,
-						this.mapName,
-						this.pointCount,
-						this.replayId
-				)
-		);
+		synchronized (this.hashCodeCacheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(
+							this.id,
+							this.steamId,
+							this.playerName,
+							this.serverId,
+							this.mapId,
+							this.stage,
+							this.mode,
+							this.tickrate,
+							this.time,
+							this.teleportCount,
+							this.createDate,
+							this.updateDate,
+							this.dataUpdater,
+							this.recordFilterId,
+							this.serverName,
+							this.mapName,
+							this.pointCount,
+							this.replayId
+					)
+			);
+		}
 	}
 
 	/**
@@ -395,26 +431,32 @@ public final class RecordEntity implements Serializable, Cloneable {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME + "["
-				+ "id=" + this.id
-				+ ", steamId=" + this.steamId
-				+ ", playerName=\"" + this.playerName + "\""
-				+ ", serverId=" + this.serverId
-				+ ", mapId=" + this.mapId
-				+ ", stage=" + this.stage
-				+ ", mode=" + this.mode
-				+ ", tickrate=" + this.tickrate
-				+ ", time=" + this.time
-				+ ", teleportCount=" + this.teleportCount
-				+ ", createDate=" + this.createDate
-				+ ", updateDate=" + this.updateDate
-				+ ", dataUpdater=" + this.dataUpdater
-				+ ", recordFilterId=" + this.recordFilterId
-				+ ", serverName=\"" + this.serverName + "\""
-				+ ", mapName=\"" + this.mapName + "\""
-				+ ", pointCount=" + this.pointCount
-				+ ", replayId=" + this.replayId
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME + "["
+					+ "id=" + this.id
+					+ ", steamId=" + this.steamId
+					+ ", playerName=\"" + this.playerName + "\""
+					+ ", serverId=" + this.serverId
+					+ ", mapId=" + this.mapId
+					+ ", stage=" + this.stage
+					+ ", mode=" + this.mode
+					+ ", tickrate=" + this.tickrate
+					+ ", time=" + this.time
+					+ ", teleportCount=" + this.teleportCount
+					+ ", createDate=" + this.createDate
+					+ ", updateDate=" + this.updateDate
+					+ ", dataUpdater=" + this.dataUpdater
+					+ ", recordFilterId=" + this.recordFilterId
+					+ ", serverName=\"" + this.serverName + "\""
+					+ ", mapName=\"" + this.mapName + "\""
+					+ ", pointCount=" + this.pointCount
+					+ ", replayId=" + this.replayId
+					+ "]");
+		}
 	}
 
 	/**
@@ -485,6 +527,8 @@ public final class RecordEntity implements Serializable, Cloneable {
 		this.mapName = mapName;
 		this.pointCount = pointCount;
 		this.replayId = replayId;
+
+		this.initMutexObjects();
 	}
 
 	/**

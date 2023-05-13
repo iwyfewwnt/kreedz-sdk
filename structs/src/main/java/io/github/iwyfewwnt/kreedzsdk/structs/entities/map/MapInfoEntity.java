@@ -27,7 +27,7 @@ import java.util.Objects;
 /**
  * A maps information API entity.
  */
-@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod"})
+@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod", "SynchronizeOnNonFinalField"})
 public final class MapInfoEntity implements Serializable, Cloneable {
 
 	/**
@@ -68,17 +68,53 @@ public final class MapInfoEntity implements Serializable, Cloneable {
 	/**
 	 * A {@link MapInfoEntity#isCompleted} cache.
 	 */
-	private transient Boolean isCompletedCache;
+	private transient volatile Boolean isCompletedCache;
 
 	/**
 	 * A {@link MapInfoEntity#hashCode()} cache.
 	 */
-	private transient Integer hashCodeCache;
+	private transient volatile Integer hashCodeCache;
 
 	/**
 	 * A {@link MapInfoEntity#toString()} cache.
 	 */
-	private transient String stringCache;
+	private transient volatile String stringCache;
+
+	/**
+	 * A {@link #isCompletedCache} mutex.
+	 */
+	private transient Object isCompletedCacheMutex;
+
+	/**
+	 * A {@link #hashCodeCache} mutex.
+	 */
+	private transient Object hashCodeCacheMutex;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private transient Object stringCacheMutex;
+
+	/**
+	 * Initialize this mutex objects.
+	 */
+	private void initMutexObjects() {
+		this.isCompletedCacheMutex = new Object();
+		this.hashCodeCacheMutex = new Object();
+		this.stringCacheMutex = new Object();
+	}
+
+	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
 
 	/**
 	 * Get this map identifier.
@@ -136,18 +172,24 @@ public final class MapInfoEntity implements Serializable, Cloneable {
 			return this.isCompletedCache;
 		}
 
-		// Other fields besides #mappers may be omitted,
-		//  but we will keep them for future compatibility.
-		if (this.id == null
-				|| this.name == null
-				|| this.difficulty == null
-				|| this.workshopUrl == null
-				|| this.mappers == null) {
-			return (this.isCompletedCache = false);
-		}
+		synchronized (this.isCompletedCacheMutex) {
+			if (this.isCompletedCache != null) {
+				return this.isCompletedCache;
+			}
 
-		return (this.isCompletedCache = this.mappers.stream()
-				.allMatch(Mapper::isCompleted));
+			// Other fields besides #mappers may be omitted,
+			//  but we will keep them for future compatibility.
+			if (this.id == null
+					|| this.name == null
+					|| this.difficulty == null
+					|| this.workshopUrl == null
+					|| this.mappers == null) {
+				return (this.isCompletedCache = false);
+			}
+
+			return (this.isCompletedCache = this.mappers.stream()
+					.allMatch(Mapper::isCompleted));
+		}
 	}
 
 	/**
@@ -181,15 +223,21 @@ public final class MapInfoEntity implements Serializable, Cloneable {
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(
-						this.id,
-						this.name,
-						this.difficulty,
-						this.workshopUrl,
-						this.mappers
-				)
-		);
+		synchronized (this.hashCodeCacheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(
+							this.id,
+							this.name,
+							this.difficulty,
+							this.workshopUrl,
+							this.mappers
+					)
+			);
+		}
 	}
 
 	/**
@@ -201,13 +249,19 @@ public final class MapInfoEntity implements Serializable, Cloneable {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME + "["
-				+ "id=" + this.id
-				+ ", name=\"" + this.name + "\""
-				+ ", difficulty=" + this.difficulty
-				+ ", workshopUrl=\"" + this.workshopUrl + "\""
-				+ ", mappers=" + this.mappers
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME + "["
+					+ "id=" + this.id
+					+ ", name=\"" + this.name + "\""
+					+ ", difficulty=" + this.difficulty
+					+ ", workshopUrl=\"" + this.workshopUrl + "\""
+					+ ", mappers=" + this.mappers
+					+ "]");
+		}
 	}
 
 	/**
@@ -239,6 +293,8 @@ public final class MapInfoEntity implements Serializable, Cloneable {
 		this.difficulty = difficulty;
 		this.workshopUrl = workshopUrl;
 		this.mappers = mappers;
+
+		this.initMutexObjects();
 	}
 
 	/**

@@ -106,6 +106,11 @@ public enum EMode {
 	private String stringCache;
 
 	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private final Object stringCacheMutex;
+
+	/**
 	 * Initialize an {@link EMode} instance.
 	 *
 	 * @param id		 API-identifier
@@ -130,6 +135,8 @@ public enum EMode {
 		this.apiName = apiName;
 		this.fullName = fullName;
 		this.shortName = shortName;
+
+		this.stringCacheMutex = new Object();
 	}
 
 	/**
@@ -173,17 +180,24 @@ public enum EMode {
 	 */
 	@Override
 	public String toString() {
+		//noinspection DuplicatedCode
 		if (this.stringCache != null) {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME
-				+ "::" + this.name() + "["
-				+ "id=" + this.id
-				+ ", apiName=\"" + this.apiName + "\""
-				+ ", fullName=\"" + this.fullName + "\""
-				+ ", shortName=\"" + this.shortName + "\""
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME
+					+ "::" + this.name() + "["
+					+ "id=" + this.id
+					+ ", apiName=\"" + this.apiName + "\""
+					+ ", fullName=\"" + this.fullName + "\""
+					+ ", shortName=\"" + this.shortName + "\""
+					+ "]");
+		}
 	}
 
 	/**

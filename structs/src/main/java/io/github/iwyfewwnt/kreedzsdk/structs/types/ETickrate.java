@@ -85,6 +85,11 @@ public enum ETickrate {
 	private String stringCache;
 
 	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private final Object stringCacheMutex;
+
+	/**
 	 * Initialize an {@link ETickrate} instance.
 	 *
 	 * @param value		float value
@@ -92,6 +97,8 @@ public enum ETickrate {
 	ETickrate(float value) {
 		this.fltVal = value;
 		this.intVal = (int) value;
+
+		this.stringCacheMutex = new Object();
 	}
 
 	/**
@@ -121,11 +128,17 @@ public enum ETickrate {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME
-				+ "::" + this.name() + "["
-				+ "fltVal=" + this.fltVal
-				+ ", intVal=" + this.intVal
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME
+					+ "::" + this.name() + "["
+					+ "fltVal=" + this.fltVal
+					+ ", intVal=" + this.intVal
+					+ "]");
+		}
 	}
 
 	/**

@@ -28,7 +28,7 @@ import java.util.Objects;
 /**
  * A request for /endpoints/.../statuses/ endpoint.
  */
-@SuppressWarnings("MethodDoesntCallSuperMethod")
+@SuppressWarnings({"MethodDoesntCallSuperMethod", "SynchronizeOnNonFinalField"})
 public final class GetHealthStatusByEndpointRequest implements IRequest, Cloneable {
 
 	/**
@@ -49,12 +49,42 @@ public final class GetHealthStatusByEndpointRequest implements IRequest, Cloneab
 	/**
 	 * A {@link GetHealthStatusByEndpointRequest#hashCode()} cache.
 	 */
-	private transient Integer hashCodeCache;
+	private transient volatile Integer hashCodeCache;
 
 	/**
 	 * A {@link GetHealthStatusByEndpointRequest#toString()} cache.
 	 */
-	private transient String stringCache;
+	private transient volatile String stringCache;
+
+	/**
+	 * A {@link #hashCodeCache} mutex.
+	 */
+	private transient Object hashCodeCacheMutex;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private transient Object stringCacheMutex;
+
+	/**
+	 * Initialize this mutex objects.
+	 */
+	private void initMutexObjects() {
+		this.hashCodeCacheMutex = new Object();
+		this.stringCacheMutex = new Object();
+	}
+
+	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
 
 	/**
 	 * Initialize a {@link GetHealthStatusByEndpointRequest} instance.
@@ -68,6 +98,8 @@ public final class GetHealthStatusByEndpointRequest implements IRequest, Cloneab
 	) {
 		this.group = group;
 		this.endpoint = endpoint;
+
+		this.initMutexObjects();
 	}
 
 	/**
@@ -115,12 +147,18 @@ public final class GetHealthStatusByEndpointRequest implements IRequest, Cloneab
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(
-						this.group,
-						this.endpoint
-				)
-		);
+		synchronized (this.hashCodeCacheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(
+							this.group,
+							this.endpoint
+					)
+			);
+		}
 	}
 
 	/**
@@ -132,10 +170,16 @@ public final class GetHealthStatusByEndpointRequest implements IRequest, Cloneab
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME + "["
-				+ "group=\"" + this.group + "\""
-				+ ", endpoint=\"" + this.endpoint + "\""
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME + "["
+					+ "group=\"" + this.group + "\""
+					+ ", endpoint=\"" + this.endpoint + "\""
+					+ "]");
+		}
 	}
 
 	/**

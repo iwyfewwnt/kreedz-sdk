@@ -26,7 +26,7 @@ import java.util.Objects;
 /**
  * A kreedz status API component entity.
  */
-@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod"})
+@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod", "SynchronizeOnNonFinalField"})
 public final class StatusComponentEntity implements Serializable, Cloneable {
 
 	/**
@@ -79,12 +79,42 @@ public final class StatusComponentEntity implements Serializable, Cloneable {
 	/**
 	 * A {@link StatusComponentEntity#hashCode()} cache.
 	 */
-	private transient Integer hashCodeCache;
+	private transient volatile Integer hashCodeCache;
 
 	/**
 	 * A {@link StatusComponentEntity#toString()} cache.
 	 */
-	private transient String stringCache;
+	private transient volatile String stringCache;
+
+	/**
+	 * A {@link #hashCodeCache} mutex.
+	 */
+	private transient Object hashCodeCacheMutex;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private transient Object stringCacheMutex;
+
+	/**
+	 * Initialize this mutex objects.
+	 */
+	private void initMutexObjects() {
+		this.hashCodeCacheMutex = new Object();
+		this.stringCacheMutex = new Object();
+	}
+
+	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
 
 	/**
 	 * Get this identifier.
@@ -182,17 +212,23 @@ public final class StatusComponentEntity implements Serializable, Cloneable {
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(
-						this.id,
-						this.name,
-						this.status,
-						this.createDate,
-						this.updateDate,
-						this.description,
-						this.pageId
-				)
-		);
+		synchronized (this.hashCodeCacheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(
+							this.id,
+							this.name,
+							this.status,
+							this.createDate,
+							this.updateDate,
+							this.description,
+							this.pageId
+					)
+			);
+		}
 	}
 
 	/**
@@ -204,15 +240,21 @@ public final class StatusComponentEntity implements Serializable, Cloneable {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME + "["
-				+ "id=\"" + this.id + "\""
-				+ ", name=\"" + this.name + "\""
-				+ ", status=" + this.status
-				+ ", createDate=" + this.createDate
-				+ ", updateDate=" + this.updateDate
-				+ ", description=\"" + this.description + "\""
-				+ ", pageId=\"" + this.pageId + "\""
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME + "["
+					+ "id=\"" + this.id + "\""
+					+ ", name=\"" + this.name + "\""
+					+ ", status=" + this.status
+					+ ", createDate=" + this.createDate
+					+ ", updateDate=" + this.updateDate
+					+ ", description=\"" + this.description + "\""
+					+ ", pageId=\"" + this.pageId + "\""
+					+ "]");
+		}
 	}
 
 	/**
@@ -250,6 +292,8 @@ public final class StatusComponentEntity implements Serializable, Cloneable {
 		this.updateDate = updateDate;
 		this.description = description;
 		this.pageId = pageId;
+
+		this.initMutexObjects();
 	}
 
 	/**

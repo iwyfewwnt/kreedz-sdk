@@ -92,6 +92,11 @@ public enum EStatusIndicator {
 	private String stringCache;
 
 	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private final Object stringCacheMutex;
+
+	/**
 	 * Initialize an {@link EStatusIndicator} instance.
 	 *
 	 * @param apiName	API-name
@@ -108,6 +113,8 @@ public enum EStatusIndicator {
 
 		this.apiName = apiName;
 		this.fullName = fullName;
+
+		this.stringCacheMutex = new Object();
 	}
 
 	/**
@@ -137,11 +144,17 @@ public enum EStatusIndicator {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME
-				+ "::" + this.name() + "["
-				+ "apiName=\"" + this.apiName + "\""
-				+ ", fullName=\"" + this.fullName + "\""
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME
+					+ "::" + this.name() + "["
+					+ "apiName=\"" + this.apiName + "\""
+					+ ", fullName=\"" + this.fullName + "\""
+					+ "]");
+		}
 	}
 
 	/**

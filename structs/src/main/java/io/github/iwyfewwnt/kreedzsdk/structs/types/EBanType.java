@@ -107,6 +107,11 @@ public enum EBanType {
 	private String stringCache;
 
 	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private final Object stringCacheMutex;
+
+	/**
 	 * Initialize an {@link EBanType} instance.
 	 *
 	 * @param group			group
@@ -135,6 +140,8 @@ public enum EBanType {
 		this.apiName = apiName;
 		this.fullName = fullName;
 		this.shortName = shortName;
+
+		this.stringCacheMutex = new Object();
 	}
 
 	/**
@@ -182,13 +189,19 @@ public enum EBanType {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME
-				+ "::" + this.name() + "["
-				+ "group=" + this.group
-				+ ", apiName=\"" + this.apiName + "\""
-				+ ", fullName=\"" + this.fullName + "\""
-				+ ", shortName=\"" + this.shortName + "\""
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME
+					+ "::" + this.name() + "["
+					+ "group=" + this.group
+					+ ", apiName=\"" + this.apiName + "\""
+					+ ", fullName=\"" + this.fullName + "\""
+					+ ", shortName=\"" + this.shortName + "\""
+					+ "]");
+		}
 	}
 
 	/**

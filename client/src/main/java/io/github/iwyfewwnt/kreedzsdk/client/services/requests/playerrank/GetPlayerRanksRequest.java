@@ -35,7 +35,7 @@ import java.util.stream.Stream;
 /**
  * A request for /player_ranks/ endpoint.
  */
-@SuppressWarnings("MethodDoesntCallSuperMethod")
+@SuppressWarnings({"MethodDoesntCallSuperMethod", "SynchronizeOnNonFinalField"})
 public final class GetPlayerRanksRequest implements IRequest, Cloneable {
 
 	/**
@@ -116,12 +116,42 @@ public final class GetPlayerRanksRequest implements IRequest, Cloneable {
 	/**
 	 * A {@link GetPlayerRanksRequest#hashCode()} cache.
 	 */
-	private transient Integer hashCodeCache;
+	private transient volatile Integer hashCodeCache;
 
 	/**
 	 * A {@link GetPlayerRanksRequest#toString()} cache.
 	 */
-	private transient String stringCache;
+	private transient volatile String stringCache;
+
+	/**
+	 * A {@link #hashCodeCache} mutex.
+	 */
+	private transient Object hashCodeCacheMutex;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private transient Object stringCacheMutex;
+
+	/**
+	 * Initialize this mutex objects.
+	 */
+	private void initMutexObjects() {
+		this.hashCodeCacheMutex = new Object();
+		this.stringCacheMutex = new Object();
+	}
+
+	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
 
 	/**
 	 * Initialize a {@link GetPlayerRanksRequest} instance.
@@ -178,6 +208,8 @@ public final class GetPlayerRanksRequest implements IRequest, Cloneable {
 		this.mapTag = mapTag;
 		this.offset = offset;
 		this.limit = limit;
+
+		this.initMutexObjects();
 	}
 
 	/**
@@ -249,24 +281,30 @@ public final class GetPlayerRanksRequest implements IRequest, Cloneable {
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(
-						this.pointsGreaterThan,
-						this.avgPointsGreaterThan,
-						this.ratingGreaterThan,
-						this.finishCountGreaterThan,
-						this.steamId64s,
-						this.recordFilterIds,
-						this.mapIds,
-						this.stages,
-						this.modes,
-						this.tickrates,
-						this.runType,
-						this.mapTag,
-						this.offset,
-						this.limit
-				)
-		);
+		synchronized (this.hashCodeCacheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(
+							this.pointsGreaterThan,
+							this.avgPointsGreaterThan,
+							this.ratingGreaterThan,
+							this.finishCountGreaterThan,
+							this.steamId64s,
+							this.recordFilterIds,
+							this.mapIds,
+							this.stages,
+							this.modes,
+							this.tickrates,
+							this.runType,
+							this.mapTag,
+							this.offset,
+							this.limit
+					)
+			);
+		}
 	}
 
 	/**
@@ -278,22 +316,28 @@ public final class GetPlayerRanksRequest implements IRequest, Cloneable {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME + "["
-				+ "pointsGreaterThan=" + this.pointsGreaterThan
-				+ ", avgPointsGreaterThan=" + this.avgPointsGreaterThan
-				+ ", ratingGreaterThan=" + this.ratingGreaterThan
-				+ ", finishCountGreaterThan=" + this.finishCountGreaterThan
-				+ ", steamId64s=" + this.steamId64s
-				+ ", recordFilterIds=" + this.recordFilterIds
-				+ ", mapIds=" + this.mapIds
-				+ ", stages=" + this.stages
-				+ ", modes=" + this.modes
-				+ ", tickrates=" + this.tickrates
-				+ ", runType=" + this.runType
-				+ ", mapTag=\"" + this.mapTag + "\""
-				+ ", offset=" + this.offset
-				+ ", limit=" + this.limit
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME + "["
+					+ "pointsGreaterThan=" + this.pointsGreaterThan
+					+ ", avgPointsGreaterThan=" + this.avgPointsGreaterThan
+					+ ", ratingGreaterThan=" + this.ratingGreaterThan
+					+ ", finishCountGreaterThan=" + this.finishCountGreaterThan
+					+ ", steamId64s=" + this.steamId64s
+					+ ", recordFilterIds=" + this.recordFilterIds
+					+ ", mapIds=" + this.mapIds
+					+ ", stages=" + this.stages
+					+ ", modes=" + this.modes
+					+ ", tickrates=" + this.tickrates
+					+ ", runType=" + this.runType
+					+ ", mapTag=\"" + this.mapTag + "\""
+					+ ", offset=" + this.offset
+					+ ", limit=" + this.limit
+					+ "]");
+		}
 	}
 
 	/**

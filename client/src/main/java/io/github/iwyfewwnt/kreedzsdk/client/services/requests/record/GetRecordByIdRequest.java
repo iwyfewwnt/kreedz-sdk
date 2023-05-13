@@ -26,7 +26,7 @@ import java.util.Objects;
 /**
  * A request for /records/.../ endpoint.
  */
-@SuppressWarnings("MethodDoesntCallSuperMethod")
+@SuppressWarnings({"MethodDoesntCallSuperMethod", "SynchronizeOnNonFinalField"})
 public class GetRecordByIdRequest implements IRequest, Cloneable {
 
 	/**
@@ -37,12 +37,42 @@ public class GetRecordByIdRequest implements IRequest, Cloneable {
 	/**
 	 * A {@link GetRecordByIdRequest#hashCode()} cache.
 	 */
-	private transient Integer hashCodeCache;
+	protected transient volatile Integer hashCodeCache;
 
 	/**
 	 * A {@link GetRecordByIdRequest#toString()} cache.
 	 */
-	private transient String stringCache;
+	protected transient volatile String stringCache;
+
+	/**
+	 * A {@link #hashCodeCache} mutex.
+	 */
+	protected transient Object hashCodeCacheMutex;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	protected transient Object stringCacheMutex;
+
+	/**
+	 * Initialize this mutex objects.
+	 */
+	protected void initMutexObjects() {
+		this.hashCodeCacheMutex = new Object();
+		this.stringCacheMutex = new Object();
+	}
+
+	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
 
 	/**
 	 * Initialize a {@link GetRecordByIdRequest} instance.
@@ -51,6 +81,8 @@ public class GetRecordByIdRequest implements IRequest, Cloneable {
 	 */
 	GetRecordByIdRequest(Integer id) {
 		this.id = id;
+
+		this.initMutexObjects();
 	}
 
 	/**
@@ -91,8 +123,14 @@ public class GetRecordByIdRequest implements IRequest, Cloneable {
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(this.id));
+		synchronized (this.hashCodeCacheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(this.id));
+		}
 	}
 
 	/**
@@ -104,12 +142,18 @@ public class GetRecordByIdRequest implements IRequest, Cloneable {
 			return this.stringCache;
 		}
 
-		String simpleName = this.getClass()
-				.getSimpleName();
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
 
-		return (this.stringCache = simpleName + "["
-				+ "id=" + this.id
-				+ "]");
+			String simpleName = this.getClass()
+					.getSimpleName();
+
+			return (this.stringCache = simpleName + "["
+					+ "id=" + this.id
+					+ "]");
+		}
 	}
 
 	/**

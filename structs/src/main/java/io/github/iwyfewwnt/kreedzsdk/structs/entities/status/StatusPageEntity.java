@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * A kreedz status API page entity.
  */
-@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod"})
+@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod", "SynchronizeOnNonFinalField"})
 public final class StatusPageEntity implements Serializable, Cloneable {
 
 	/**
@@ -60,12 +60,42 @@ public final class StatusPageEntity implements Serializable, Cloneable {
 	/**
 	 * A {@link StatusPageEntity#hashCode()} cache.
 	 */
-	private transient Integer hashCodeCache;
+	private transient volatile Integer hashCodeCache;
 
 	/**
 	 * A {@link StatusPageEntity#toString()} cache.
 	 */
-	private transient String stringCache;
+	private transient volatile String stringCache;
+
+	/**
+	 * A {@link #hashCodeCache} mutex.
+	 */
+	private transient Object hashCodeCacheMutex;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private transient Object stringCacheMutex;
+
+	/**
+	 * Initialize this mutex objects.
+	 */
+	private void initMutexObjects() {
+		this.hashCodeCacheMutex = new Object();
+		this.stringCacheMutex = new Object();
+	}
+
+	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
 
 	/**
 	 * Get this identifier.
@@ -133,14 +163,20 @@ public final class StatusPageEntity implements Serializable, Cloneable {
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(
-						this.id,
-						this.name,
-						this.url,
-						this.updateDate
-			)
-		);
+		synchronized (this.hashCodeCacheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(
+							this.id,
+							this.name,
+							this.url,
+							this.updateDate
+					)
+			);
+		}
 	}
 
 	/**
@@ -152,12 +188,18 @@ public final class StatusPageEntity implements Serializable, Cloneable {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME + "["
-				+ "id=\"" + this.id + "\""
-				+ ", name=\"" + this.name + "\""
-				+ ", url=\"" + this.url + "\""
-				+ ", updateDate=" + this.updateDate
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME + "["
+					+ "id=\"" + this.id + "\""
+					+ ", name=\"" + this.name + "\""
+					+ ", url=\"" + this.url + "\""
+					+ ", updateDate=" + this.updateDate
+					+ "]");
+		}
 	}
 
 	/**
@@ -186,6 +228,8 @@ public final class StatusPageEntity implements Serializable, Cloneable {
 		this.name = name;
 		this.url = url;
 		this.updateDate = updateDate;
+
+		this.initMutexObjects();
 	}
 
 	/**

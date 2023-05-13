@@ -24,7 +24,7 @@ import java.util.Objects;
 /**
  * A kreedz health API condition entity.
  */
-@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod"})
+@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod", "SynchronizeOnNonFinalField"})
 public final class HealthConditionEntity implements Serializable, Cloneable {
 
 	/**
@@ -49,12 +49,42 @@ public final class HealthConditionEntity implements Serializable, Cloneable {
 	/**
 	 * A {@link HealthConditionEntity#hashCode()} cache.
 	 */
-	private transient Integer hashCodeCache;
+	private transient volatile Integer hashCodeCache;
 
 	/**
 	 * A {@link HealthConditionEntity#toString()} cache.
 	 */
-	private transient String stringCache;
+	private transient volatile String stringCache;
+
+	/**
+	 * A {@link #hashCodeCache} mutex.
+	 */
+	private transient Object hashCodeCacheMutex;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private transient Object stringCacheMutex;
+
+	/**
+	 * Initialize this mutex objects.
+	 */
+	private void initMutexObjects() {
+		this.hashCodeCacheMutex = new Object();
+		this.stringCacheMutex = new Object();
+	}
+
+	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
 
 	/**
 	 * Get this condition.
@@ -102,12 +132,18 @@ public final class HealthConditionEntity implements Serializable, Cloneable {
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(
-						this.condition,
-						this.isSuccessful
-				)
-		);
+		synchronized (this.hashCodeCacheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(
+							this.condition,
+							this.isSuccessful
+					)
+			);
+		}
 	}
 
 	/**
@@ -119,10 +155,16 @@ public final class HealthConditionEntity implements Serializable, Cloneable {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME + "["
-				+ "condition=\"" + this.condition + "\""
-				+ ", isSuccessful=" + this.isSuccessful
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME + "["
+					+ "condition=\"" + this.condition + "\""
+					+ ", isSuccessful=" + this.isSuccessful
+					+ "]");
+		}
 	}
 
 	/**
@@ -145,6 +187,8 @@ public final class HealthConditionEntity implements Serializable, Cloneable {
 	) {
 		this.condition = condition;
 		this.isSuccessful = isSuccessful;
+
+		this.initMutexObjects();
 	}
 
 	/**

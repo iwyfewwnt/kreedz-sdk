@@ -22,7 +22,7 @@ import java.util.Objects;
 /**
  * A jump input representation.
  */
-@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod"})
+@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod", "SynchronizeOnNonFinalField"})
 public final class JumpInput implements Serializable, Cloneable {
 
 	/**
@@ -94,22 +94,86 @@ public final class JumpInput implements Serializable, Cloneable {
 	 *
 	 * <p>Determines if this jump is a bind-jump.
 	 */
-	private transient Boolean isBindCache;
+	private transient volatile Boolean isBindCache;
 
 	/**
 	 * A {@link JumpInput#getJumpChar()} cache.
 	 */
-	private transient Character jumpCharCache;
+	private transient volatile Character jumpCharCache;
+
+	/**
+	 * A {@link JumpInput#toGokzString()} cache.
+	 */
+	private transient volatile String gokzStringCache;
+
+	/**
+	 * A {@link JumpInput#toKztimerString()} cache.
+	 */
+	private transient volatile String kztimerStringCache;
 
 	/**
 	 * A {@link JumpInput#hashCode()} cache.
 	 */
-	private transient Integer hashCodeCache;
+	private transient volatile Integer hashCodeCache;
 
 	/**
 	 * A {@link JumpInput#toString()} cache.
 	 */
-	private transient String stringCache;
+	private transient volatile String stringCache;
+
+	/**
+	 * A {@link #isBindCache} mutex.
+	 */
+	private transient Object isBindCacheMutex;
+
+	/**
+	 * A {@link #jumpCharCache} mutex.
+	 */
+	private transient Object jumpCharCacheMutex;
+
+	/**
+	 * A {@link #gokzStringCache} mutex.
+	 */
+	private transient Object gokzStringCacheMutex;
+
+	/**
+	 * A {@link #kztimerStringCache} mutex.
+	 */
+	private transient Object kztimerStringCacheMutex;
+
+	/**
+	 * A {@link #hashCodeCache} mutex.
+	 */
+	private transient Object hashCodeCacheMutex;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private transient Object stringCacheMutex;
+
+	/**
+	 * Initialize this mutex objects.
+	 */
+	private void initMutexObjects() {
+		this.isBindCacheMutex = new Object();
+		this.jumpCharCacheMutex = new Object();
+		this.gokzStringCacheMutex = new Object();
+		this.kztimerStringCacheMutex = new Object();
+		this.hashCodeCacheMutex = new Object();
+		this.stringCacheMutex = new Object();
+	}
+
+	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
 
 	/**
 	 * Initialize a {@link JumpInput} instance.
@@ -122,6 +186,8 @@ public final class JumpInput implements Serializable, Cloneable {
 		this.preInputCount = preInputCount;
 		this.postInputCount = postInputCount;
 		this.isPerf = isPerf;
+
+		this.initMutexObjects();
 	}
 
 	/**
@@ -197,8 +263,14 @@ public final class JumpInput implements Serializable, Cloneable {
 			return this.isBindCache;
 		}
 
-		return (this.isBindCache = this.preInputCount == -1
-				&& this.postInputCount == 0);
+		synchronized (this.isBindCacheMutex) {
+			if (this.isBindCache != null) {
+				return this.isBindCache;
+			}
+
+			return (this.isBindCache = this.preInputCount == -1
+					&& this.postInputCount == 0);
+		}
 	}
 
 	/**
@@ -211,8 +283,14 @@ public final class JumpInput implements Serializable, Cloneable {
 			return this.jumpCharCache;
 		}
 
-		return (this.jumpCharCache = this.isPerf ? PERF_JUMP_CHAR
-				: NORMAL_JUMP_CHAR);
+		synchronized (this.jumpCharCacheMutex) {
+			if (this.jumpCharCache != null) {
+				return this.jumpCharCache;
+			}
+
+			return (this.jumpCharCache = this.isPerf ? PERF_JUMP_CHAR
+					: NORMAL_JUMP_CHAR);
+		}
 	}
 
 	/**
@@ -221,9 +299,19 @@ public final class JumpInput implements Serializable, Cloneable {
 	 * @return	string representation
 	 */
 	public String toGokzString() {
-		char jumpChar = this.getJumpChar();
+		if (this.gokzStringCache != null) {
+			return this.gokzStringCache;
+		}
 
-		return String.format(GOKZ_FMT, this.preInputCount, jumpChar, this.postInputCount);
+		synchronized (this.gokzStringCacheMutex) {
+			if (this.gokzStringCache != null) {
+				return this.gokzStringCache;
+			}
+
+			char jumpChar = this.getJumpChar();
+
+			return (this.gokzStringCache = String.format(GOKZ_FMT, this.preInputCount, jumpChar, this.postInputCount));
+		}
 	}
 
 	/**
@@ -232,7 +320,17 @@ public final class JumpInput implements Serializable, Cloneable {
 	 * @return	string representation
 	 */
 	public String toKztimerString() {
-		return String.format(KZTIMER_FMT, this.preInputCount);
+		if (this.kztimerStringCache != null) {
+			return this.kztimerStringCache;
+		}
+
+		synchronized (this.kztimerStringCacheMutex) {
+			if (this.kztimerStringCache != null) {
+				return this.kztimerStringCache;
+			}
+
+			return (this.kztimerStringCache = String.format(KZTIMER_FMT, this.preInputCount));
+		}
 	}
 
 	/**
@@ -264,13 +362,19 @@ public final class JumpInput implements Serializable, Cloneable {
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(
-						this.preInputCount,
-						this.postInputCount,
-						this.isPerf
-				)
-		);
+		synchronized (this.hashCodeCacheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(
+							this.preInputCount,
+							this.postInputCount,
+							this.isPerf
+					)
+			);
+		}
 	}
 
 	/**
@@ -282,11 +386,17 @@ public final class JumpInput implements Serializable, Cloneable {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME + "["
-				+ "preInputCount=" + this.preInputCount
-				+ ", postInputCount=" + this.postInputCount
-				+ ", isPerf=" + this.isPerf
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME + "["
+					+ "preInputCount=" + this.preInputCount
+					+ ", postInputCount=" + this.postInputCount
+					+ ", isPerf=" + this.isPerf
+					+ "]");
+		}
 	}
 
 	/**

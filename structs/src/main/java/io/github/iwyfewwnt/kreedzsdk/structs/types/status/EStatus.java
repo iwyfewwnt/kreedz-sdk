@@ -127,6 +127,11 @@ public enum EStatus {
 	private String stringCache;
 
 	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private final Object stringCacheMutex;
+
+	/**
 	 * Initialize an {@link EStatus} instance.
 	 *
 	 * @param apiName	API-name
@@ -143,6 +148,8 @@ public enum EStatus {
 
 		this.apiName = apiName;
 		this.fullName = fullName;
+
+		this.stringCacheMutex = new Object();
 	}
 
 	/**
@@ -172,11 +179,17 @@ public enum EStatus {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME
-				+ "::" + this.name() + "["
-				+ "apiName=\"" + this.apiName + "\""
-				+ ", fullName=\"" + this.fullName + "\""
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME
+					+ "::" + this.name() + "["
+					+ "apiName=\"" + this.apiName + "\""
+					+ ", fullName=\"" + this.fullName + "\""
+					+ "]");
+		}
 	}
 
 	/**

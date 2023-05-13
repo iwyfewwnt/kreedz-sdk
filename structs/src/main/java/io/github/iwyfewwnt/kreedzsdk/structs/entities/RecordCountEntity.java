@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * A kreedz API player record count entity.
  */
-@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod"})
+@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod", "SynchronizeOnNonFinalField"})
 public final class RecordCountEntity implements Serializable, Cloneable {
 
 	/**
@@ -54,12 +54,42 @@ public final class RecordCountEntity implements Serializable, Cloneable {
 	/**
 	 * A {@link RecordCountEntity#hashCode()} cache.
 	 */
-	private transient Integer hashCodeCache;
+	private transient volatile Integer hashCodeCache;
 
 	/**
 	 * A {@link RecordCountEntity#toString()} cache.
 	 */
-	private transient String stringCache;
+	private transient volatile String stringCache;
+
+	/**
+	 * A {@link #hashCodeCache} mutex.
+	 */
+	private transient Object hashCodeCacheMutex;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private transient Object stringCacheMutex;
+
+	/**
+	 * Initialize this mutex objects.
+	 */
+	private void initMutexObjects() {
+		this.hashCodeCacheMutex = new Object();
+		this.stringCacheMutex = new Object();
+	}
+
+	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
 
 	/**
 	 * Get this record count.
@@ -117,13 +147,19 @@ public final class RecordCountEntity implements Serializable, Cloneable {
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(
-						this.recordCount,
-						this.steamId,
-						this.playerName
-				)
-		);
+		synchronized (this.hashCodeCacheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(
+							this.recordCount,
+							this.steamId,
+							this.playerName
+					)
+			);
+		}
 	}
 
 	/**
@@ -135,11 +171,17 @@ public final class RecordCountEntity implements Serializable, Cloneable {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME + "["
-				+ "recordCount=" + this.recordCount
-				+ ", steamId=" + this.steamId
-				+ ", playerName=\"" + this.playerName + "\""
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME + "["
+					+ "recordCount=" + this.recordCount
+					+ ", steamId=" + this.steamId
+					+ ", playerName=\"" + this.playerName + "\""
+					+ "]");
+		}
 	}
 
 	/**
@@ -165,6 +207,8 @@ public final class RecordCountEntity implements Serializable, Cloneable {
 		this.steamId = steamId;
 		this.recordCount = recordCount;
 		this.playerName = playerName;
+
+		this.initMutexObjects();
 	}
 
 	/**

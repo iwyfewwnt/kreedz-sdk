@@ -107,6 +107,11 @@ public enum EDifficulty {
 	private String stringCache;
 
 	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private final Object stringCacheMutex;
+
+	/**
 	 * Initialize an {@link EDifficulty} instance.
 	 *
 	 * @param group		group
@@ -125,6 +130,8 @@ public enum EDifficulty {
 		this.group = group;
 		this.id = id;
 		this.fullName = fullName;
+
+		this.stringCacheMutex = new Object();
 	}
 
 	/**
@@ -163,12 +170,18 @@ public enum EDifficulty {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME
-				+ "::" + this.name() + "["
-				+ "group=" + this.group
-				+ ", id=" + this.id
-				+ ", fullName=\"" + this.fullName + "\""
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME
+					+ "::" + this.name() + "["
+					+ "group=" + this.group
+					+ ", id=" + this.id
+					+ ", fullName=\"" + this.fullName + "\""
+					+ "]");
+		}
 	}
 
 	/**

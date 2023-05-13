@@ -27,7 +27,7 @@ import java.util.Objects;
 /**
  * A request for /maps/name/.../ endpoint.
  */
-@SuppressWarnings("MethodDoesntCallSuperMethod")
+@SuppressWarnings({"MethodDoesntCallSuperMethod", "SynchronizeOnNonFinalField"})
 public final class GetMapByNameRequest implements IRequest, Cloneable {
 
 	/**
@@ -43,12 +43,42 @@ public final class GetMapByNameRequest implements IRequest, Cloneable {
 	/**
 	 * A {@link GetMapByNameRequest#hashCode()} cache.
 	 */
-	private transient Integer hashCodeCache;
+	private transient volatile Integer hashCodeCache;
 
 	/**
 	 * A {@link GetMapByNameRequest#toString()} cache.
 	 */
-	private transient String stringCache;
+	private transient volatile String stringCache;
+
+	/**
+	 * A {@link #hashCodeCache} mutex.
+	 */
+	private transient Object hashCodeCacheMutex;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private transient Object stringCacheMutex;
+
+	/**
+	 * Initialize this mutex objects.
+	 */
+	private void initMutexObjects() {
+		this.hashCodeCacheMutex = new Object();
+		this.stringCacheMutex = new Object();
+	}
+
+	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
 
 	/**
 	 * Initialize a {@link GetMapByNameRequest} instance.
@@ -57,6 +87,8 @@ public final class GetMapByNameRequest implements IRequest, Cloneable {
 	 */
 	private GetMapByNameRequest(String mapName) {
 		this.mapName = mapName;
+
+		this.initMutexObjects();
 	}
 
 	/**
@@ -100,8 +132,14 @@ public final class GetMapByNameRequest implements IRequest, Cloneable {
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(this.mapName));
+		synchronized (this.hashCodeCacheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(this.mapName));
+		}
 	}
 
 	/**
@@ -113,9 +151,15 @@ public final class GetMapByNameRequest implements IRequest, Cloneable {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME + "["
-				+ "mapName=\"" + this.mapName + "\""
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME + "["
+					+ "mapName=\"" + this.mapName + "\""
+					+ "]");
+		}
 	}
 
 	/**

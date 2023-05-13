@@ -34,7 +34,7 @@ import java.util.stream.Stream;
 /**
  * A request for /bans/ endpoint.
  */
-@SuppressWarnings("MethodDoesntCallSuperMethod")
+@SuppressWarnings({"MethodDoesntCallSuperMethod", "SynchronizeOnNonFinalField"})
 public final class GetBansRequest implements IRequest, Cloneable {
 
 	/**
@@ -95,12 +95,42 @@ public final class GetBansRequest implements IRequest, Cloneable {
 	/**
 	 * A {@link GetBansRequest#hashCode()} cache.
 	 */
-	private transient Integer hashCodeCache;
+	private transient volatile Integer hashCodeCache;
 
 	/**
 	 * A {@link GetBansRequest#toString()} cache.
 	 */
-	private transient String stringCache;
+	private transient volatile String stringCache;
+
+	/**
+	 * A {@link #hashCodeCache} mutex.
+	 */
+	private transient Object hashCodeCacheMutex;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private transient Object stringCacheMutex;
+
+	/**
+	 * Initialize this mutex objects.
+	 */
+	private void initMutexObjects() {
+		this.hashCodeCacheMutex = new Object();
+		this.stringCacheMutex = new Object();
+	}
+
+	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
 
 	/**
 	 * Initialize a {@link GetBansRequest} instance.
@@ -140,6 +170,8 @@ public final class GetBansRequest implements IRequest, Cloneable {
 		this.updatedSinceDate = updatedSinceDate;
 		this.offset = offset;
 		this.limit = limit;
+
+		this.initMutexObjects();
 	}
 
 	/**
@@ -203,20 +235,26 @@ public final class GetBansRequest implements IRequest, Cloneable {
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(
-						this.banTypes,
-						this.steamId64,
-						this.isExpired,
-						this.notes,
-						this.stats,
-						this.serverId,
-						this.createdSinceDate,
-						this.updatedSinceDate,
-						this.offset,
-						this.limit
-				)
-		);
+		synchronized (this.hashCodeCacheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(
+							this.banTypes,
+							this.steamId64,
+							this.isExpired,
+							this.notes,
+							this.stats,
+							this.serverId,
+							this.createdSinceDate,
+							this.updatedSinceDate,
+							this.offset,
+							this.limit
+					)
+			);
+		}
 	}
 
 	/**
@@ -228,18 +266,24 @@ public final class GetBansRequest implements IRequest, Cloneable {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME + "["
-				+ "banTypes=" + this.banTypes
-				+ ", steamId64=" + this.steamId64
-				+ ", isExpired=" + this.isExpired
-				+ ", notes=\"" + this.notes + "\""
-				+ ", stats=\"" + this.stats + "\""
-				+ ", serverId=" + this.serverId
-				+ ", createdSinceDate=" + this.createdSinceDate
-				+ ", updatedSinceDate=" + this.updatedSinceDate
-				+ ", offset=" + this.offset
-				+ ", limit=" + this.limit
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME + "["
+					+ "banTypes=" + this.banTypes
+					+ ", steamId64=" + this.steamId64
+					+ ", isExpired=" + this.isExpired
+					+ ", notes=\"" + this.notes + "\""
+					+ ", stats=\"" + this.stats + "\""
+					+ ", serverId=" + this.serverId
+					+ ", createdSinceDate=" + this.createdSinceDate
+					+ ", updatedSinceDate=" + this.updatedSinceDate
+					+ ", offset=" + this.offset
+					+ ", limit=" + this.limit
+					+ "]");
+		}
 	}
 
 	/**

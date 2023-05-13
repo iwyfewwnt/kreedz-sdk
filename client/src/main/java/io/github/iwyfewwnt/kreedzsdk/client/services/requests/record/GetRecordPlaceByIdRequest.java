@@ -25,6 +25,18 @@ import retrofit2.Call;
 public final class GetRecordPlaceByIdRequest extends GetRecordByIdRequest implements Cloneable {
 
 	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
+
+	/**
 	 * Initialize a {@link GetRecordPlaceByIdRequest} instance.
 	 *
 	 * @param id	identifier

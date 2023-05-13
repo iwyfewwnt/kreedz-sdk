@@ -29,7 +29,7 @@ import java.util.Objects;
 /**
  * A kreedz API game mode entity.
  */
-@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod"})
+@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod", "SynchronizeOnNonFinalField"})
 public final class ModeEntity implements Serializable, Cloneable {
 
 	/**
@@ -112,12 +112,42 @@ public final class ModeEntity implements Serializable, Cloneable {
 	/**
 	 * A {@link ModeEntity#hashCode()} cache.
 	 */
-	private transient Integer hashCodeCache;
+	private transient volatile Integer hashCodeCache;
 
 	/**
 	 * A {@link ModeEntity#toString()} cache.
 	 */
-	private transient String stringCache;
+	private transient volatile String stringCache;
+
+	/**
+	 * A {@link #hashCodeCache} mutex.
+	 */
+	private transient Object hashCodeCacheMutex;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private transient Object stringCacheMutex;
+
+	/**
+	 * Initialize this mutex objects.
+	 */
+	private void initMutexObjects() {
+		this.hashCodeCacheMutex = new Object();
+		this.stringCacheMutex = new Object();
+	}
+
+	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
 
 	/**
 	 * Get this identifier.
@@ -265,22 +295,28 @@ public final class ModeEntity implements Serializable, Cloneable {
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(
-						this.id,
-						this.name,
-						this.description,
-						this.latestVersion,
-						this.latestVersionDescription,
-						this.websiteDomain,
-						this.repositoryUrl,
-						this.contactSteamId,
-						this.supportedTickrates,
-						this.createDate,
-						this.updateDate,
-						this.dataUpdater
-				)
-		);
+		synchronized (this.hashCodeCacheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(
+							this.id,
+							this.name,
+							this.description,
+							this.latestVersion,
+							this.latestVersionDescription,
+							this.websiteDomain,
+							this.repositoryUrl,
+							this.contactSteamId,
+							this.supportedTickrates,
+							this.createDate,
+							this.updateDate,
+							this.dataUpdater
+					)
+			);
+		}
 	}
 
 	/**
@@ -292,20 +328,26 @@ public final class ModeEntity implements Serializable, Cloneable {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME + "["
-				+ "id=" + this.id
-				+ ", name=\"" + this.name + "\""
-				+ ", description=\"" + this.description + "\""
-				+ ", latestVersion=" + this.latestVersion
-				+ ", latestVersionDescription=\"" + this.latestVersionDescription + "\""
-				+ ", websiteDomain=\"" + this.websiteDomain + "\""
-				+ ", repositoryUrl=\"" + this.repositoryUrl + "\""
-				+ ", contactSteamId=" + this.contactSteamId
-				+ ", supportedTickrates=" + this.supportedTickrates
-				+ ", createDate=" + this.createDate
-				+ ", updateDate=" + this.updateDate
-				+ ", dataUpdater=" + this.dataUpdater
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME + "["
+					+ "id=" + this.id
+					+ ", name=\"" + this.name + "\""
+					+ ", description=\"" + this.description + "\""
+					+ ", latestVersion=" + this.latestVersion
+					+ ", latestVersionDescription=\"" + this.latestVersionDescription + "\""
+					+ ", websiteDomain=\"" + this.websiteDomain + "\""
+					+ ", repositoryUrl=\"" + this.repositoryUrl + "\""
+					+ ", contactSteamId=" + this.contactSteamId
+					+ ", supportedTickrates=" + this.supportedTickrates
+					+ ", createDate=" + this.createDate
+					+ ", updateDate=" + this.updateDate
+					+ ", dataUpdater=" + this.dataUpdater
+					+ "]");
+		}
 	}
 
 	/**
@@ -358,6 +400,8 @@ public final class ModeEntity implements Serializable, Cloneable {
 		this.createDate = createDate;
 		this.updateDate = updateDate;
 		this.dataUpdater = dataUpdater;
+
+		this.initMutexObjects();
 	}
 
 	/**

@@ -32,6 +32,7 @@ import java.util.Objects;
 /**
  * A request for /records/top/recent/ endpoint.
  */
+@SuppressWarnings("SynchronizeOnNonFinalField")
 public final class GetRecentRecordsRequest extends GetRecordsRequest implements Cloneable {
 
 	/**
@@ -58,14 +59,16 @@ public final class GetRecentRecordsRequest extends GetRecordsRequest implements 
 	//  but there is nothing on the kreedz API swagger page.
 
 	/**
-	 * A {@link GetRecentRecordsRequest#hashCode()} cache.
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
 	 */
-	private transient Integer hashCodeCache;
+	private Object readResolve() {
+		this.initMutexObjects();
 
-	/**
-	 * A {@link GetRecentRecordsRequest#toString()} cache.
-	 */
-	private transient String stringCache;
+		return this;
+	}
 
 	/**
 	 * Initialize a {@link GetRecentRecordsRequest} instance.
@@ -171,14 +174,28 @@ public final class GetRecentRecordsRequest extends GetRecordsRequest implements 
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(
-						super.hashCode(),
-						this.minPlace,
-						this.minOverallPlace,
-						this.createdSinceDate
-				)
-		);
+		synchronized (this.hashCodeCacheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(
+							this.steamId64,
+							this.mapId,
+							this.mapName,
+							this.runType,
+							this.tickrate,
+							this.stage,
+							this.modeName,
+							this.offset,
+							this.limit,
+							this.minPlace,
+							this.minOverallPlace,
+							this.createdSinceDate
+					)
+			);
+		}
 	}
 
 	/**
@@ -190,20 +207,26 @@ public final class GetRecentRecordsRequest extends GetRecordsRequest implements 
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME + "["
-				+ "steamId64=" + this.steamId64
-				+ ", mapId=" + this.mapId
-				+ ", mapName=\"" + this.mapName + "\""
-				+ ", runType=" + this.runType
-				+ ", tickrate=" + this.tickrate
-				+ ", stage=" + this.stage
-				+ ", modeName=\"" + this.modeName + "\""
-				+ ", offset=" + this.offset
-				+ ", limit=" + this.limit
-				+ ", minPlace=" + this.minPlace
-				+ ", minOverallPlace=" + this.minOverallPlace
-				+ ", createdSinceDate=" + this.createdSinceDate
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME + "["
+					+ "steamId64=" + this.steamId64
+					+ ", mapId=" + this.mapId
+					+ ", mapName=\"" + this.mapName + "\""
+					+ ", runType=" + this.runType
+					+ ", tickrate=" + this.tickrate
+					+ ", stage=" + this.stage
+					+ ", modeName=\"" + this.modeName + "\""
+					+ ", offset=" + this.offset
+					+ ", limit=" + this.limit
+					+ ", minPlace=" + this.minPlace
+					+ ", minOverallPlace=" + this.minOverallPlace
+					+ ", createdSinceDate=" + this.createdSinceDate
+					+ "]");
+		}
 	}
 
 	/**

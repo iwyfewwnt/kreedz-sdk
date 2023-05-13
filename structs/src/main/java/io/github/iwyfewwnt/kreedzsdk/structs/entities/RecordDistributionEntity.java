@@ -26,7 +26,7 @@ import java.util.Objects;
 /**
  * A kreedz API record distribution entity.
  */
-@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod"})
+@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod", "SynchronizeOnNonFinalField"})
 public final class RecordDistributionEntity implements Serializable, Cloneable {
 
 	/**
@@ -91,12 +91,42 @@ public final class RecordDistributionEntity implements Serializable, Cloneable {
 	/**
 	 * A {@link RecordDistributionEntity#hashCode()} cache.
 	 */
-	private transient Integer hashCodeCache;
+	private transient volatile Integer hashCodeCache;
 
 	/**
 	 * A {@link RecordDistributionEntity#toString()} cache.
 	 */
-	private transient String stringCache;
+	private transient volatile String stringCache;
+
+	/**
+	 * A {@link #hashCodeCache} mutex.
+	 */
+	private transient Object hashCodeCacheMutex;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private transient Object stringCacheMutex;
+
+	/**
+	 * Initialize this mutex objects.
+	 */
+	private void initMutexObjects() {
+		this.hashCodeCacheMutex = new Object();
+		this.stringCacheMutex = new Object();
+	}
+
+	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
 
 	/**
 	 * Get this record filter identifier.
@@ -214,19 +244,25 @@ public final class RecordDistributionEntity implements Serializable, Cloneable {
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(
-						this.recordFilterId,
-						this.c,
-						this.d,
-						this.location,
-						this.scale,
-						this.topScale,
-						this.createDate,
-						this.updateDate,
-						this.dataUpdater
-				)
-		);
+		synchronized (this.hashCodeCacheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(
+							this.recordFilterId,
+							this.c,
+							this.d,
+							this.location,
+							this.scale,
+							this.topScale,
+							this.createDate,
+							this.updateDate,
+							this.dataUpdater
+					)
+			);
+		}
 	}
 
 	/**
@@ -238,17 +274,23 @@ public final class RecordDistributionEntity implements Serializable, Cloneable {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME + "["
-				+ "recordFilterId=" + this.recordFilterId
-				+ ", c=" + this.c
-				+ ", d=" + this.d
-				+ ", location=" + this.location
-				+ ", scale=" + this.scale
-				+ ", topScale=" + this.topScale
-				+ ", createDate=" + this.createDate
-				+ ", updateDate=" + this.updateDate
-				+ ", dataUpdater=" + this.dataUpdater
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME + "["
+					+ "recordFilterId=" + this.recordFilterId
+					+ ", c=" + this.c
+					+ ", d=" + this.d
+					+ ", location=" + this.location
+					+ ", scale=" + this.scale
+					+ ", topScale=" + this.topScale
+					+ ", createDate=" + this.createDate
+					+ ", updateDate=" + this.updateDate
+					+ ", dataUpdater=" + this.dataUpdater
+					+ "]");
+		}
 	}
 
 	/**
@@ -292,6 +334,8 @@ public final class RecordDistributionEntity implements Serializable, Cloneable {
 		this.createDate = createDate;
 		this.updateDate = updateDate;
 		this.dataUpdater = dataUpdater;
+
+		this.initMutexObjects();
 	}
 
 	/**

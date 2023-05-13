@@ -27,7 +27,7 @@ import java.util.Objects;
 /**
  * A kreedz status API scheduled incident entity.
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "SynchronizeOnNonFinalField"})
 public final class StatusScheduledIncidentEntity extends StatusIncidentEntity implements Cloneable {
 
 	/**
@@ -48,14 +48,16 @@ public final class StatusScheduledIncidentEntity extends StatusIncidentEntity im
 	private final DateTime scheduleUntilDate;
 
 	/**
-	 * A {@link StatusScheduledIncidentEntity#hashCode()} cache.
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
 	 */
-	private transient Integer hashCodeCache;
+	private Object readResolve() {
+		this.initMutexObjects();
 
-	/**
-	 * A {@link StatusScheduledIncidentEntity#toString()} cache.
-	 */
-	private transient String stringCache;
+		return this;
+	}
 
 	/**
 	 * Get this schedule for date.
@@ -104,13 +106,30 @@ public final class StatusScheduledIncidentEntity extends StatusIncidentEntity im
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(
-						super.hashCode(),
-						this.scheduleForDate,
-						this.scheduleUntilDate
-				)
-		);
+		synchronized (this.hashCodeCacheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(
+							this.id,
+							this.name,
+							this.status,
+							this.createDate,
+							this.updateDate,
+							this.monitorDate,
+							this.resolveDate,
+							this.impact,
+							this.shortUrl,
+							this.pageId,
+							this.updates,
+							this.components,
+							this.scheduleForDate,
+							this.scheduleUntilDate
+					)
+			);
+		}
 	}
 
 	/**
@@ -122,22 +141,28 @@ public final class StatusScheduledIncidentEntity extends StatusIncidentEntity im
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME + "["
-				+ "id=\"" + this.id + "\""
-				+ ", name=\"" + this.name + "\""
-				+ ", status=" + this.status
-				+ ", createDate=" + this.createDate
-				+ ", updateDate=" + this.updateDate
-				+ ", monitorDate=" + this.monitorDate
-				+ ", resolveDate=" + this.resolveDate
-				+ ", impact=" + this.impact
-				+ ", shortUrl=\"" + this.shortUrl + "\""
-				+ ", pageId=\"" + this.pageId + "\""
-				+ ", updates=" + this.updates
-				+ ", components=" + this.components
-				+ ", scheduleForDate=" + this.scheduleForDate
-				+ ", scheduleUntilDate=" + this.scheduleUntilDate
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME + "["
+					+ "id=\"" + this.id + "\""
+					+ ", name=\"" + this.name + "\""
+					+ ", status=" + this.status
+					+ ", createDate=" + this.createDate
+					+ ", updateDate=" + this.updateDate
+					+ ", monitorDate=" + this.monitorDate
+					+ ", resolveDate=" + this.resolveDate
+					+ ", impact=" + this.impact
+					+ ", shortUrl=\"" + this.shortUrl + "\""
+					+ ", pageId=\"" + this.pageId + "\""
+					+ ", updates=" + this.updates
+					+ ", components=" + this.components
+					+ ", scheduleForDate=" + this.scheduleForDate
+					+ ", scheduleUntilDate=" + this.scheduleUntilDate
+					+ "]");
+		}
 	}
 
 	/**

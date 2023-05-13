@@ -24,7 +24,7 @@ import java.util.Objects;
 /**
  * A kreedz API map run time representation.
  */
-@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod"})
+@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod", "SynchronizeOnNonFinalField"})
 public final class RunTime implements Serializable, Cloneable {
 
 	/**
@@ -38,54 +38,44 @@ public final class RunTime implements Serializable, Cloneable {
 	private final float time;
 
 	/**
-	 * A {@link RunTime#getTotalMilliseconds()} cache.
-	 */
-	private transient Integer totalMillisecondsCache;
-
-	/**
-	 * A {@link RunTime#getTotalSeconds()} cache.
-	 */
-	private transient Integer totalSecondsCache;
-
-	/**
-	 * A {@link RunTime#getTotalMinutes()} cache.
-	 */
-	private transient Integer totalMinutesCache;
-
-	/**
-	 * A {@link RunTime#getTotalHours()} cache.
-	 */
-	private transient Integer totalHoursCache;
-
-	/**
-	 * A {@link RunTime#getMilliseconds()} cache.
-	 */
-	private transient Integer millisecondsCache;
-
-	/**
-	 * A {@link RunTime#getSeconds()} cache.
-	 */
-	private transient Integer secondsCache;
-
-	/**
-	 * A {@link RunTime#getMinutes()} cache.
-	 */
-	private transient Integer minutesCache;
-
-	/**
-	 * A {@link RunTime#getHours()} cache.
-	 */
-	private transient Integer hoursCache;
-
-	/**
 	 * A {@link RunTime#hashCode()} cache.
 	 */
-	private transient Integer hashCodeCache;
+	private transient volatile Integer hashCodeCache;
 
 	/**
 	 * A {@link RunTime#toString()} cache.
 	 */
-	private transient String stringCache;
+	private transient volatile String stringCache;
+
+	/**
+	 * A {@link #hashCodeCache} mutex.
+	 */
+	private transient Object hashCodeCacheMutex;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private transient Object stringCacheMutex;
+
+	/**
+	 * Initialize this mutex objects.
+	 */
+	private void initMutexObjects() {
+		this.hashCodeCacheMutex = new Object();
+		this.stringCacheMutex = new Object();
+	}
+
+	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
 
 	/**
 	 * Initialize a {@link RunTime} instance.
@@ -94,6 +84,8 @@ public final class RunTime implements Serializable, Cloneable {
 	 */
 	public RunTime(Float time) {
 		this.time = UwObject.ifNull(time, 0f);
+
+		this.initMutexObjects();
 	}
 
 	/**
@@ -116,16 +108,6 @@ public final class RunTime implements Serializable, Cloneable {
 	private RunTime(RunTime that) {
 		this(that.time);
 
-		this.totalMillisecondsCache = that.totalMillisecondsCache;
-		this.totalSecondsCache = that.totalSecondsCache;
-		this.totalMinutesCache = that.totalMinutesCache;
-		this.totalHoursCache = that.totalHoursCache;
-
-		this.millisecondsCache = that.millisecondsCache;
-		this.secondsCache = that.secondsCache;
-		this.minutesCache = that.minutesCache;
-		this.hoursCache = that.hoursCache;
-
 		this.hashCodeCache = that.hashCodeCache;
 		this.stringCache = that.stringCache;
 	}
@@ -147,11 +129,7 @@ public final class RunTime implements Serializable, Cloneable {
 	 * @return	total milliseconds
 	 */
 	public int getTotalMilliseconds() {
-		if (this.totalMillisecondsCache != null) {
-			return this.totalMillisecondsCache;
-		}
-
-		return (this.totalMillisecondsCache = (int) (this.time * 1000));
+		return (int) (this.time * 1000);
 	}
 
 	/**
@@ -162,11 +140,7 @@ public final class RunTime implements Serializable, Cloneable {
 	 * @return	total seconds
 	 */
 	public int getTotalSeconds() {
-		if (this.totalSecondsCache != null) {
-			return this.totalSecondsCache;
-		}
-
-		return (this.totalSecondsCache = (int) this.time);
+		return (int) this.time;
 	}
 
 	/**
@@ -177,12 +151,7 @@ public final class RunTime implements Serializable, Cloneable {
 	 * @return	total minutes
 	 */
 	public int getTotalMinutes() {
-		if (this.totalMinutesCache != null) {
-			return this.totalMinutesCache;
-		}
-
-		int totalSeconds = this.getTotalSeconds();
-		return (this.totalMinutesCache = totalSeconds / 60);
+		return this.getTotalSeconds() / 60;
 	}
 
 	/**
@@ -193,12 +162,7 @@ public final class RunTime implements Serializable, Cloneable {
 	 * @return	total hours
 	 */
 	public int getTotalHours() {
-		if (this.totalHoursCache != null) {
-			return this.totalHoursCache;
-		}
-
-		int totalMinutes = this.getTotalMinutes();
-		return (this.totalHoursCache = totalMinutes / 60);
+		return this.getTotalMinutes() / 60;
 	}
 
 	/**
@@ -209,12 +173,7 @@ public final class RunTime implements Serializable, Cloneable {
 	 * @return	milliseconds
 	 */
 	public int getMilliseconds() {
-		if (this.millisecondsCache != null) {
-			return this.millisecondsCache;
-		}
-
-		int totalMilliseconds = this.getTotalMilliseconds();
-		return (this.millisecondsCache = totalMilliseconds % 1000);
+		return this.getTotalMilliseconds() % 1000;
 	}
 
 	/**
@@ -225,12 +184,7 @@ public final class RunTime implements Serializable, Cloneable {
 	 * @return	seconds
 	 */
 	public int getSeconds() {
-		if (this.secondsCache != null) {
-			return this.secondsCache;
-		}
-
-		int totalSeconds = this.getTotalSeconds();
-		return (this.secondsCache = totalSeconds % 60);
+		return this.getTotalSeconds() % 60;
 	}
 
 	/**
@@ -241,12 +195,7 @@ public final class RunTime implements Serializable, Cloneable {
 	 * @return	minutes
 	 */
 	public int getMinutes() {
-		if (this.minutesCache != null) {
-			return this.minutesCache;
-		}
-
-		int totalMinutes = this.getTotalMinutes();
-		return (this.minutesCache = totalMinutes % 60);
+		return this.getTotalMinutes() % 60;
 	}
 
 	/**
@@ -257,12 +206,7 @@ public final class RunTime implements Serializable, Cloneable {
 	 * @return	hours
 	 */
 	public int getHours() {
-		if (this.hoursCache != null) {
-			return this.hoursCache;
-		}
-
-		int totalHours = this.getTotalHours();
-		return (this.hoursCache = totalHours % 24);
+		return this.getTotalHours() % 24;
 	}
 
 	/**
@@ -292,8 +236,14 @@ public final class RunTime implements Serializable, Cloneable {
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(this.time));
+		synchronized (this.hashCodeCacheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(this.time));
+		}
 	}
 
 	/**
@@ -305,22 +255,28 @@ public final class RunTime implements Serializable, Cloneable {
 			return this.stringCache;
 		}
 
-		int totalHours = this.getTotalHours();
-		int totalMinutes = this.getTotalMinutes();
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
 
-		int minutes = this.getMinutes();
-		int seconds = this.getSeconds();
-		int milliseconds = this.getMilliseconds();
+			int totalHours = this.getTotalHours();
+			int totalMinutes = this.getTotalMinutes();
 
-		if (totalHours != 0) {
-			return (this.stringCache = String.format("%d:%02d:%02d.%03d", totalHours, minutes, seconds, milliseconds));
+			int minutes = this.getMinutes();
+			int seconds = this.getSeconds();
+			int milliseconds = this.getMilliseconds();
+
+			if (totalHours != 0) {
+				return (this.stringCache = String.format("%d:%02d:%02d.%03d", totalHours, minutes, seconds, milliseconds));
+			}
+
+			if (totalMinutes != 0) {
+				return (this.stringCache = String.format("%d:%02d.%03d", minutes, seconds, milliseconds));
+			}
+
+			return (this.stringCache = String.format("%d.%03d", seconds, milliseconds));
 		}
-
-		if (totalMinutes != 0) {
-			return (this.stringCache = String.format("%d:%02d.%03d", minutes, seconds, milliseconds));
-		}
-
-		return (this.stringCache = String.format("%d.%03d", seconds, milliseconds));
 	}
 
 	/**

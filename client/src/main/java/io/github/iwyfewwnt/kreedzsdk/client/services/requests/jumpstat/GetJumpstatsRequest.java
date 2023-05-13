@@ -30,7 +30,7 @@ import java.util.*;
 /**
  * A request for /jumpstats/ endpoint.
  */
-@SuppressWarnings("MethodDoesntCallSuperMethod")
+@SuppressWarnings({"MethodDoesntCallSuperMethod", "SynchronizeOnNonFinalField"})
 public class GetJumpstatsRequest implements IRequest, Cloneable {
 
 	/**
@@ -111,12 +111,42 @@ public class GetJumpstatsRequest implements IRequest, Cloneable {
 	/**
 	 * A {@link GetJumpstatsRequest#hashCode()} cache.
 	 */
-	private transient Integer hashCodeCache;
+	protected transient volatile Integer hashCodeCache;
 
 	/**
 	 * A {@link GetJumpstatsRequest#toString()} cache.
 	 */
-	private transient String stringCache;
+	protected transient volatile String stringCache;
+
+	/**
+	 * A {@link #hashCodeCache} mutex.
+	 */
+	protected transient Object hashCodeCacheMutex;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	protected transient Object stringCacheMutex;
+
+	/**
+	 * Initialize this mutex objects.
+	 */
+	protected void initMutexObjects() {
+		this.hashCodeCacheMutex = new Object();
+		this.stringCacheMutex = new Object();
+	}
+
+	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
 
 	/**
 	 * Initialize a {@link GetJumpstatsRequest} instance.
@@ -171,6 +201,8 @@ public class GetJumpstatsRequest implements IRequest, Cloneable {
 		this.updatedSinceDate = updatedSinceDate;
 		this.offset = offset;
 		this.limit = limit;
+
+		this.initMutexObjects();
 	}
 
 	/**
@@ -244,25 +276,31 @@ public class GetJumpstatsRequest implements IRequest, Cloneable {
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(
-						this.id,
-						this.serverId,
-						this.steamId64s,
-						this.jumpType,
-						this.distanceGreaterThan,
-						this.distanceLessThan,
-						this.isMsl,
-						this.isCrouchBind,
-						this.isForwardBind,
-						this.isCrouchBoost,
-						this.dataUpdaterId,
-						this.createdSinceDate,
-						this.updatedSinceDate,
-						this.offset,
-						this.limit
-				)
-		);
+		synchronized (this.hashCodeCacheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(
+							this.id,
+							this.serverId,
+							this.steamId64s,
+							this.jumpType,
+							this.distanceGreaterThan,
+							this.distanceLessThan,
+							this.isMsl,
+							this.isCrouchBind,
+							this.isForwardBind,
+							this.isCrouchBoost,
+							this.dataUpdaterId,
+							this.createdSinceDate,
+							this.updatedSinceDate,
+							this.offset,
+							this.limit
+					)
+			);
+		}
 	}
 
 	/**
@@ -274,26 +312,32 @@ public class GetJumpstatsRequest implements IRequest, Cloneable {
 			return this.stringCache;
 		}
 
-		String simpleName = this.getClass()
-				.getSimpleName();
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
 
-		return (this.stringCache = simpleName + "["
-				+ "id=" + this.id
-				+ ", serverId=" + this.serverId
-				+ ", steamId64s=" + this.steamId64s
-				+ ", jumpType=" + this.jumpType
-				+ ", distanceGreaterThan=" + this.distanceGreaterThan
-				+ ", distanceLessThan=" + this.distanceLessThan
-				+ ", isMsl=" + this.isMsl
-				+ ", isCrouchBind=" + this.isCrouchBind
-				+ ", isForwardBind=" + this.isForwardBind
-				+ ", isCrouchBoost=" + this.isCrouchBoost
-				+ ", dataUpdaterId=" + this.dataUpdaterId
-				+ ", createdSinceDate=" + this.createdSinceDate
-				+ ", updatedSinceDate=" + this.updatedSinceDate
-				+ ", offset=" + this.offset
-				+ ", limit=" + this.limit
-				+ "]");
+			String simpleName = this.getClass()
+					.getSimpleName();
+
+			return (this.stringCache = simpleName + "["
+					+ "id=" + this.id
+					+ ", serverId=" + this.serverId
+					+ ", steamId64s=" + this.steamId64s
+					+ ", jumpType=" + this.jumpType
+					+ ", distanceGreaterThan=" + this.distanceGreaterThan
+					+ ", distanceLessThan=" + this.distanceLessThan
+					+ ", isMsl=" + this.isMsl
+					+ ", isCrouchBind=" + this.isCrouchBind
+					+ ", isForwardBind=" + this.isForwardBind
+					+ ", isCrouchBoost=" + this.isCrouchBoost
+					+ ", dataUpdaterId=" + this.dataUpdaterId
+					+ ", createdSinceDate=" + this.createdSinceDate
+					+ ", updatedSinceDate=" + this.updatedSinceDate
+					+ ", offset=" + this.offset
+					+ ", limit=" + this.limit
+					+ "]");
+		}
 	}
 
 	/**

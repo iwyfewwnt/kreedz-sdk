@@ -47,7 +47,12 @@ enum EMapImageExtension implements Serializable {
 	/**
 	 * A {@link EMapImageExtension#toString()} cache.
 	 */
-	private transient String stringCache;
+	private String stringCache;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private final Object stringCacheMutex;
 
 	/**
 	 * Initialize an {@link EMapImageExtension} instance.
@@ -56,6 +61,8 @@ enum EMapImageExtension implements Serializable {
 	 */
 	EMapImageExtension(String value) {
 		this.value = value;
+
+		this.stringCacheMutex = new Object();
 	}
 
 	/**
@@ -67,7 +74,13 @@ enum EMapImageExtension implements Serializable {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME
-				+ "::" + this.name());
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME
+					+ "::" + this.name());
+		}
 	}
 }

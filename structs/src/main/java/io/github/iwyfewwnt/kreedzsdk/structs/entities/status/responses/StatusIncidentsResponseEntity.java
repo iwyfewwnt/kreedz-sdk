@@ -27,7 +27,7 @@ import java.util.Objects;
 /**
  * A kreedz status API incidents response entity.
  */
-@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod"})
+@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod", "SynchronizeOnNonFinalField"})
 public final class StatusIncidentsResponseEntity implements Serializable, Cloneable {
 
 	/**
@@ -50,12 +50,42 @@ public final class StatusIncidentsResponseEntity implements Serializable, Clonea
 	/**
 	 * A {@link StatusIncidentsResponseEntity#hashCode()} cache.
 	 */
-	private transient Integer hashCodeCache;
+	private transient volatile Integer hashCodeCache;
 
 	/**
 	 * A {@link StatusIncidentsResponseEntity#toString()} cache.
 	 */
-	private transient String stringCache;
+	private transient volatile String stringCache;
+
+	/**
+	 * A {@link #hashCodeCache} mutex.
+	 */
+	private transient Object hashCodeCacheMutex;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private transient Object stringCacheMutex;
+
+	/**
+	 * Initialize this mutex objects.
+	 */
+	private void initMutexObjects() {
+		this.hashCodeCacheMutex = new Object();
+		this.stringCacheMutex = new Object();
+	}
+
+	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
 
 	/**
 	 * Get this page.
@@ -103,12 +133,18 @@ public final class StatusIncidentsResponseEntity implements Serializable, Clonea
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(
-						this.page,
-						this.incidents
-				)
-		);
+		synchronized (this.hashCodeCacheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(
+							this.page,
+							this.incidents
+					)
+			);
+		}
 	}
 
 	/**
@@ -120,10 +156,16 @@ public final class StatusIncidentsResponseEntity implements Serializable, Clonea
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME + "["
-				+ "page=" + this.page
-				+ ", incidents=" + this.incidents
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME + "["
+					+ "page=" + this.page
+					+ ", incidents=" + this.incidents
+					+ "]");
+		}
 	}
 
 	/**
@@ -146,6 +188,8 @@ public final class StatusIncidentsResponseEntity implements Serializable, Clonea
 	) {
 		this.page = page;
 		this.incidents = incidents;
+
+		this.initMutexObjects();
 	}
 
 	/**

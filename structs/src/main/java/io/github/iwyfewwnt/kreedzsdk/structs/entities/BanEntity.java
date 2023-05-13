@@ -29,7 +29,7 @@ import java.util.Objects;
 /**
  * A kreedz API ban entity.
  */
-@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod"})
+@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod", "SynchronizeOnNonFinalField"})
 public final class BanEntity implements Serializable, Cloneable {
 
 	/**
@@ -100,12 +100,42 @@ public final class BanEntity implements Serializable, Cloneable {
 	/**
 	 * A {@link BanEntity#hashCode()} cache.
 	 */
-	private transient Integer hashCodeCache;
+	private transient volatile Integer hashCodeCache;
 
 	/**
 	 * A {@link BanEntity#toString()} cache.
 	 */
-	private transient String stringCache;
+	private transient volatile String stringCache;
+
+	/**
+	 * A {@link #hashCodeCache} mutex.
+	 */
+	private transient Object hashCodeCacheMutex;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private transient Object stringCacheMutex;
+
+	/**
+	 * Initialize this mutex objects.
+	 */
+	private void initMutexObjects() {
+		this.hashCodeCacheMutex = new Object();
+		this.stringCacheMutex = new Object();
+	}
+
+	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
 
 	/**
 	 * Get this identifier.
@@ -233,20 +263,26 @@ public final class BanEntity implements Serializable, Cloneable {
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(
-						this.id,
-						this.banType,
-						this.expireDate,
-						this.steamId,
-						this.notes,
-						this.stats,
-						this.serverId,
-						this.dataUpdater,
-						this.createDate,
-						this.updateDate
-				)
-		);
+		synchronized (this.hashCodeCacheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(
+							this.id,
+							this.banType,
+							this.expireDate,
+							this.steamId,
+							this.notes,
+							this.stats,
+							this.serverId,
+							this.dataUpdater,
+							this.createDate,
+							this.updateDate
+					)
+			);
+		}
 	}
 
 	/**
@@ -258,18 +294,24 @@ public final class BanEntity implements Serializable, Cloneable {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME + "["
-				+ "id=" + this.id
-				+ ", banType=" + this.banType
-				+ ", expireDate=" + this.expireDate
-				+ ", steamId=" + this.steamId
-				+ ", notes=\"" + this.notes + "\""
-				+ ", stats=" + this.stats
-				+ ", serverId=" + this.serverId
-				+ ", dataUpdater=" + this.dataUpdater
-				+ ", createDate=" + this.createDate
-				+ ", updateDate=" + this.updateDate
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME + "["
+					+ "id=" + this.id
+					+ ", banType=" + this.banType
+					+ ", expireDate=" + this.expireDate
+					+ ", steamId=" + this.steamId
+					+ ", notes=\"" + this.notes + "\""
+					+ ", stats=" + this.stats
+					+ ", serverId=" + this.serverId
+					+ ", dataUpdater=" + this.dataUpdater
+					+ ", createDate=" + this.createDate
+					+ ", updateDate=" + this.updateDate
+					+ "]");
+		}
 	}
 
 	/**
@@ -316,6 +358,8 @@ public final class BanEntity implements Serializable, Cloneable {
 		this.dataUpdater = dataUpdater;
 		this.createDate = createDate;
 		this.updateDate = updateDate;
+
+		this.initMutexObjects();
 	}
 
 	/**

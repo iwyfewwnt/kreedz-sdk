@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
 /**
  * A kreedz API ban stats representation.
  */
-@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod"})
+@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod", "SynchronizeOnNonFinalField"})
 public class BanStats implements Serializable, Cloneable {
 
 	/**
@@ -63,17 +63,53 @@ public class BanStats implements Serializable, Cloneable {
 	/**
 	 * A {@link BanStats#getScrollPattern()} cache.
 	 */
-	private transient ScrollPattern scrollPatternCache;
+	private transient volatile ScrollPattern scrollPatternCache;
 
 	/**
 	 * A {@link BanStats#hashCode()} cache.
 	 */
-	private transient Integer hashCodeCache;
+	protected transient volatile Integer hashCodeCache;
 
 	/**
 	 * A {@link BanStats#toString()} cache.
 	 */
-	private transient String stringCache;
+	protected transient volatile String stringCache;
+
+	/**
+	 * A {@link #scrollPatternCache} mutex.
+	 */
+	private transient Object scrollPatternCacheMutex;
+
+	/**
+	 * A {@link #hashCodeCache} mutex.
+	 */
+	protected transient Object hashCodeCacheMutex;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	protected transient Object stringCacheMutex;
+
+	/**
+	 * Initialize this mutex objects.
+	 */
+	protected void initMutexObjects() {
+		this.scrollPatternCacheMutex = new Object();
+		this.hashCodeCacheMutex = new Object();
+		this.stringCacheMutex = new Object();
+	}
+
+	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
 
 	/**
 	 * Initialize a {@link BanStats} instance.
@@ -82,11 +118,14 @@ public class BanStats implements Serializable, Cloneable {
 	 * @param pluginType	plugin type
 	 */
 	BanStats(String rawStats, EPluginType pluginType) {
+		// TODO: Replace w/ UwObject#ifNotNull method call
 		rawStats = rawStats != null ? rawStats.trim() : "";
 		pluginType = UwObject.ifNull(pluginType, EPluginType.UNKNOWN);
 
 		this.rawStats = rawStats;
 		this.pluginType = pluginType;
+
+		this.initMutexObjects();
 	}
 
 	/**
@@ -156,15 +195,21 @@ public class BanStats implements Serializable, Cloneable {
 			return this.scrollPatternCache;
 		}
 
-		JumpInput[] jumpInputs = null;
+		synchronized (this.scrollPatternCacheMutex) {
+			if (this.scrollPatternCache != null) {
+				return this.scrollPatternCache;
+			}
 
-		Matcher m = JUMP_INPUTS_PATTERN.matcher(this.rawStats);
+			JumpInput[] jumpInputs = null;
 
-		if (m.matches()) {
-			jumpInputs = this.parseJumpInputs(m.group(1));
+			Matcher m = JUMP_INPUTS_PATTERN.matcher(this.rawStats);
+
+			if (m.matches()) {
+				jumpInputs = this.parseJumpInputs(m.group(1));
+			}
+
+			return (this.scrollPatternCache = new ScrollPattern(jumpInputs));
 		}
-
-		return (this.scrollPatternCache = new ScrollPattern(jumpInputs));
 	}
 
 	/**
@@ -315,12 +360,18 @@ public class BanStats implements Serializable, Cloneable {
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(
-						this.rawStats,
-						this.pluginType
-				)
-		);
+		synchronized (this.hashCodeCacheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(
+							this.rawStats,
+							this.pluginType
+					)
+			);
+		}
 	}
 
 	/**
@@ -332,10 +383,16 @@ public class BanStats implements Serializable, Cloneable {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME + "["
-				+ "rawStats=\"" + this.rawStats + "\""
-				+ ", pluginType=" + this.pluginType
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME + "["
+					+ "rawStats=\"" + this.rawStats + "\""
+					+ ", pluginType=" + this.pluginType
+					+ "]");
+		}
 	}
 
 	/**

@@ -73,12 +73,19 @@ public enum ERunType {
 	private String stringCache;
 
 	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private final Object stringCacheMutex;
+
+	/**
 	 * Initialize an {@link ERunType} instance.
 	 *
 	 * @param hasTeleports	has teleports boolean value
 	 */
 	ERunType(Boolean hasTeleports) {
 		this.hasTeleports = hasTeleports;
+
+		this.stringCacheMutex = new Object();
 	}
 
 	/**
@@ -99,10 +106,16 @@ public enum ERunType {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME
-				+ "::" + this.name() + "["
-				+ "hasTeleports=" + this.hasTeleports
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME
+					+ "::" + this.name() + "["
+					+ "hasTeleports=" + this.hasTeleports
+					+ "]");
+		}
 	}
 
 	/**

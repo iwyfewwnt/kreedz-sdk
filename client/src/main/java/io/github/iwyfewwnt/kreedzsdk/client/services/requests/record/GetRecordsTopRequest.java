@@ -31,6 +31,7 @@ import java.util.Objects;
 /**
  * A request for /records/top/ endpoint.
  */
+@SuppressWarnings("SynchronizeOnNonFinalField")
 public final class GetRecordsTopRequest extends GetRecordsRequest implements Cloneable {
 
 	/**
@@ -54,14 +55,16 @@ public final class GetRecordsTopRequest extends GetRecordsRequest implements Clo
 	private final String playerName;
 
 	/**
-	 * A {@link GetRecordsTopRequest#hashCode()} cache.
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
 	 */
-	private transient Integer hashCodeCache;
+	private Object readResolve() {
+		this.initMutexObjects();
 
-	/**
-	 * A {@link GetRecordsTopRequest#toString()} cache.
-	 */
-	private transient String stringCache;
+		return this;
+	}
 
 	/**
 	 * Initialize a {@link GetRecordsTopRequest} instance.
@@ -167,14 +170,28 @@ public final class GetRecordsTopRequest extends GetRecordsRequest implements Clo
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(
-						super.hashCode(),
-						this.serverId,
-						this.isOverall,
-						this.playerName
-				)
-		);
+		synchronized (this.hashCodeCacheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(
+							this.steamId64,
+							this.mapId,
+							this.mapName,
+							this.runType,
+							this.tickrate,
+							this.stage,
+							this.modeName,
+							this.offset,
+							this.limit,
+							this.serverId,
+							this.isOverall,
+							this.playerName
+					)
+			);
+		}
 	}
 
 	/**
@@ -186,20 +203,26 @@ public final class GetRecordsTopRequest extends GetRecordsRequest implements Clo
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME + "["
-				+ "steamId64=" + this.steamId64
-				+ ", mapId=" + this.mapId
-				+ ", mapName=\"" + this.mapName + "\""
-				+ ", runType=" + this.runType
-				+ ", tickrate=" + this.tickrate
-				+ ", stage=" + this.stage
-				+ ", modeName=\"" + this.modeName + "\""
-				+ ", offset=" + this.offset
-				+ ", limit=" + this.limit
-				+ ", serverId=" + this.serverId
-				+ ", isOverall=" + this.isOverall
-				+ ", playerName=\"" + this.playerName + "\""
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME + "["
+					+ "steamId64=" + this.steamId64
+					+ ", mapId=" + this.mapId
+					+ ", mapName=\"" + this.mapName + "\""
+					+ ", runType=" + this.runType
+					+ ", tickrate=" + this.tickrate
+					+ ", stage=" + this.stage
+					+ ", modeName=\"" + this.modeName + "\""
+					+ ", offset=" + this.offset
+					+ ", limit=" + this.limit
+					+ ", serverId=" + this.serverId
+					+ ", isOverall=" + this.isOverall
+					+ ", playerName=\"" + this.playerName + "\""
+					+ "]");
+		}
 	}
 
 	/**

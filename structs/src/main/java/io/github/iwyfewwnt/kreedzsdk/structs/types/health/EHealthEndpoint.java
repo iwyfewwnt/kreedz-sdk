@@ -90,7 +90,12 @@ public enum EHealthEndpoint {
 	/**
 	 * A {@link EHealthEndpoint#toString()} cache.
 	 */
-	private String stringCache;
+	private volatile String stringCache;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private final Object stringCacheMutex;
 
 	/**
 	 * Initialize an {@link EHealthEndpoint} instance.
@@ -117,6 +122,8 @@ public enum EHealthEndpoint {
 		this.endpoint = endpoint;
 
 		this.key = String.format(KEY_FMT, this.group, this.endpoint);
+
+		this.stringCacheMutex = new Object();
 	}
 
 	/**
@@ -164,13 +171,19 @@ public enum EHealthEndpoint {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME
-				+ "::" + this.name() + "["
-				+ "name=\"" + this.name + "\""
-				+ ", group=\"" + this.group + "\""
-				+ ", endpoint=\"" + this.endpoint + "\""
-				+ ", key=\"" + this.key + "\""
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME
+					+ "::" + this.name() + "["
+					+ "name=\"" + this.name + "\""
+					+ ", group=\"" + this.group + "\""
+					+ ", endpoint=\"" + this.endpoint + "\""
+					+ ", key=\"" + this.key + "\""
+					+ "]");
+		}
 	}
 
 	/**

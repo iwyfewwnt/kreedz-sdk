@@ -28,7 +28,7 @@ import java.util.Objects;
 /**
  * A kreedz status API incident entity.
  */
-@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod"})
+@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod", "SynchronizeOnNonFinalField"})
 public class StatusIncidentEntity implements Serializable, Cloneable {
 
 	/**
@@ -111,12 +111,42 @@ public class StatusIncidentEntity implements Serializable, Cloneable {
 	/**
 	 * A {@link StatusIncidentEntity#hashCode()} cache.
 	 */
-	private transient Integer hashCodeCache;
+	protected transient volatile Integer hashCodeCache;
 
 	/**
 	 * A {@link StatusIncidentEntity#toString()} cache.
 	 */
-	private transient String stringCache;
+	protected transient volatile String stringCache;
+
+	/**
+	 * A {@link #hashCodeCache} mutex.
+	 */
+	protected transient Object hashCodeCacheMutex;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	protected transient Object stringCacheMutex;
+
+	/**
+	 * Initialize this mutex objects.
+	 */
+	protected void initMutexObjects() {
+		this.hashCodeCacheMutex = new Object();
+		this.stringCacheMutex = new Object();
+	}
+
+	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
 
 	/**
 	 * Get this identifier.
@@ -264,22 +294,28 @@ public class StatusIncidentEntity implements Serializable, Cloneable {
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(
-						this.id,
-						this.name,
-						this.status,
-						this.createDate,
-						this.updateDate,
-						this.monitorDate,
-						this.resolveDate,
-						this.impact,
-						this.shortUrl,
-						this.pageId,
-						this.updates,
-						this.components
-				)
-		);
+		synchronized (this.hashCodeCacheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(
+							this.id,
+							this.name,
+							this.status,
+							this.createDate,
+							this.updateDate,
+							this.monitorDate,
+							this.resolveDate,
+							this.impact,
+							this.shortUrl,
+							this.pageId,
+							this.updates,
+							this.components
+					)
+			);
+		}
 	}
 
 	/**
@@ -291,20 +327,26 @@ public class StatusIncidentEntity implements Serializable, Cloneable {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME + "["
-				+ "id=\"" + this.id + "\""
-				+ ", name=\"" + this.name + "\""
-				+ ", status=" + this.status
-				+ ", createDate=" + this.createDate
-				+ ", updateDate=" + this.updateDate
-				+ ", monitorDate=" + this.monitorDate
-				+ ", resolveDate=" + this.resolveDate
-				+ ", impact=" + this.impact
-				+ ", shortUrl=\"" + this.shortUrl + "\""
-				+ ", pageId=\"" + this.pageId + "\""
-				+ ", updates=" + this.updates
-				+ ", components=" + this.components
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME + "["
+					+ "id=\"" + this.id + "\""
+					+ ", name=\"" + this.name + "\""
+					+ ", status=" + this.status
+					+ ", createDate=" + this.createDate
+					+ ", updateDate=" + this.updateDate
+					+ ", monitorDate=" + this.monitorDate
+					+ ", resolveDate=" + this.resolveDate
+					+ ", impact=" + this.impact
+					+ ", shortUrl=\"" + this.shortUrl + "\""
+					+ ", pageId=\"" + this.pageId + "\""
+					+ ", updates=" + this.updates
+					+ ", components=" + this.components
+					+ "]");
+		}
 	}
 
 	/**
@@ -357,6 +399,8 @@ public class StatusIncidentEntity implements Serializable, Cloneable {
 		this.pageId = pageId;
 		this.updates = updates;
 		this.components = components;
+
+		this.initMutexObjects();
 	}
 
 	/**

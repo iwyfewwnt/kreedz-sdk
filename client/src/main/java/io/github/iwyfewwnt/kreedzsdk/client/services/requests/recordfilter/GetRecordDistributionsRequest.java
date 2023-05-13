@@ -32,6 +32,18 @@ import java.util.Set;
 public final class GetRecordDistributionsRequest extends GetRecordFiltersRequest implements Cloneable {
 
 	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
+
+	/**
 	 * Initialize a {@link GetRecordDistributionsRequest} instance.
 	 *
 	 * @param ids			set of identifiers

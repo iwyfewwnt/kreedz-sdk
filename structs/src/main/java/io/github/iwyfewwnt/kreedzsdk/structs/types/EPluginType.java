@@ -47,6 +47,18 @@ public enum EPluginType {
 	private String stringCache;
 
 	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private final Object stringCacheMutex;
+
+	/**
+	 * Initialize a {@link EPluginType} instance.
+	 */
+	EPluginType() {
+		this.stringCacheMutex = new Object();
+	}
+
+	/**
 	 * {@inheritDoc}
 	 */
 	@Override
@@ -55,7 +67,13 @@ public enum EPluginType {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME
-				+ "::" + this.name());
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME
+					+ "::" + this.name());
+		}
 	}
 }

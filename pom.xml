@@ -90,6 +90,7 @@
         <uw-retrofit.version>0.2.0-SNAPSHOT</uw-retrofit.version>
 
         <uw-gson.version>0.1.0-SNAPSHOT</uw-gson.version>
+        <gson-native.version>0.1.0-SNAPSHOT</gson-native.version>
 
         <auto-service.version>1.0.1</auto-service.version>
 
@@ -162,6 +163,11 @@
                 <groupId>io.github.iwyfewwnt</groupId>
                 <artifactId>uw-gson</artifactId>
                 <version>${uw-gson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.iwyfewwnt</groupId>
+                <artifactId>gson-native</artifactId>
+                <version>${gson-native.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.google.auto.service</groupId>

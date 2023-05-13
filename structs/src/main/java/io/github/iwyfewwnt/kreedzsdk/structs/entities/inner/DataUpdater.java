@@ -24,7 +24,7 @@ import java.util.Objects;
 /**
  * A kreedz API data updater representation.
  */
-@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod"})
+@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod", "SynchronizeOnNonFinalField"})
 public final class DataUpdater implements Serializable, Cloneable {
 
 	/**
@@ -40,22 +40,52 @@ public final class DataUpdater implements Serializable, Cloneable {
 	/**
 	 * A {@link DataUpdater#getAsServerId()} cache.
 	 */
-	private transient Integer serverIdCache;
+	private transient volatile Integer serverIdCache;
 
 	/**
 	 * A {@link DataUpdater#getAsSteamId()} cache.
 	 */
-	private transient SteamId steamIdCache;
+	private transient volatile SteamId steamIdCache;
 
 	/**
 	 * A {@link DataUpdater#hashCode()} cache.
 	 */
-	private transient Integer hashCodeCache;
+	private transient volatile Integer hashCodeCache;
 
 	/**
 	 * A {@link DataUpdater#toString()} cache.
 	 */
-	private transient String stringCache;
+	private transient volatile String stringCache;
+
+	/**
+	 * A {@link #serverIdCache} mutex.
+	 */
+	private transient Object serverIdCacheMutex;
+
+	/**
+	 * A {@link #steamIdCache} mutex.
+	 */
+	private transient Object steamIdCacheMutex;
+
+	/**
+	 * A {@link #hashCodeCache} mutex.
+	 */
+	private transient Object hashCodeCacheMutex;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private transient Object stringCacheMutex;
+
+	/**
+	 * Initialize this mutex objects.
+	 */
+	private void initMutexObjects() {
+		this.serverIdCacheMutex = new Object();
+		this.steamIdCacheMutex = new Object();
+		this.hashCodeCacheMutex = new Object();
+		this.stringCacheMutex = new Object();
+	}
 
 	/**
 	 * Initialize a {@link DataUpdater} instance.
@@ -64,6 +94,8 @@ public final class DataUpdater implements Serializable, Cloneable {
 	 */
 	public DataUpdater(Long id) {
 		this.id = id;
+
+		this.initMutexObjects();
 	}
 
 	/**
@@ -109,7 +141,13 @@ public final class DataUpdater implements Serializable, Cloneable {
 			return null;
 		}
 
-		return (this.serverIdCache = this.id.intValue());
+		synchronized (this.serverIdCacheMutex) {
+			if (this.serverIdCache != null) {
+				return this.serverIdCache;
+			}
+
+			return (this.serverIdCache = this.id.intValue());
+		}
 	}
 
 	/**
@@ -122,13 +160,20 @@ public final class DataUpdater implements Serializable, Cloneable {
 			return this.steamIdCache;
 		}
 
-		this.steamIdCache = SteamId.fromSteam64OrNull(this.id);
-		if (this.steamIdCache == null) {
+		if (!this.isPerson()) {
 			new UnsupportedOperationException("Not a person identifier")
 					.printStackTrace();
+
+			return null;
 		}
 
-		return this.steamIdCache;
+		synchronized (this.steamIdCacheMutex) {
+			if (this.steamIdCache != null) {
+				return this.steamIdCache;
+			}
+
+			return (this.steamIdCache = SteamId.fromSteam64OrNull(this.id));
+		}
 	}
 
 	/**
@@ -191,8 +236,14 @@ public final class DataUpdater implements Serializable, Cloneable {
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(this.id));
+		synchronized (this.hashCodeCacheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(this.id));
+		}
 	}
 
 	/**
@@ -200,13 +251,20 @@ public final class DataUpdater implements Serializable, Cloneable {
 	 */
 	@Override
 	public String toString() {
+		//noinspection DuplicatedCode
 		if (this.stringCache != null) {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME + "["
-				+ "id=" + this.id
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME + "["
+					+ "id=" + this.id
+					+ "]");
+		}
 	}
 
 	/**

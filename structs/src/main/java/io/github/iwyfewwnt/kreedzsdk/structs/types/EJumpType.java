@@ -126,6 +126,11 @@ public enum EJumpType {
 	private String stringCache;
 
 	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private final Object stringCacheMutex;
+
+	/**
 	 * Initialize an {@link EJumpType} instance.
 	 *
 	 * @param id			API-identifier
@@ -150,6 +155,8 @@ public enum EJumpType {
 		this.apiName = apiName;
 		this.fullName = fullName;
 		this.shortName = shortName;
+
+		this.stringCacheMutex = new Object();
 	}
 
 	/**
@@ -197,13 +204,19 @@ public enum EJumpType {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME
-				+ "::" + this.name() + "["
-				+ "id=" + this.id
-				+ ", apiName=\"" + this.apiName + "\""
-				+ ", fullName=\"" + this.fullName + "\""
-				+ ", shortName=\"" + this.shortName + "\""
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME
+					+ "::" + this.name() + "["
+					+ "id=" + this.id
+					+ ", apiName=\"" + this.apiName + "\""
+					+ ", fullName=\"" + this.fullName + "\""
+					+ ", shortName=\"" + this.shortName + "\""
+					+ "]");
+		}
 	}
 
 	/**

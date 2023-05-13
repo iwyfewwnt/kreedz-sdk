@@ -32,6 +32,18 @@ import java.util.Set;
 public final class GetJumpstatsTopRequest extends GetJumpstatsRequest implements Cloneable {
 
 	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
+
+	/**
 	 * Initialize a {@code GetJumpstatsTopRequest} instance.
 	 *
 	 * @param id					identifier

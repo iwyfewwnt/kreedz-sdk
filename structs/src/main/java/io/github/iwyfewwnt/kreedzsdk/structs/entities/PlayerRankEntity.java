@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * A kreedz API player rank entity.
  */
-@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod"})
+@SuppressWarnings({"unused", "MethodDoesntCallSuperMethod", "SynchronizeOnNonFinalField"})
 public final class PlayerRankEntity implements Serializable, Cloneable {
 
 	/**
@@ -66,12 +66,42 @@ public final class PlayerRankEntity implements Serializable, Cloneable {
 	/**
 	 * A {@link PlayerRankEntity#hashCode()} cache.
 	 */
-	private transient Integer hashCodeCache;
+	private transient volatile Integer hashCodeCache;
 
 	/**
 	 * A {@link PlayerRankEntity#toString()} cache.
 	 */
-	private transient String stringCache;
+	private transient volatile String stringCache;
+
+	/**
+	 * A {@link #hashCodeCache} mutex.
+	 */
+	private transient Object hashCodeCacheMutex;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private transient Object stringCacheMutex;
+
+	/**
+	 * Initialize this mutex objects.
+	 */
+	private void initMutexObjects() {
+		this.hashCodeCacheMutex = new Object();
+		this.stringCacheMutex = new Object();
+	}
+
+	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
 
 	/**
 	 * Get this point count.
@@ -149,15 +179,21 @@ public final class PlayerRankEntity implements Serializable, Cloneable {
 			return this.hashCodeCache;
 		}
 
-		return (this.hashCodeCache
-				= Objects.hash(
-						this.pointCount,
-						this.avgPointCount,
-						this.rating,
-						this.finishCount,
-						this.steamId
-				)
-		);
+		synchronized (this.hashCodeCacheMutex) {
+			if (this.hashCodeCache != null) {
+				return this.hashCodeCache;
+			}
+
+			return (this.hashCodeCache
+					= Objects.hash(
+							this.pointCount,
+							this.avgPointCount,
+							this.rating,
+							this.finishCount,
+							this.steamId
+					)
+			);
+		}
 	}
 
 	/**
@@ -169,13 +205,19 @@ public final class PlayerRankEntity implements Serializable, Cloneable {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME + "["
-				+ "pointCount=" + this.pointCount
-				+ ", avgPointCount=" + this.avgPointCount
-				+ ", rating=" + this.rating
-				+ ", finishCount=" + this.finishCount
-				+ ", steamId=" + this.steamId
-				+ "]");
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME + "["
+					+ "pointCount=" + this.pointCount
+					+ ", avgPointCount=" + this.avgPointCount
+					+ ", rating=" + this.rating
+					+ ", finishCount=" + this.finishCount
+					+ ", steamId=" + this.steamId
+					+ "]");
+		}
 	}
 
 	/**
@@ -207,6 +249,8 @@ public final class PlayerRankEntity implements Serializable, Cloneable {
 		this.rating = rating;
 		this.finishCount = finishCount;
 		this.steamId = steamId;
+
+		this.initMutexObjects();
 	}
 
 	/**

@@ -16,13 +16,11 @@
 
 package io.github.iwyfewwnt.kreedzsdk.structs.types.mapimage;
 
-import java.io.Serializable;
-
 /**
  * An enumeration of map image branches.
  */
 @SuppressWarnings("unused")
-enum EMapImageBranch implements Serializable {
+enum EMapImageBranch {
 
 	/**
 	 * A map image branch - Master.
@@ -47,7 +45,12 @@ enum EMapImageBranch implements Serializable {
 	/**
 	 * A {@link EMapImageBranch#toString()} cache.
 	 */
-	private transient String stringCache;
+	private String stringCache;
+
+	/**
+	 * A {@link #stringCache} mutex.
+	 */
+	private final Object stringCacheMutex;
 
 	/**
 	 * Initialize an {@link EMapImageBranch} instance.
@@ -56,6 +59,8 @@ enum EMapImageBranch implements Serializable {
 	 */
 	EMapImageBranch(String value) {
 		this.value = value;
+
+		this.stringCacheMutex = new Object();
 	}
 
 	/**
@@ -67,7 +72,13 @@ enum EMapImageBranch implements Serializable {
 			return this.stringCache;
 		}
 
-		return (this.stringCache = SIMPLE_NAME
-				+ "::" + this.name());
+		synchronized (this.stringCacheMutex) {
+			if (this.stringCache != null) {
+				return this.stringCache;
+			}
+
+			return (this.stringCache = SIMPLE_NAME
+					+ "::" + this.name());
+		}
 	}
 }

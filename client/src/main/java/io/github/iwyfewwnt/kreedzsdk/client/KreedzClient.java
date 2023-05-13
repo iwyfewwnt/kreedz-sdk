@@ -17,6 +17,7 @@
 package io.github.iwyfewwnt.kreedzsdk.client;
 
 import com.google.gson.*;
+import io.github.iwyfewwnt.gsonnative.GsonNativeTypeAdapterFactory;
 import io.github.iwyfewwnt.kreedzsdk.adapterapi.IKreedzTypeAdapter;
 import io.github.iwyfewwnt.kreedzsdk.adapterapi.IKreedzTypeAdapterFactory;
 import io.github.iwyfewwnt.kreedzsdk.client.services.*;
@@ -366,7 +367,10 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 		initTypeAdapterFactorySpi().forEach(builder::registerTypeAdapterFactory);
 		initTypeAdapterSpi().forEach(builder::registerTypeAdapter);
 
-		return GsonConverterFactory.create(builder.create());
+		Gson gson = builder.registerTypeAdapterFactory(new GsonNativeTypeAdapterFactory())
+				.create();
+
+		return GsonConverterFactory.create(gson);
 	}
 
 	/**
