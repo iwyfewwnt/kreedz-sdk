@@ -273,6 +273,42 @@ public class BanStats implements Serializable, Cloneable {
 	}
 
 	/**
+	 * Get this total pre-input count.
+	 *
+	 * <p>Delegates {@link ScrollPattern#getTotalPreInputCount()}.
+	 *
+	 * @return	total pre-input count
+	 */
+	public final int getTotalPreInputCount() {
+		return this.getScrollPattern()
+				.getTotalPreInputCount();
+	}
+
+	/**
+	 * Get this total post-input count.
+	 *
+	 * <p>Delegates {@link ScrollPattern#getTotalPostInputCount()}.
+	 *
+	 * @return	total post-input count
+	 */
+	public final int getTotalPostInputCount() {
+		return this.getScrollPattern()
+				.getTotalPostInputCount();
+	}
+
+	/**
+	 * Get this total input count.
+	 *
+	 * <p>Delegates {@link ScrollPattern#getTotalInputCount()}.
+	 *
+	 * @return	total input count
+	 */
+	public final int getTotalInputCount() {
+		return this.getScrollPattern()
+				.getTotalInputCount();
+	}
+
+	/**
 	 * Get this average pre-input count.
 	 *
 	 * <p>Delegates {@link ScrollPattern#getAvgPreInputCount()}.
