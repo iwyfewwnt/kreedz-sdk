@@ -147,12 +147,12 @@ public final class RecordEntity implements Serializable, Cloneable {
 	private final Integer replayId;
 
 	/**
-	 * A {@link RecordEntity#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link RecordEntity#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

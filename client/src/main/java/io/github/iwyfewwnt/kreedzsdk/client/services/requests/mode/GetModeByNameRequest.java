@@ -41,12 +41,12 @@ public final class GetModeByNameRequest implements IRequest, Cloneable {
 	private final String modeName;
 
 	/**
-	 * A {@link GetModeByNameRequest#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link GetModeByNameRequest#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

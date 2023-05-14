@@ -109,12 +109,12 @@ public class StatusIncidentEntity implements Serializable, Cloneable {
 	protected final List<StatusComponentEntity> components;
 
 	/**
-	 * A {@link StatusIncidentEntity#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	protected transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link StatusIncidentEntity#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	protected transient volatile String stringCache;
 

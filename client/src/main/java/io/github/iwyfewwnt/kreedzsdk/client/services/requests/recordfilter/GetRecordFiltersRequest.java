@@ -74,12 +74,12 @@ public class GetRecordFiltersRequest implements IRequest, Cloneable {
 	protected final Integer limit;
 
 	/**
-	 * A {@link GetRecordFiltersRequest#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	protected transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link GetRecordFiltersRequest#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	protected transient volatile String stringCache;
 

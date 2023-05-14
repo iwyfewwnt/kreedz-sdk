@@ -89,12 +89,12 @@ public final class MapEntity implements Serializable, Cloneable {
 	private final String downloadUrl;
 
 	/**
-	 * A {@link MapEntity#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link MapEntity#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

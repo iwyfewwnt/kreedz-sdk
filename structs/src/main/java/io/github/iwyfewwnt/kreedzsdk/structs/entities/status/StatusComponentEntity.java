@@ -77,12 +77,12 @@ public final class StatusComponentEntity implements Serializable, Cloneable {
 	private final String pageId;
 
 	/**
-	 * A {@link StatusComponentEntity#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link StatusComponentEntity#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

@@ -93,12 +93,12 @@ public final class GetBansRequest implements IRequest, Cloneable {
 	private final Integer limit;
 
 	/**
-	 * A {@link GetBansRequest#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link GetBansRequest#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

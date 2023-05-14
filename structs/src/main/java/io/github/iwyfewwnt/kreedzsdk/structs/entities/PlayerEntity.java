@@ -58,12 +58,12 @@ public final class PlayerEntity implements Serializable, Cloneable {
 	private final String name;
 
 	/**
-	 * A {@link PlayerEntity#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link PlayerEntity#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

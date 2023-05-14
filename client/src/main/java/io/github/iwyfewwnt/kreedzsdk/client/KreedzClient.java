@@ -107,7 +107,7 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	/**
 	 * Initialize a {@link KreedzClient} instance.
 	 *
-	 * <p>Wraps {@link KreedzClient#KreedzClient(EVersion)}
+	 * <p>Wraps {@link #KreedzClient(EVersion)}
 	 * w/ {@code null} as the API version.
 	 */
 	public KreedzClient() {
@@ -164,7 +164,7 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	/**
 	 * Get this ban service.
 	 *
-	 * <p>Wraps {@link KreedzClient#getService(Class)}
+	 * <p>Wraps {@link #getService(Class)}
 	 * and casts result to {@link BanService}.
 	 *
 	 * @return	ban service
@@ -176,7 +176,7 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	/**
 	 * Get this jumpstat service.
 	 *
-	 * <p>Wraps {@link KreedzClient#getService(Class)}
+	 * <p>Wraps {@link #getService(Class)}
 	 * and casts result to {@link JumpstatService}.
 	 *
 	 * @return	jumpstat service
@@ -188,7 +188,7 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	/**
 	 * Get this map service.
 	 *
-	 * <p>Wraps {@link KreedzClient#getService(Class)}
+	 * <p>Wraps {@link #getService(Class)}
 	 * and casts result to {@link MapService}.
 	 *
 	 * @return	map service
@@ -200,7 +200,7 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	/**
 	 * Get this mode service.
 	 *
-	 * <p>Wraps {@link KreedzClient#getService(Class)}
+	 * <p>Wraps {@link #getService(Class)}
 	 * and casts result to {@link ModeService}.
 	 *
 	 * @return	mode service
@@ -212,7 +212,7 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	/**
 	 * Get this player rank service.
 	 *
-	 * <p>Wraps {@link KreedzClient#getService(Class)}
+	 * <p>Wraps {@link #getService(Class)}
 	 * and casts result to {@link PlayerRankService}.
 	 *
 	 * @return	player rank service
@@ -224,7 +224,7 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	/**
 	 * Get this player service.
 	 *
-	 * <p>Wraps {@link KreedzClient#getService(Class)}
+	 * <p>Wraps {@link #getService(Class)}
 	 * and casts result to {@link PlayerService}.
 	 *
 	 * @return	player service
@@ -236,7 +236,7 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	/**
 	 * Get this record filter service.
 	 *
-	 * <p>Wraps {@link KreedzClient#getService(Class)}
+	 * <p>Wraps {@link #getService(Class)}
 	 * and casts result to {@link RecordFilterService}.
 	 *
 	 * @return	record filter service
@@ -248,7 +248,7 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	/**
 	 * Get this server service.
 	 *
-	 * <p>Wraps {@link KreedzClient#getService(Class)}
+	 * <p>Wraps {@link #getService(Class)}
 	 * and casts result to {@link ServerService}.
 	 *
 	 * @return	server service
@@ -260,7 +260,7 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	/**
 	 * Get this record service.
 	 *
-	 * <p>Wraps {@link KreedzClient#getService(Class)}
+	 * <p>Wraps {@link #getService(Class)}
 	 * and casts result to {@link RecordService}.
 	 *
 	 * @return	record service
@@ -272,7 +272,7 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	/**
 	 * Get this map image service.
 	 *
-	 * <p>Wraps {@link KreedzClient#getService(Class)}
+	 * <p>Wraps {@link #getService(Class)}
 	 * and casts result to {@link MapImageService}.
 	 *
 	 * @return	map image service
@@ -284,7 +284,7 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	/**
 	 * Get this maps info service.
 	 *
-	 * <p>Wraps {@link KreedzClient#getService(Class)}
+	 * <p>Wraps {@link #getService(Class)}
 	 * and casts result to {@link MapInfoService}.
 	 *
 	 * @return	maps info service
@@ -296,7 +296,7 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	/**
 	 * Get this status service.
 	 *
-	 * <p>Wraps {@link KreedzClient#getService(Class)}
+	 * <p>Wraps {@link #getService(Class)}
 	 * and casts result to {@link StatusService}.
 	 *
 	 * @return	status service
@@ -308,7 +308,7 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	/**
 	 * Get this health service.
 	 *
-	 * <p>Wraps {@link KreedzClient#getService(Class)}
+	 * <p>Wraps {@link #getService(Class)}
 	 * and casts result to {@link HealthService}.
 	 *
 	 * @return	health service

@@ -63,7 +63,7 @@ public enum EApprovalStatus {
 	private final int id;
 
 	/**
-	 * A {@link EApprovalStatus#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private String stringCache;
 
@@ -156,7 +156,7 @@ public enum EApprovalStatus {
 	 *     <li>{@link EApprovalStatus} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EApprovalStatus#getIdOrElse(EApprovalStatus, Integer)}
+	 * <p>Wraps {@link #getIdOrElse(EApprovalStatus, Integer)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param approvalStatus	approval status instance from which get the API-identifier
@@ -194,7 +194,7 @@ public enum EApprovalStatus {
 	 * Get an {@link EApprovalStatus} by its API-identifier
 	 * or return {@code null} if failed.
 	 *
-	 * <p>Wraps {@link EApprovalStatus#fromIdOrElse(Integer, EApprovalStatus)}
+	 * <p>Wraps {@link #fromIdOrElse(Integer, EApprovalStatus)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param id	API-identifier of the instance
@@ -232,7 +232,7 @@ public enum EApprovalStatus {
 	 * Get an {@link EApprovalStatus} by its index
 	 * or return {@code null} if failed.
 	 *
-	 * <p>Wraps {@link EApprovalStatus#fromIndexOrElse(Integer, EApprovalStatus)}
+	 * <p>Wraps {@link #fromIndexOrElse(Integer, EApprovalStatus)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param index		index of the instance

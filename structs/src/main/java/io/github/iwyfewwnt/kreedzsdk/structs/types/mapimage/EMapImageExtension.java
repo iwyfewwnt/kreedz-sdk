@@ -45,7 +45,7 @@ enum EMapImageExtension implements Serializable {
 	final String value;
 
 	/**
-	 * A {@link EMapImageExtension#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private String stringCache;
 

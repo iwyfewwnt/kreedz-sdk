@@ -86,7 +86,7 @@ public enum EVersion {
 	private final String apiName;
 
 	/**
-	 * A {@link EVersion#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private String stringCache;
 
@@ -122,7 +122,7 @@ public enum EVersion {
 	/**
 	 * Compare to {@link EVersion} instance by major {@literal &} minor numbers.
 	 *
-	 * <p>Wraps {@link EVersion#compare(EVersion, EVersion)}
+	 * <p>Wraps {@link #compare(EVersion, EVersion)}
 	 * w/ {@code this} as the left operand.
 	 *
 	 * @param version	right operand
@@ -266,7 +266,7 @@ public enum EVersion {
 	 *     <li>{@link EVersion} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EVersion#getMajorOrElse(EVersion, Integer)}
+	 * <p>Wraps {@link #getMajorOrElse(EVersion, Integer)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param version	version instance from which get the major number
@@ -319,7 +319,7 @@ public enum EVersion {
 	 *     <li>{@link EVersion} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EVersion#getMinorOrElse(EVersion, Integer)}
+	 * <p>Wraps {@link #getMinorOrElse(EVersion, Integer)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param version	version instance from which get the minor number
@@ -372,7 +372,7 @@ public enum EVersion {
 	 *     <li>{@link EVersion} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EVersion#getApiNameOrElse(EVersion, String)}
+	 * <p>Wraps {@link #getApiNameOrElse(EVersion, String)}
 	 * w/ {@link UwString#EMPTY} as the default value.
 	 *
 	 * @param version	version instance from which get the API-name
@@ -391,7 +391,7 @@ public enum EVersion {
 	 *     <li>{@link EVersion} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EVersion#getApiNameOrElse(EVersion, String)}
+	 * <p>Wraps {@link #getApiNameOrElse(EVersion, String)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param version	version instance from which get the API-name
@@ -429,7 +429,7 @@ public enum EVersion {
 	 * Get an {@link EVersion} instance by its API-name
 	 * or return {@code null} if failed.
 	 *
-	 * <p>Wraps {@link EVersion#getApiNameOrElse(EVersion, String)}
+	 * <p>Wraps {@link #getApiNameOrElse(EVersion, String)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param apiName	API-name of the instance
@@ -467,7 +467,7 @@ public enum EVersion {
 	 * Get an {@link EVersion} instance by its index
 	 * or return {@code null} if failed.
 	 *
-	 * <p>Wraps {@link EVersion#fromIndexOrElse(Integer, EVersion)}
+	 * <p>Wraps {@link #fromIndexOrElse(Integer, EVersion)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param index		index of the instance

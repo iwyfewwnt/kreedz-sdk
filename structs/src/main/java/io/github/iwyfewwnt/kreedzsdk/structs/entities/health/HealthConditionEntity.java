@@ -47,12 +47,12 @@ public final class HealthConditionEntity implements Serializable, Cloneable {
 	private final Boolean isSuccessful;
 
 	/**
-	 * A {@link HealthConditionEntity#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link HealthConditionEntity#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

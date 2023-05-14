@@ -79,12 +79,12 @@ public final class RecordFilterEntity implements Serializable, Cloneable {
 	private final DataUpdater dataUpdater;
 
 	/**
-	 * A {@link RecordFilterEntity#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link RecordFilterEntity#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

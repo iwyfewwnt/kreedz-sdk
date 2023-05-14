@@ -90,34 +90,34 @@ public final class JumpInput implements Serializable, Cloneable {
 	private final boolean isPerf;
 
 	/**
-	 * A {@link JumpInput#isBind()} cache.
+	 * A {@link #isBind()} cache.
 	 *
 	 * <p>Determines if this jump is a bind-jump.
 	 */
 	private transient volatile Boolean isBindCache;
 
 	/**
-	 * A {@link JumpInput#getJumpChar()} cache.
+	 * A {@link #getJumpChar()} cache.
 	 */
 	private transient volatile Character jumpCharCache;
 
 	/**
-	 * A {@link JumpInput#toGokzString()} cache.
+	 * A {@link #toGokzString()} cache.
 	 */
 	private transient volatile String gokzStringCache;
 
 	/**
-	 * A {@link JumpInput#toKztimerString()} cache.
+	 * A {@link #toKztimerString()} cache.
 	 */
 	private transient volatile String kztimerStringCache;
 
 	/**
-	 * A {@link JumpInput#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link JumpInput#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

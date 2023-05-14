@@ -90,12 +90,12 @@ public final class GetWorldRecordsTopRequest implements IRequest, Cloneable {
 	private final Integer limit;
 
 	/**
-	 * A {@link GetWorldRecordsTopRequest#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link GetWorldRecordsTopRequest#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

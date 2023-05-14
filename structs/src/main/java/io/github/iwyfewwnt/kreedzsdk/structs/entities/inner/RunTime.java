@@ -38,12 +38,12 @@ public final class RunTime implements Serializable, Cloneable {
 	private final float time;
 
 	/**
-	 * A {@link RunTime#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link RunTime#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 
@@ -91,7 +91,7 @@ public final class RunTime implements Serializable, Cloneable {
 	/**
 	 * Initialize a {@code Time} instance.
 	 *
-	 * <p>Wraps {@link RunTime#RunTime(Float)}
+	 * <p>Wraps {@link #RunTime(Float)}
 	 * w/ {@code null} as the time.
 	 */
 	public RunTime() {

@@ -64,12 +64,12 @@ public final class PlayerRankEntity implements Serializable, Cloneable {
 	private final SteamId steamId;
 
 	/**
-	 * A {@link PlayerRankEntity#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link PlayerRankEntity#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

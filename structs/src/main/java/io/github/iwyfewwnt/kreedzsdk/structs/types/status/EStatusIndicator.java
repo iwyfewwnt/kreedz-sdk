@@ -87,7 +87,7 @@ public enum EStatusIndicator {
 	private final String fullName;
 
 	/**
-	 * A {@link EStatusIndicator#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private String stringCache;
 
@@ -200,7 +200,7 @@ public enum EStatusIndicator {
 	 *     <li>{@link EStatusIndicator} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EStatusIndicator#getApiNameOrElse(EStatusIndicator, String)}
+	 * <p>Wraps {@link #getApiNameOrElse(EStatusIndicator, String)}
 	 * w/ {@link UwString#EMPTY} as the default value.
 	 *
 	 * @param indicator		status indicator instance from which get the API-name
@@ -219,7 +219,7 @@ public enum EStatusIndicator {
 	 *     <li>{@link EStatusIndicator} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EStatusIndicator#getApiNameOrElse(EStatusIndicator, String)}
+	 * <p>Wraps {@link #getApiNameOrElse(EStatusIndicator, String)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param indicator		status indicator instance from which get the API-name
@@ -272,7 +272,7 @@ public enum EStatusIndicator {
 	 *     <li>{@link EStatusIndicator} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EStatusIndicator#getFullNameOrElse(EStatusIndicator, String)}
+	 * <p>Wraps {@link #getFullNameOrElse(EStatusIndicator, String)}
 	 * w/ {@link UwString#EMPTY} as the default value.
 	 *
 	 * @param indicator		status indicator instance from which get the full name
@@ -291,7 +291,7 @@ public enum EStatusIndicator {
 	 *     <li>{@link EStatusIndicator} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EStatusIndicator#getFullNameOrElse(EStatusIndicator, String)}
+	 * <p>Wraps {@link #getFullNameOrElse(EStatusIndicator, String)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param indicator		status indicator instance from which get the full name
@@ -329,7 +329,7 @@ public enum EStatusIndicator {
 	 * Get an {@link EStatusIndicator} instance by its API-name
 	 * or return {@code null} if failed.
 	 *
-	 * <p>Wraps {@link EStatusIndicator#fromApiNameOrElse(String, EStatusIndicator)}
+	 * <p>Wraps {@link #fromApiNameOrElse(String, EStatusIndicator)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param apiName	API-name of the instance

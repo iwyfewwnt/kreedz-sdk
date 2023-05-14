@@ -128,12 +128,12 @@ public final class JumpstatEntity implements Serializable, Cloneable {
 	private final DateTime updateDate;
 
 	/**
-	 * A {@link JumpstatEntity#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link JumpstatEntity#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

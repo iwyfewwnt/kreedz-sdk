@@ -79,12 +79,12 @@ public class GetRecordsRequest implements IRequest, Cloneable {
 	protected final Integer limit;
 
 	/**
-	 * A {@link GetRecordsRequest#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	protected transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link GetRecordsRequest#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	protected transient volatile String stringCache;
 

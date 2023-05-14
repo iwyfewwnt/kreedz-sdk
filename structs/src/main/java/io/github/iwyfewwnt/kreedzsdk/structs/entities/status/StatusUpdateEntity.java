@@ -84,12 +84,12 @@ public final class StatusUpdateEntity implements Serializable, Cloneable {
 	private final List<StatusAffectedComponentEntity> affectedComponents;
 
 	/**
-	 * A {@link StatusUpdateEntity#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link StatusUpdateEntity#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

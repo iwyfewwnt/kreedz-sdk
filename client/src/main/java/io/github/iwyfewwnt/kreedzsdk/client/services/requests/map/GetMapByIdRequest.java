@@ -41,12 +41,12 @@ public final class GetMapByIdRequest implements IRequest, Cloneable {
 	private final Integer id;
 
 	/**
-	 * A {@link GetMapByIdRequest#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link GetMapByIdRequest#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

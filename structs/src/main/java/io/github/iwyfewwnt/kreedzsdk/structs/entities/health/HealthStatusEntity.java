@@ -73,12 +73,12 @@ public final class HealthStatusEntity implements Serializable, Cloneable {
 	private final DateTime date;
 
 	/**
-	 * A {@link HealthStatusEntity#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link HealthStatusEntity#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

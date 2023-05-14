@@ -42,7 +42,7 @@ public enum EPluginType {
 	private static final String SIMPLE_NAME = EPluginType.class.getSimpleName();
 
 	/**
-	 * A {@link EPluginType#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private String stringCache;
 

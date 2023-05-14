@@ -45,8 +45,8 @@ public enum ERunType {
 	/**
 	 * A kreedz API map run type - NUB.
 	 *
-	 * <p>Union type of the {@link ERunType#PRO}
-	 * and {@link ERunType#TP}.
+	 * <p>Union type of the {@link #PRO}
+	 * and {@link #TP}.
 	 */
 	NUB(null);
 
@@ -68,7 +68,7 @@ public enum ERunType {
 	private final Boolean hasTeleports;
 
 	/**
-	 * A {@link ERunType#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private String stringCache;
 
@@ -161,7 +161,7 @@ public enum ERunType {
 	 *     <li>{@link ERunType} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link ERunType#getHasTeleportsOrElse(ERunType, Boolean)}
+	 * <p>Wraps {@link #getHasTeleportsOrElse(ERunType, Boolean)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param runType	run type instance from which get the has teleports boolean value
@@ -213,7 +213,7 @@ public enum ERunType {
 	 * Get an {@link ERunType} instance by its index
 	 * or return a default value if failed.
 	 *
-	 * <p>Wraps {@link ERunType#fromIndexOrElse(Integer, ERunType)}
+	 * <p>Wraps {@link #fromIndexOrElse(Integer, ERunType)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param index		index of the instance

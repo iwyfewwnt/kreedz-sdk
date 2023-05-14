@@ -102,7 +102,7 @@ public enum EDifficulty {
 	private final String fullName;
 
 	/**
-	 * A {@link EDifficulty#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private String stringCache;
 
@@ -227,7 +227,7 @@ public enum EDifficulty {
 	 *     <li>{@link EDifficulty} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EDifficulty#getGroupOrElse(EDifficulty, Group)}
+	 * <p>Wraps {@link #getGroupOrElse(EDifficulty, Group)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param difficulty	difficulty instance from which get the group
@@ -280,7 +280,7 @@ public enum EDifficulty {
 	 *     <li>{@link EDifficulty} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EDifficulty#getIdOrElse(EDifficulty, Integer)}
+	 * <p>Wraps {@link #getIdOrElse(EDifficulty, Integer)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param difficulty	difficulty instance from which get the API-identifier
@@ -333,7 +333,7 @@ public enum EDifficulty {
 	 *     <li>{@link EDifficulty} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EDifficulty#getFullNameOrElse(EDifficulty, String)}
+	 * <p>Wraps {@link #getFullNameOrElse(EDifficulty, String)}
 	 * w/ {@link UwString#EMPTY} as the default value.
 	 *
 	 * @param difficulty	difficulty instance from which get the full name
@@ -352,7 +352,7 @@ public enum EDifficulty {
 	 *     <li>{@link EDifficulty} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EDifficulty#getFullNameOrElse(EDifficulty, String)}
+	 * <p>Wraps {@link #getFullNameOrElse(EDifficulty, String)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param difficulty	difficulty instance from which get the full name
@@ -390,7 +390,7 @@ public enum EDifficulty {
 	 * Get an {@link EDifficulty} instance by its API-identifier
 	 * or return {@code null} if failed.
 	 *
-	 * <p>Wraps {@link EJumpType#fromIdOrElse(Integer, EJumpType)}
+	 * <p>Wraps {@link #fromIdOrElse(Integer, EDifficulty)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param id	API-identifier of the instance
@@ -428,7 +428,7 @@ public enum EDifficulty {
 	 * Get an {@link EDifficulty} instance by its full name
 	 * or return {@code null} if failed.
 	 *
-	 * <p>Wraps {@link EDifficulty#fromFullNameOrElse(String, EDifficulty)}
+	 * <p>Wraps {@link #fromFullNameOrElse(String, EDifficulty)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param fullName	full name of the instance
@@ -466,7 +466,7 @@ public enum EDifficulty {
 	 * Get an {@link EDifficulty} instance by its index
 	 * or return {@code null} if failed.
 	 *
-	 * <p>Wraps {@link EDifficulty#fromIndexOrElse(Integer, EDifficulty)}
+	 * <p>Wraps {@link #fromIndexOrElse(Integer, EDifficulty)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param index		index of the instance
@@ -519,7 +519,7 @@ public enum EDifficulty {
 				+ ":" + Group.class.getSimpleName();
 
 		/**
-		 * A {@link Group#toString()} cache.
+		 * A {@link #toString()} cache.
 		 */
 		private String stringCache;
 

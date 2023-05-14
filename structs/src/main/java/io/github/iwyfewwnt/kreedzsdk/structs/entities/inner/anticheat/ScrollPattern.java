@@ -43,62 +43,62 @@ public final class ScrollPattern implements Serializable, Cloneable {
 	private final List<JumpInput> jumpInputs;
 
 	/**
-	 * A {@link ScrollPattern#getPerfJumpCount()} cache.
+	 * A {@link #getPerfJumpCount()} cache.
 	 */
 	private transient volatile Integer perfJumpCountCache;
 
 	/**
-	 * A {@link ScrollPattern#getPerfJumpRatio()} cache.
+	 * A {@link #getPerfJumpRatio()} cache.
 	 */
 	private transient volatile Float perfJumpRatioCache;
 
 	/**
-	 * A {@link ScrollPattern#getTotalPreInputCount()} cache.
+	 * A {@link #getTotalPreInputCount()} cache.
 	 */
 	private transient volatile Integer totalPreInputCountCache;
 
 	/**
-	 * A {@link ScrollPattern#getTotalPostInputCount()} cache.
+	 * A {@link #getTotalPostInputCount()} cache.
 	 */
 	private transient volatile Integer totalPostInputCountCache;
 
 	/**
-	 * A {@link ScrollPattern#getTotalInputCount()} cache.
+	 * A {@link #getTotalInputCount()} cache.
 	 */
 	private transient volatile Integer totalInputCountCache;
 
 	/**
-	 * A {@link ScrollPattern#getAvgPreInputCount()} cache.
+	 * A {@link #getAvgPreInputCount()} cache.
 	 */
 	private transient volatile Float avgPreInputCountCache;
 
 	/**
-	 * A {@link ScrollPattern#getAvgPostInputCount()} cache.
+	 * A {@link #getAvgPostInputCount()} cache.
 	 */
 	private transient volatile Float avgPostInputCountCache;
 
 	/**
-	 * A {@link ScrollPattern#getTotalJumpCount()} cache.
+	 * A {@link #getTotalJumpCount()} cache.
 	 */
 	private transient volatile Float avgTotalInputCountCache;
 
 	/**
-	 * A {@link ScrollPattern#toGokzString()} cache.
+	 * A {@link #toGokzString()} cache.
 	 */
 	private transient volatile String gokzStringCache;
 
 	/**
-	 * A {@link ScrollPattern#toKztimerString()} cache.
+	 * A {@link #toKztimerString()} cache.
 	 */
 	private transient volatile String kztimerStringCache;
 
 	/**
-	 * A {@link ScrollPattern#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link ScrollPattern#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 
@@ -196,7 +196,7 @@ public final class ScrollPattern implements Serializable, Cloneable {
 	/**
 	 * Initialize a {@link ScrollPattern} instance.
 	 *
-	 * <p>Wraps {@link ScrollPattern#ScrollPattern(List)}
+	 * <p>Wraps {@link #ScrollPattern(List)}
 	 * w/ {@code null} as the list of jump inputs.
 	 */
 	public ScrollPattern() {
@@ -206,7 +206,7 @@ public final class ScrollPattern implements Serializable, Cloneable {
 	/**
 	 * Initialize a {@link ScrollPattern} instance.
 	 *
-	 * <p>Wraps {@link ScrollPattern#ScrollPattern(List)}.
+	 * <p>Wraps {@link #ScrollPattern(List)}.
 	 *
 	 * @param jumpInputs	array of jump inputs
 	 */

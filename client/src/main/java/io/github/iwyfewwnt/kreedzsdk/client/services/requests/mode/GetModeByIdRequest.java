@@ -41,12 +41,12 @@ public final class GetModeByIdRequest implements IRequest, Cloneable {
 	private final Integer id;
 
 	/**
-	 * A {@link GetModeByIdRequest#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link GetModeByIdRequest#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

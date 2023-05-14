@@ -101,7 +101,7 @@ public enum EMode {
 	private final String shortName;
 
 	/**
-	 * A {@link EMode#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private String stringCache;
 
@@ -243,7 +243,7 @@ public enum EMode {
 	 *     <li>{@link EMode} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EMode#getIdOrElse(EMode, Integer)}
+	 * <p>Wraps {@link #getIdOrElse(EMode, Integer)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param mode	mode instance from which get the API-identifier
@@ -296,7 +296,7 @@ public enum EMode {
 	 *     <li>{@link EMode} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EMode#getApiNameOrElse(EMode, String)}
+	 * <p>Wraps {@link #getApiNameOrElse(EMode, String)}
 	 * w/ {@link UwString#EMPTY} as the default value.
 	 *
 	 * @param mode	mode instance from which get the API-name
@@ -315,7 +315,7 @@ public enum EMode {
 	 *     <li>{@link EMode} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EMode#getApiNameOrElse(EMode, String)}
+	 * <p>Wraps {@link #getApiNameOrElse(EMode, String)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param mode	mode instance from which get the API-name
@@ -368,7 +368,7 @@ public enum EMode {
 	 *     <li>{@link EMode} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EMode#getFullNameOrElse(EMode, String)}
+	 * <p>Wraps {@link #getFullNameOrElse(EMode, String)}
 	 * w/ {@link UwString#EMPTY} as the default value.
 	 *
 	 * @param mode	mode instance from which get the full name
@@ -387,7 +387,7 @@ public enum EMode {
 	 *     <li>{@link EMode} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EMode#getFullNameOrElse(EMode, String)}
+	 * <p>Wraps {@link #getFullNameOrElse(EMode, String)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param mode	mode instance from which get the full name
@@ -440,7 +440,7 @@ public enum EMode {
 	 *     <li>{@link EMode} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EMode#getShortNameOrElse(EMode, String)}
+	 * <p>Wraps {@link #getShortNameOrElse(EMode, String)}
 	 * w/ {@link UwString#EMPTY} as the default value.
 	 *
 	 * @param mode	mode instance from which get the short name
@@ -459,7 +459,7 @@ public enum EMode {
 	 *     <li>{@link EMode} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EMode#getShortNameOrElse(EMode, String)}
+	 * <p>Wraps {@link #getShortNameOrElse(EMode, String)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param mode	mode instance from which get the short name
@@ -497,7 +497,7 @@ public enum EMode {
 	 * Get an {@link EMode} instance by its API-identifier
 	 * or return {@code null} if failed.
 	 *
-	 * <p>Wraps {@link EMode#fromIdOrElse(Integer, EMode)}
+	 * <p>Wraps {@link #fromIdOrElse(Integer, EMode)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param id	API-identifier of the instance
@@ -535,7 +535,7 @@ public enum EMode {
 	 * Get an {@link EMode} instance by its API-name
 	 * or return {@code null} if failed.
 	 *
-	 * <p>Wraps {@link EMode#fromApiNameOrElse(String, EMode)}
+	 * <p>Wraps {@link #fromApiNameOrElse(String, EMode)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param apiName	API-name of the instance
@@ -573,7 +573,7 @@ public enum EMode {
 	 * Get an {@link EMode} instance by its full name
 	 * or return {@code null} if failed.
 	 *
-	 * <p>Wraps {@link EMode#fromFullNameOrElse(String, EMode)}
+	 * <p>Wraps {@link #fromFullNameOrElse(String, EMode)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param fullName	full name of the instance
@@ -611,7 +611,7 @@ public enum EMode {
 	 * Get an {@link EMode} instance by its short name
 	 * or return {@code null} if failed.
 	 *
-	 * <p>Wraps {@link EMode#fromShortNameOrElse(String, EMode)}
+	 * <p>Wraps {@link #fromShortNameOrElse(String, EMode)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param shortName		short name of the instance
@@ -649,7 +649,7 @@ public enum EMode {
 	 * Get an {@link EMode} instance by its index
 	 * or return a default value if failed.
 	 *
-	 * <p>Wraps {@link EMode#fromIndexOrElse(Integer, EMode)}
+	 * <p>Wraps {@link #fromIndexOrElse(Integer, EMode)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param index		index of the instance

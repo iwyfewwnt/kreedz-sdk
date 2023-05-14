@@ -102,7 +102,7 @@ public enum EBanType {
 	private final String shortName;
 
 	/**
-	 * A {@link EBanType#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private String stringCache;
 
@@ -247,7 +247,7 @@ public enum EBanType {
 	 *     <li>{@link EBanType} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EBanType#getGroupOrElse(EBanType, Group)}
+	 * <p>Wraps {@link #getGroupOrElse(EBanType, Group)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param banType	ban type instance from which get the group
@@ -300,7 +300,7 @@ public enum EBanType {
 	 *     <li>{@link EBanType} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EBanType#getApiNameOrElse(EBanType, String)}
+	 * <p>Wraps {@link #getApiNameOrElse(EBanType, String)}
 	 * w/ {@link UwString#EMPTY} as the default value.
 	 *
 	 * @param banType	ban type instance from which get the API-name
@@ -319,7 +319,7 @@ public enum EBanType {
 	 *     <li>{@link EBanType} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EBanType#getApiNameOrElse(EBanType, String)}
+	 * <p>Wraps {@link #getApiNameOrElse(EBanType, String)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param banType	ban type instance from which get the API-name
@@ -372,7 +372,7 @@ public enum EBanType {
 	 *     <li>{@link EBanType} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EBanType#getFullNameOrElse(EBanType, String)}
+	 * <p>Wraps {@link #getFullNameOrElse(EBanType, String)}
 	 * w/ {@link UwString#EMPTY} as the default value.
 	 *
 	 * @param banType	ban type instance from which get the full name
@@ -391,7 +391,7 @@ public enum EBanType {
 	 *     <li>{@link EBanType} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EBanType#getFullNameOrElse(EBanType, String)}
+	 * <p>Wraps {@link #getFullNameOrElse(EBanType, String)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param banType	ban type instance from which get the full name
@@ -444,7 +444,7 @@ public enum EBanType {
 	 *     <li>{@link EBanType} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EBanType#getShortNameOrElse(EBanType, String)}
+	 * <p>Wraps {@link #getShortNameOrElse(EBanType, String)}
 	 * w/ {@link UwString#EMPTY} as the default value.
 	 *
 	 * @param banType	ban type instance from which get the short name
@@ -463,7 +463,7 @@ public enum EBanType {
 	 *     <li>{@link EBanType} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EBanType#getShortNameOrElse(EBanType, String)}
+	 * <p>Wraps {@link #getShortNameOrElse(EBanType, String)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param banType	ban type instance from which get the short name
@@ -501,7 +501,7 @@ public enum EBanType {
 	 * Get an {@link EBanType} instance by its API-name
 	 * or return {@code null} if failed.
 	 *
-	 * <p>Wraps {@link EBanType#fromApiNameOrElse(String, EBanType)}
+	 * <p>Wraps {@link #fromApiNameOrElse(String, EBanType)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param apiName	API-name of the instance
@@ -539,7 +539,7 @@ public enum EBanType {
 	 * Get an {@link EBanType} instance by its full name
 	 * or return a default value if failed.
 	 *
-	 * <p>Wraps {@link EBanType#fromFullNameOrElse(String, EBanType)}
+	 * <p>Wraps {@link #fromFullNameOrElse(String, EBanType)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param fullName	full name of the instance
@@ -623,7 +623,7 @@ public enum EBanType {
 				+ ":" + Group.class.getSimpleName();
 
 		/**
-		 * A {@link Group#toString()} cache.
+		 * A {@link #toString()} cache.
 		 */
 		private String stringCache;
 

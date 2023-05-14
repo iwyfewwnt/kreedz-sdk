@@ -89,12 +89,12 @@ public final class RecordDistributionEntity implements Serializable, Cloneable {
 	private final DataUpdater dataUpdater;
 
 	/**
-	 * A {@link RecordDistributionEntity#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link RecordDistributionEntity#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

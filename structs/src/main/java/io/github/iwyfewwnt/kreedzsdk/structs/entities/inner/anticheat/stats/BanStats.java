@@ -47,7 +47,7 @@ public class BanStats implements Serializable, Cloneable {
 	/**
 	 * A jump inputs pattern.
 	 *
-	 * <p>Wraps {@link BanStats#JUMP_INPUTS_REGEX}.
+	 * <p>Wraps {@link #JUMP_INPUTS_REGEX}.
 	 */
 	private static final Pattern JUMP_INPUTS_PATTERN = Pattern.compile(JUMP_INPUTS_REGEX);
 
@@ -62,17 +62,17 @@ public class BanStats implements Serializable, Cloneable {
 	protected final EPluginType pluginType;
 
 	/**
-	 * A {@link BanStats#getScrollPattern()} cache.
+	 * A {@link #getScrollPattern()} cache.
 	 */
 	private transient volatile ScrollPattern scrollPatternCache;
 
 	/**
-	 * A {@link BanStats#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	protected transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link BanStats#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	protected transient volatile String stringCache;
 
@@ -131,7 +131,7 @@ public class BanStats implements Serializable, Cloneable {
 	/**
 	 * Initialize a {@link BanStats} instance.
 	 *
-	 * <p>Wraps {@link BanStats#BanStats(String, EPluginType)}
+	 * <p>Wraps {@link #BanStats(String, EPluginType)}
 	 * w/ {@code null} as the raw stats {@literal &} plugin type.
 	 */
 	BanStats() {

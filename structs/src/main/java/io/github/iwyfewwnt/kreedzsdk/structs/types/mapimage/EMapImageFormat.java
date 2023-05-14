@@ -92,7 +92,7 @@ public enum EMapImageFormat {
 	private final String extension;
 
 	/**
-	 * A {@link EMapImageFormat#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private String stringCache;
 
@@ -221,7 +221,7 @@ public enum EMapImageFormat {
 	 *     <li>{@link EMapImageFormat} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EMapImageFormat#getBranchOrElse(EMapImageFormat, String)}
+	 * <p>Wraps {@link #getBranchOrElse(EMapImageFormat, String)}
 	 * w/ {@link UwString#EMPTY} as the default value.
 	 *
 	 * @param format	map image format instance from which get the branch
@@ -240,7 +240,7 @@ public enum EMapImageFormat {
 	 *     <li>{@link EMapImageFormat} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EMapImageFormat#getBranchOrElse(EMapImageFormat, String)}
+	 * <p>Wraps {@link #getBranchOrElse(EMapImageFormat, String)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param format	map image format instance from which get the branch
@@ -293,7 +293,7 @@ public enum EMapImageFormat {
 	 *     <li>{@link EMapImageFormat} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EMapImageFormat#getEndpointOrElse(EMapImageFormat, String)}
+	 * <p>Wraps {@link #getEndpointOrElse(EMapImageFormat, String)}
 	 * w/ {@link UwString#EMPTY} as the default value.
 	 *
 	 * @param format	map image format instance from which get the endpoint
@@ -312,7 +312,7 @@ public enum EMapImageFormat {
 	 *     <li>{@link EMapImageFormat} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EMapImageFormat#getEndpointOrElse(EMapImageFormat, String)}
+	 * <p>Wraps {@link #getEndpointOrElse(EMapImageFormat, String)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param format	map image format instance from which get the endpoint
@@ -365,7 +365,7 @@ public enum EMapImageFormat {
 	 *     <li>{@link EMapImageFormat} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EMapImageFormat#getExtensionOrElse(EMapImageFormat, String)}
+	 * <p>Wraps {@link #getExtensionOrElse(EMapImageFormat, String)}
 	 * w/ {@link UwString#EMPTY} as the default value.
 	 *
 	 * @param format	map image format instance from which get the extension
@@ -384,7 +384,7 @@ public enum EMapImageFormat {
 	 *     <li>{@link EMapImageFormat} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EMapImageFormat#getExtensionOrElse(EMapImageFormat, String)}
+	 * <p>Wraps {@link #getExtensionOrElse(EMapImageFormat, String)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param format	map image format instance from which get the extension
@@ -422,7 +422,7 @@ public enum EMapImageFormat {
 	 * Get an {@link EMapImageFormat} instance by its index
 	 * or return a default value if failed.
 	 *
-	 * <p>Wraps {@link EMapImageFormat#fromIndexOrElse(Integer, EMapImageFormat)}
+	 * <p>Wraps {@link #fromIndexOrElse(Integer, EMapImageFormat)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param index		index of the instance

@@ -82,12 +82,12 @@ public final class GetServersRequest implements IRequest, Cloneable {
 	private final Integer limit;
 
 	/**
-	 * A {@link GetServersRequest#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link GetServersRequest#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

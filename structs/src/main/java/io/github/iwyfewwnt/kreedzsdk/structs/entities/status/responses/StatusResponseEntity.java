@@ -47,12 +47,12 @@ public final class StatusResponseEntity implements Serializable, Cloneable {
 	private final StatusEntity status;
 
 	/**
-	 * A {@link StatusResponseEntity#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link StatusResponseEntity#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

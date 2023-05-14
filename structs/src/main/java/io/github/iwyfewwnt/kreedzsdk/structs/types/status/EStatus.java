@@ -122,7 +122,7 @@ public enum EStatus {
 	private final String fullName;
 
 	/**
-	 * A {@link EStatus#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private String stringCache;
 
@@ -235,7 +235,7 @@ public enum EStatus {
 	 *     <li>{@link EStatus} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EStatus#getApiNameOrElse(EStatus, String)}
+	 * <p>Wraps {@link #getApiNameOrElse(EStatus, String)}
 	 * w/ {@link UwString#EMPTY} as the default value.
 	 *
 	 * @param status	status instance from which get the API-name
@@ -254,7 +254,7 @@ public enum EStatus {
 	 *     <li>{@link EStatus} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EStatus#getApiNameOrElse(EStatus, String)}
+	 * <p>Wraps {@link #getApiNameOrElse(EStatus, String)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param status	status instance from which get the API-name
@@ -307,7 +307,7 @@ public enum EStatus {
 	 *     <li>{@link EStatus} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EStatus#getFullNameOrElse(EStatus, String)}
+	 * <p>Wraps {@link #getFullNameOrElse(EStatus, String)}
 	 * w/ {@link UwString#EMPTY} as the default value.
 	 *
 	 * @param status	status instance from which get the full name
@@ -326,7 +326,7 @@ public enum EStatus {
 	 *     <li>{@link EStatus} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EStatus#getFullNameOrElse(EStatus, String)}
+	 * <p>Wraps {@link #getFullNameOrElse(EStatus, String)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param status	status instance from which get the full name
@@ -364,7 +364,7 @@ public enum EStatus {
 	 * Get an {@link EStatus} instance by its API-name
 	 * or return {@code null} if failed.
 	 *
-	 * <p>Wraps {@link EStatus#fromApiNameOrElse(String, EStatus)}
+	 * <p>Wraps {@link #fromApiNameOrElse(String, EStatus)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param apiName	API-name of the instance
@@ -402,7 +402,7 @@ public enum EStatus {
 	 * Get an {@link EStatus} instance by its full name
 	 * or return {@code null} if failed.
 	 *
-	 * <p>Wraps {@link EStatus#fromFullNameOrElse(String, EStatus)}
+	 * <p>Wraps {@link #fromFullNameOrElse(String, EStatus)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param fullName	full name of the instance
@@ -440,7 +440,7 @@ public enum EStatus {
 	 * Get an {@link EStatus} instance by its index
 	 * or return {@code null} if failed.
 	 *
-	 * <p>Wraps {@link EStatus#fromIndexOrElse(Integer, EStatus)}
+	 * <p>Wraps {@link #fromIndexOrElse(Integer, EStatus)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param index		index of the instance

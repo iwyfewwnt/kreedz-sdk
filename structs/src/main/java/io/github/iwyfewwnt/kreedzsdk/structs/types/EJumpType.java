@@ -121,7 +121,7 @@ public enum EJumpType {
 	private final String shortName;
 
 	/**
-	 * A {@link EJumpType#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private String stringCache;
 
@@ -262,7 +262,7 @@ public enum EJumpType {
 	 *     <li>{@link EJumpType} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EJumpType#getIdOrElse(EJumpType, Integer)}
+	 * <p>Wraps {@link #getIdOrElse(EJumpType, Integer)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param jumpType	jump type instance from which get the API-identifier
@@ -315,7 +315,7 @@ public enum EJumpType {
 	 *     <li>{@link EJumpType} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EJumpType#getApiNameOrElse(EJumpType, String)}
+	 * <p>Wraps {@link #getApiNameOrElse(EJumpType, String)}
 	 * w/ {@link UwString#EMPTY} as the default value.
 	 *
 	 * @param jumpType	jump type instance from which get the API-name
@@ -334,7 +334,7 @@ public enum EJumpType {
 	 *     <li>{@link EJumpType} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EJumpType#getApiNameOrElse(EJumpType, String)}
+	 * <p>Wraps {@link #getApiNameOrElse(EJumpType, String)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param jumpType	jump type instance from which get the API-name
@@ -387,7 +387,7 @@ public enum EJumpType {
 	 *     <li>{@link EJumpType} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EJumpType#getFullNameOrElse(EJumpType, String)}
+	 * <p>Wraps {@link #getFullNameOrElse(EJumpType, String)}
 	 * w/ {@link UwString#EMPTY} as the default value.
 	 *
 	 * @param jumpType	jump type instance from which get the full name
@@ -406,7 +406,7 @@ public enum EJumpType {
 	 *     <li>{@link EJumpType} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EJumpType#getFullNameOrElse(EJumpType, String)}
+	 * <p>Wraps {@link #getFullNameOrElse(EJumpType, String)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param jumpType	jump type instance from which get the full name
@@ -459,7 +459,7 @@ public enum EJumpType {
 	 *     <li>{@link EJumpType} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EJumpType#getShortNameOrElse(EJumpType, String)}
+	 * <p>Wraps {@link #getShortNameOrElse(EJumpType, String)}
 	 * w/ {@link UwString#EMPTY} as the default value.
 	 *
 	 * @param jumpType	jump type instance from which get the short name
@@ -478,7 +478,7 @@ public enum EJumpType {
 	 *     <li>{@link EJumpType} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EJumpType#getShortNameOrElse(EJumpType, String)}
+	 * <p>Wraps {@link #getShortNameOrElse(EJumpType, String)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param jumpType	jump type instance from which get the short name
@@ -516,7 +516,7 @@ public enum EJumpType {
 	 * Get an {@link EJumpType} instance by its API-identifier
 	 * or return {@code null} if failed.
 	 *
-	 * <p>Wraps {@link EJumpType#fromIdOrElse(Integer, EJumpType)}
+	 * <p>Wraps {@link #fromIdOrElse(Integer, EJumpType)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param id	API-identifier of the instance
@@ -554,7 +554,7 @@ public enum EJumpType {
 	 * Get an {@link EJumpType} instance by its API-name
 	 * or return {@code null} if failed.
 	 *
-	 * <p>Wraps {@link EJumpType#fromApiNameOrElse(String, EJumpType)}
+	 * <p>Wraps {@link #fromApiNameOrElse(String, EJumpType)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param apiName	API-name of the instance
@@ -592,7 +592,7 @@ public enum EJumpType {
 	 * Get an {@link EJumpType} instance by its full name
 	 * or return {@code null} if failed.
 	 *
-	 * <p>Wraps {@link EJumpType#fromFullNameOrElse(String, EJumpType)}
+	 * <p>Wraps {@link #fromFullNameOrElse(String, EJumpType)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param fullName	full name of the instance
@@ -630,7 +630,7 @@ public enum EJumpType {
 	 * Get an {@link EJumpType} instance by its short name
 	 * or return {@code null} if failed.
 	 *
-	 * <p>Wraps {@link EJumpType#fromShortNameOrElse(String, EJumpType)}
+	 * <p>Wraps {@link #fromShortNameOrElse(String, EJumpType)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param shortName		short name of the instance
@@ -668,7 +668,7 @@ public enum EJumpType {
 	 * Get an {@link EJumpType} instance by its index
 	 * or return {@code null} if failed.
 	 *
-	 * <p>Wraps {@link EJumpType#fromIndexOrElse(Integer, EJumpType)}
+	 * <p>Wraps {@link #fromIndexOrElse(Integer, EJumpType)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param index		index of the instance

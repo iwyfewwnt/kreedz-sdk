@@ -52,12 +52,12 @@ public final class RecordCountEntity implements Serializable, Cloneable {
 	private final String playerName;
 
 	/**
-	 * A {@link RecordCountEntity#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link RecordCountEntity#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

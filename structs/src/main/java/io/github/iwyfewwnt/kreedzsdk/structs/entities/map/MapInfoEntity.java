@@ -66,17 +66,17 @@ public final class MapInfoEntity implements Serializable, Cloneable {
 	private final List<Mapper> mappers;
 
 	/**
-	 * A {@link MapInfoEntity#isCompleted} cache.
+	 * A {@link #isCompleted} cache.
 	 */
 	private transient volatile Boolean isCompletedCache;
 
 	/**
-	 * A {@link MapInfoEntity#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link MapInfoEntity#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

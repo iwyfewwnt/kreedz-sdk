@@ -88,7 +88,7 @@ public enum EHealthEndpoint {
 	private final String key;
 
 	/**
-	 * A {@link EHealthEndpoint#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private volatile String stringCache;
 
@@ -229,7 +229,7 @@ public enum EHealthEndpoint {
 	 *     <li>{@link EHealthEndpoint} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EHealthEndpoint#getNameOrElse(EHealthEndpoint, String)}
+	 * <p>Wraps {@link #getNameOrElse(EHealthEndpoint, String)}
 	 * w/ {@link UwString#EMPTY} as the default value.
 	 *
 	 * @param endpoint	health endpoint instance from which get the API-name
@@ -248,7 +248,7 @@ public enum EHealthEndpoint {
 	 *     <li>{@link EHealthEndpoint} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EHealthEndpoint#getNameOrElse(EHealthEndpoint, String)}
+	 * <p>Wraps {@link #getNameOrElse(EHealthEndpoint, String)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param endpoint	health endpoint instance from which get the API-name
@@ -301,7 +301,7 @@ public enum EHealthEndpoint {
 	 *     <li>{@link EHealthEndpoint} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EHealthEndpoint#getGroupOrElse(EHealthEndpoint, String)}
+	 * <p>Wraps {@link #getGroupOrElse(EHealthEndpoint, String)}
 	 * w/ {@link UwString#EMPTY} as the default value.
 	 *
 	 * @param endpoint	health endpoint instance from which get the API-group
@@ -320,7 +320,7 @@ public enum EHealthEndpoint {
 	 *     <li>{@link EHealthEndpoint} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EHealthEndpoint#getGroupOrElse(EHealthEndpoint, String)}
+	 * <p>Wraps {@link #getGroupOrElse(EHealthEndpoint, String)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param endpoint	health endpoint instance from which get the API-group
@@ -373,7 +373,7 @@ public enum EHealthEndpoint {
 	 *     <li>{@link EHealthEndpoint} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EHealthEndpoint#getEndpointOrElse(EHealthEndpoint, String)}
+	 * <p>Wraps {@link #getEndpointOrElse(EHealthEndpoint, String)}
 	 * w/ {@link UwString#EMPTY} as the default value.
 	 *
 	 * @param endpoint	health endpoint instance from which get the API-endpoint
@@ -392,7 +392,7 @@ public enum EHealthEndpoint {
 	 *     <li>{@link EHealthEndpoint} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EHealthEndpoint#getEndpointOrElse(EHealthEndpoint, String)}
+	 * <p>Wraps {@link #getEndpointOrElse(EHealthEndpoint, String)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param endpoint	health endpoint instance from which get the API-endpoint
@@ -445,7 +445,7 @@ public enum EHealthEndpoint {
 	 *     <li>{@link EHealthEndpoint} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EHealthEndpoint#getKeyOrElse(EHealthEndpoint, String)}
+	 * <p>Wraps {@link #getKeyOrElse(EHealthEndpoint, String)}
 	 * w/ {@link UwString#EMPTY} as the default value.
 	 *
 	 * @param endpoint	health endpoint instance from which get the API-key
@@ -464,7 +464,7 @@ public enum EHealthEndpoint {
 	 *     <li>{@link EHealthEndpoint} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link EHealthEndpoint#getKeyOrElse(EHealthEndpoint, String)}
+	 * <p>Wraps {@link #getKeyOrElse(EHealthEndpoint, String)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param endpoint	health endpoint instance from which get the API-key
@@ -502,7 +502,7 @@ public enum EHealthEndpoint {
 	 * Get an {@link EHealthEndpoint} instance by its API-name
 	 * or return {@code null} if failed.
 	 *
-	 * <p>Wraps {@link EHealthEndpoint#fromNameOrElse(String, EHealthEndpoint)}
+	 * <p>Wraps {@link #fromNameOrElse(String, EHealthEndpoint)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param name	API-name of the instance
@@ -540,7 +540,7 @@ public enum EHealthEndpoint {
 	 * Get an {@link EHealthEndpoint} instance by its API-key
 	 * or return {@code null} if failed.
 	 *
-	 * <p>Wraps {@link EHealthEndpoint#fromKeyOrElse(String, EHealthEndpoint)}
+	 * <p>Wraps {@link #fromKeyOrElse(String, EHealthEndpoint)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param key	API-key of the instance
@@ -577,7 +577,7 @@ public enum EHealthEndpoint {
 	 * Get an {@link EHealthEndpoint} instance by its index
 	 * or return a default value if failed.
 	 *
-	 * <p>Wraps {@link EHealthEndpoint#fromIndexOrElse(Integer, EHealthEndpoint)}
+	 * <p>Wraps {@link #fromIndexOrElse(Integer, EHealthEndpoint)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param index		index of the instance

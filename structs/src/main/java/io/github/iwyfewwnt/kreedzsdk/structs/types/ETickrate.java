@@ -80,7 +80,7 @@ public enum ETickrate {
 	private final int intVal;
 
 	/**
-	 * A {@link ETickrate#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private String stringCache;
 
@@ -184,7 +184,7 @@ public enum ETickrate {
 	 *     <li>{@link ETickrate} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link ETickrate#getAsFloatOrElse(ETickrate, Float)}
+	 * <p>Wraps {@link #getAsFloatOrElse(ETickrate, Float)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param tickrate	tickrate instance from which get the float value
@@ -237,7 +237,7 @@ public enum ETickrate {
 	 *     <li>{@link ETickrate} instance is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link ETickrate#getAsIntOrElse(ETickrate, Integer)}
+	 * <p>Wraps {@link #getAsIntOrElse(ETickrate, Integer)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param tickrate	tickrate instance from which get the integer value
@@ -275,7 +275,7 @@ public enum ETickrate {
 	 * Get an {@link ETickrate} instance by its float value
 	 * or return a default value if failed.
 	 *
-	 * <p>Wraps {@link ETickrate#fromFloatOrElse(Float, ETickrate)}
+	 * <p>Wraps {@link #fromFloatOrElse(Float, ETickrate)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param fltVal	float value of the instance
@@ -313,7 +313,7 @@ public enum ETickrate {
 	 * Get an {@link ETickrate} instance by its integer value
 	 * or return a default value if failed.
 	 *
-	 * <p>Wraps {@link ETickrate#fromIntOrElse(Integer, ETickrate)}
+	 * <p>Wraps {@link #fromIntOrElse(Integer, ETickrate)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param intVal	integer value of the instance
@@ -351,7 +351,7 @@ public enum ETickrate {
 	 * Get an {@link ETickrate} instance by its index
 	 * or return a default value if failed.
 	 *
-	 * <p>Wraps {@link ETickrate#fromIndexOrElse(Integer, ETickrate)}
+	 * <p>Wraps {@link #fromIndexOrElse(Integer, ETickrate)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param index		index of the instance

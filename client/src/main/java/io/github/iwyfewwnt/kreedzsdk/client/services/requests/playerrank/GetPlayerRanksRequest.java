@@ -114,12 +114,12 @@ public final class GetPlayerRanksRequest implements IRequest, Cloneable {
 	private final Integer limit;
 
 	/**
-	 * A {@link GetPlayerRanksRequest#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link GetPlayerRanksRequest#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

@@ -38,22 +38,22 @@ public final class DataUpdater implements Serializable, Cloneable {
 	private final Long id;
 
 	/**
-	 * A {@link DataUpdater#getAsServerId()} cache.
+	 * A {@link #getAsServerId()} cache.
 	 */
 	private transient volatile Integer serverIdCache;
 
 	/**
-	 * A {@link DataUpdater#getAsSteamId()} cache.
+	 * A {@link #getAsSteamId()} cache.
 	 */
 	private transient volatile SteamId steamIdCache;
 
 	/**
-	 * A {@link DataUpdater#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link DataUpdater#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

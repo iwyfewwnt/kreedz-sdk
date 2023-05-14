@@ -47,12 +47,12 @@ public final class GetHealthStatusByEndpointRequest implements IRequest, Cloneab
 	private final String endpoint;
 
 	/**
-	 * A {@link GetHealthStatusByEndpointRequest#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link GetHealthStatusByEndpointRequest#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

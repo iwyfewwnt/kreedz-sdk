@@ -35,12 +35,12 @@ public class GetRecordByIdRequest implements IRequest, Cloneable {
 	protected final Integer id;
 
 	/**
-	 * A {@link GetRecordByIdRequest#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	protected transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link GetRecordByIdRequest#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	protected transient volatile String stringCache;
 

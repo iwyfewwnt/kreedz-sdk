@@ -48,12 +48,12 @@ public final class StatusComponentsResponseEntity implements Serializable, Clone
 	private final List<StatusComponentEntity> components;
 
 	/**
-	 * A {@link StatusComponentsResponseEntity#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link StatusComponentsResponseEntity#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

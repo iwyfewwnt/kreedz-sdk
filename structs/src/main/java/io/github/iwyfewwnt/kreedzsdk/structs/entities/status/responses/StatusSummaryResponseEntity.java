@@ -65,12 +65,12 @@ public final class StatusSummaryResponseEntity implements Serializable, Cloneabl
 	private final StatusEntity status;
 
 	/**
-	 * A {@link StatusSummaryResponseEntity#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link StatusSummaryResponseEntity#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

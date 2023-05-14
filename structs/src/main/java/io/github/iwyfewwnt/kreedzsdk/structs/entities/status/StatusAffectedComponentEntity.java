@@ -58,12 +58,12 @@ public final class StatusAffectedComponentEntity implements Serializable, Clonea
 	private final EStatus currStatus;
 
 	/**
-	 * A {@link StatusAffectedComponentEntity#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link StatusAffectedComponentEntity#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

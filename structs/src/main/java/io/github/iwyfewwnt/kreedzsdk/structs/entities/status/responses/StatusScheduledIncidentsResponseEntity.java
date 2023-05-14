@@ -48,12 +48,12 @@ public final class StatusScheduledIncidentsResponseEntity implements Serializabl
 	private final List<StatusScheduledIncidentEntity> incidents;
 
 	/**
-	 * A {@link StatusScheduledIncidentsResponseEntity#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link StatusScheduledIncidentsResponseEntity#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

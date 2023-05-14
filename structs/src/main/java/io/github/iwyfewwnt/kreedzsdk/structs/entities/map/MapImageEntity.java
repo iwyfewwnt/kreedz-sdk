@@ -123,12 +123,12 @@ public final class MapImageEntity implements Serializable, Cloneable {
 	private final String webpLowResolutionUrl;
 
 	/**
-	 * A {@link MapImageEntity#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link MapImageEntity#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

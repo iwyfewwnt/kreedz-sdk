@@ -64,12 +64,12 @@ public final class ServerEntity implements Serializable, Cloneable {
 	private final SteamId ownerSteamId;
 
 	/**
-	 * A {@link ServerEntity#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link ServerEntity#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 

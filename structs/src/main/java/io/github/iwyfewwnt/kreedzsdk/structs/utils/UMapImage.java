@@ -104,7 +104,7 @@ public final class UMapImage {
 	 *     <li>Image format enum is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link UMapImage#getUrlOrElse(String, EMapImageFormat, String)}
+	 * <p>Wraps {@link #getUrlOrElse(String, EMapImageFormat, String)}
 	 * w/ {@link UwString#EMPTY} as the default value.
 	 *
 	 * @param mapName	map name to get URL for
@@ -126,7 +126,7 @@ public final class UMapImage {
 	 *     <li>Image format enum is {@code null}.
 	 * </ul>
 	 *
-	 * <p>Wraps {@link UMapImage#getUrlOrElse(String, EMapImageFormat, String)}
+	 * <p>Wraps {@link #getUrlOrElse(String, EMapImageFormat, String)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param mapName	map name to get URL for

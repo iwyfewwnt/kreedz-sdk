@@ -43,7 +43,7 @@ enum EMapImageBranch {
 	final String value;
 
 	/**
-	 * A {@link EMapImageBranch#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private String stringCache;
 

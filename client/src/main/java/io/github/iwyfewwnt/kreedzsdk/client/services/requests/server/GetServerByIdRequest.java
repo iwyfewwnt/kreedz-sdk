@@ -41,12 +41,12 @@ public final class GetServerByIdRequest implements IRequest, Cloneable {
 	private final Integer id;
 
 	/**
-	 * A {@link GetServerByIdRequest#hashCode()} cache.
+	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
 
 	/**
-	 * A {@link GetServerByIdRequest#toString()} cache.
+	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
 
