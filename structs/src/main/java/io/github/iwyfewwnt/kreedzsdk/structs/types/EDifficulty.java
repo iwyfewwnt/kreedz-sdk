@@ -524,6 +524,15 @@ public enum EDifficulty {
 		private String stringCache;
 
 		/**
+		 * A {@link #stringCache} mutex.
+		 */
+		private final Object stringCacheMutex;
+
+		Group() {
+			this.stringCacheMutex = new Object();
+		}
+
+		/**
 		 * {@inheritDoc}
 		 */
 		@Override
@@ -532,8 +541,14 @@ public enum EDifficulty {
 				return this.stringCache;
 			}
 
-			return (this.stringCache = SIMPLE_NAME
-					+ "::" + this.name());
+			synchronized (this.stringCacheMutex) {
+				if (this.stringCache != null) {
+					return this.stringCache;
+				}
+
+				return (this.stringCache = SIMPLE_NAME
+						+ "::" + this.name());
+			}
 		}
 	}
 }
