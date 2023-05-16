@@ -80,7 +80,6 @@
         <structs.version>0.2.0-SNAPSHOT</structs.version>
         <client.version>0.2.0-SNAPSHOT</client.version>
         <client-api.version>0.2.0-SNAPSHOT</client-api.version>
-        <client-aspects.version>0.2.0-SNAPSHOT</client-aspects.version>
         <adapters.verison>0.2.0-SNAPSHOT</adapters.verison>
         <adapter-api.version>0.2.0-SNAPSHOT</adapter-api.version>
         <converters.version>0.2.0-SNAPSHOT</converters.version>
