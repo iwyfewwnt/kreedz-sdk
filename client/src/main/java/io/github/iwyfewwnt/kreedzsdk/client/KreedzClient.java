@@ -55,16 +55,12 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	/**
 	 * A map of service wrapper/implementation classes by their service interface class.
 	 */
-	private static final Map<Class<?>, Class<? extends IKreedzService>> SERVICE_CLASSES = new HashMap<>();
+	private static final Map<Class<?>, Class<? extends IKreedzService>> SERVICE_CLASSES = initServiceSpi();
 
 	/**
 	 * A map of service wrapper/implementation instances by their service interface class.
 	 */
 	private static final Map<Class<?>, IKreedzService> SERVICE_CACHE = new ConcurrentHashMap<>();
-
-	static {
-		initServiceSpi();
-	}
 
 	/**
 	 * A kreedz API base URL format string.
@@ -389,13 +385,16 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	/**
 	 * Initialize a kreedz service SPI module.
 	 */
-	private static void initServiceSpi() {
+	private static Map<Class<?>, Class<? extends IKreedzService>> initServiceSpi() {
 		List<Class<? extends IKreedzService>> classes
 				= UwBean.findSpiTypesOrNull(IKreedzService.class);
 
 		if (classes == null) {
-			return;
+			return UwMap.EMPTY;
 		}
+
+		Map<Class<?>, Class<? extends IKreedzService>> result
+				= new HashMap<>(classes.size());
 
 		classes.forEach(clazz -> {
 			String className = clazz.getSimpleName();
@@ -423,8 +422,10 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 			Objects.requireNonNull(assignType, "Unable to find a <"
 					+ className + "> generic type");
 
-			SERVICE_CLASSES.put(assignType, clazz);
+			result.put(assignType, clazz);
 		});
+
+		return result;
 	}
 
 	/**
