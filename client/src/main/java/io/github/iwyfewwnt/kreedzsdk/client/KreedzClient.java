@@ -425,7 +425,7 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 			result.put(assignType, clazz);
 		});
 
-		return result;
+		return Collections.unmodifiableMap(result);
 	}
 
 	/**
@@ -491,7 +491,7 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 			result.put(genericType, adapter);
 		});
 
-		return result;
+		return Collections.unmodifiableMap(result);
 	}
 
 	/**
@@ -557,7 +557,7 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 			result.put((Class<Object>) genericType0, (Converter<Object, String>) converter);
 		});
 
-		return result;
+		return Collections.unmodifiableMap(result);
 	}
 
 	/**
@@ -615,6 +615,6 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 			result.add((T) instance);
 		});
 
-		return result;
+		return Collections.unmodifiableList(result);
 	}
 }
