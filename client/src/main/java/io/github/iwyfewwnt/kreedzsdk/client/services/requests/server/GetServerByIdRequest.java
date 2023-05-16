@@ -68,6 +68,12 @@ public final class GetServerByIdRequest implements IRequest, Cloneable {
 		this.stringCacheMutex = new Object();
 	}
 
+	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
 	private Object readResolve() {
 		this.initMutexObjects();
 
