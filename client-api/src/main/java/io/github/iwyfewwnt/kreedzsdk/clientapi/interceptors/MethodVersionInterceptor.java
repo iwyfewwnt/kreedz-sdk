@@ -36,6 +36,7 @@ public final class MethodVersionInterceptor implements Interceptor {
 	 * A kreedz client version.
 	 */
 	private final EVersion clientVersion;
+
 	/**
 	 * Initialize a {@link MethodVersionInterceptor} instance.
 	 *
