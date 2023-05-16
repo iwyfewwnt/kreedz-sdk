@@ -15,10 +15,6 @@
 
     <description>Client module of iwyfewwnt/kreedz-sdk library</description>
 
-    <properties>
-        <vavr-gson.version>0.2.0-SNAPSHOT</vavr-gson.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>io.github.iwyfewwnt</groupId>
@@ -48,6 +44,13 @@
         <dependency>
             <groupId>com.google.auto.service</groupId>
             <artifactId>auto-service</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.iwyfewwnt</groupId>
+            <artifactId>vavr-gson</artifactId>
+            <scope>provided</scope>
             <optional>true</optional>
         </dependency>
     </dependencies>

@@ -53,6 +53,35 @@ import java.util.stream.Stream;
 public class KreedzClient implements IKreedzClient, IRetrofitClient {
 
 	/**
+	 * An initialized {@code VavrTypeAdapterFactory} class.
+	 *
+	 * @see <a href="https://vk.cc/co9mRa">vavr-gson by iwyfewwnt on GitHub</a>
+	 */
+	private static final Class<?> VAVR_TYPE_ADAPTER_FACTORY_CLASS = initVavrTypeAdapterFactoryClass();
+
+	/**
+	 * Initialize the {@code VavrTypeAdapterFactory} class
+	 * or return {@code null} if failed.
+	 *
+	 * <p>Possible failure cases:
+	 * <ul>
+	 *     <li>There is no such class in the classpath.
+	 * </ul>
+	 *
+	 * @return	{@code VavrTypeAdapterFactory} class or {@code null}
+	 */
+	private static Class<?> initVavrTypeAdapterFactoryClass() {
+		try {
+			return Class.forName("io.github.iwyfewwnt.vavrgson.VavrTypeAdapterFactory");
+		} catch (LinkageError e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException ignored) {
+		}
+
+		return null;
+	}
+
+	/**
 	 * A map of service wrapper/implementation classes by their service interface class.
 	 */
 	private static final Map<Class<?>, Class<? extends IKreedzService>> SERVICE_CLASSES = initServiceSpi();
@@ -356,12 +385,17 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	 */
 	private Converter.Factory initGsonConverterFactory() {
 		GsonBuilder builder = new GsonBuilder()
-				// Type Adapter Factories
 				.registerTypeAdapterFactory(new UwTypeAdapterFactory());
-//				.registerTypeAdapterFactory(new VavrTypeAdapterFactory());
 
 		initTypeAdapterFactorySpi().forEach(builder::registerTypeAdapterFactory);
 		initTypeAdapterSpi().forEach(builder::registerTypeAdapter);
+
+		Object vavrTypeAdapterFactory
+				= UwReflect.newInstanceOrNull(VAVR_TYPE_ADAPTER_FACTORY_CLASS);
+
+		if (vavrTypeAdapterFactory instanceof TypeAdapterFactory) {
+			builder.registerTypeAdapterFactory((TypeAdapterFactory) vavrTypeAdapterFactory);
+		}
 
 		Gson gson = builder.registerTypeAdapterFactory(new GsonNativeTypeAdapterFactory())
 				.create();

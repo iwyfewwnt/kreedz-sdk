@@ -92,6 +92,7 @@
         <gson-native.version>0.1.0-SNAPSHOT</gson-native.version>
 
         <auto-service.version>1.0.1</auto-service.version>
+        <vavr-gson.version>0.2.0-SNAPSHOT</vavr-gson.version>
 
         <uwutils.version>0.2.0-SNAPSHOT</uwutils.version>
 
@@ -172,6 +173,11 @@
                 <groupId>com.google.auto.service</groupId>
                 <artifactId>auto-service</artifactId>
                 <version>${auto-service.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.iwyfewwnt</groupId>
+                <artifactId>vavr-gson</artifactId>
+                <version>${vavr-gson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
