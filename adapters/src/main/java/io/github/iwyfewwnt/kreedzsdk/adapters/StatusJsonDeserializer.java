@@ -14,35 +14,35 @@
  * limitations under the License.
  */
 
-package io.github.iwyfewwnt.kreedzsdk.deserializers;
+package io.github.iwyfewwnt.kreedzsdk.adapters;
 
 import com.google.auto.service.AutoService;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import io.github.iwyfewwnt.kreedzsdk.adapterapi.IKreedzTypeAdapter;
-import io.github.iwyfewwnt.kreedzsdk.structs.types.EMode;
+import io.github.iwyfewwnt.kreedzsdk.structs.types.status.EStatus;
 
 import java.lang.reflect.Type;
 
 /**
- * An {@link EMode} JSON deserializer.
+ * An {@link EStatus} JSON deserializer.
  */
 @SuppressWarnings("unused")
 @AutoService(IKreedzTypeAdapter.class)
-public final class ModeJsonDeserializer implements JsonDeserializer<EMode>, IKreedzTypeAdapter {
+public final class StatusJsonDeserializer implements JsonDeserializer<EStatus>, IKreedzTypeAdapter {
 
 	/**
-	 * Initialize a {@link ModeJsonDeserializer} instance.
+	 * Initialize a {@link StatusJsonDeserializer} instance.
 	 */
-	public ModeJsonDeserializer() {
+	public StatusJsonDeserializer() {
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public EMode deserialize(JsonElement json, Type type, JsonDeserializationContext context) {
-		return EMode.fromApiNameOrNull(context.deserialize(json, String.class));
+	public EStatus deserialize(JsonElement json, Type type, JsonDeserializationContext context) {
+		return EStatus.fromApiNameOrNull(context.deserialize(json, String.class));
 	}
 }

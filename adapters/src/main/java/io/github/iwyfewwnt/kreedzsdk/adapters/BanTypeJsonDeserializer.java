@@ -14,35 +14,35 @@
  * limitations under the License.
  */
 
-package io.github.iwyfewwnt.kreedzsdk.deserializers;
+package io.github.iwyfewwnt.kreedzsdk.adapters;
 
 import com.google.auto.service.AutoService;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import io.github.iwyfewwnt.kreedzsdk.adapterapi.IKreedzTypeAdapter;
-import io.github.iwyfewwnt.kreedzsdk.structs.entities.inner.DataUpdater;
+import io.github.iwyfewwnt.kreedzsdk.structs.types.EBanType;
 
 import java.lang.reflect.Type;
 
 /**
- * A {@link DataUpdater} JSON deserializer.
+ * An {@link EBanType} JSON deserializer.
  */
 @SuppressWarnings("unused")
 @AutoService(IKreedzTypeAdapter.class)
-public final class DataUpdaterJsonDeserializer implements JsonDeserializer<DataUpdater>, IKreedzTypeAdapter {
+public final class BanTypeJsonDeserializer implements JsonDeserializer<EBanType>, IKreedzTypeAdapter {
 
 	/**
-	 * Initialize a {@link DataUpdaterJsonDeserializer} instance.
+	 * Initialize a {@link BanTypeJsonDeserializer} instance.
 	 */
-	public DataUpdaterJsonDeserializer() {
+	public BanTypeJsonDeserializer() {
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public DataUpdater deserialize(JsonElement json, Type type, JsonDeserializationContext context) {
-		return new DataUpdater(context.deserialize(json, Long.class));
+	public EBanType deserialize(JsonElement json, Type type, JsonDeserializationContext context) {
+		return EBanType.fromApiNameOrNull(context.deserialize(json, String.class));
 	}
 }

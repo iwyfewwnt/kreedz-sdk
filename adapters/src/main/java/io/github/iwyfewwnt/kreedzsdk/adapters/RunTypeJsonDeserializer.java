@@ -14,35 +14,35 @@
  * limitations under the License.
  */
 
-package io.github.iwyfewwnt.kreedzsdk.deserializers;
+package io.github.iwyfewwnt.kreedzsdk.adapters;
 
 import com.google.auto.service.AutoService;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import io.github.iwyfewwnt.kreedzsdk.adapterapi.IKreedzTypeAdapter;
-import io.github.iwyfewwnt.kreedzsdk.structs.types.status.EStatusIndicator;
+import io.github.iwyfewwnt.kreedzsdk.structs.types.ERunType;
 
 import java.lang.reflect.Type;
 
 /**
- * An {@link EStatusIndicator} JSON deserializer.
+ * An {@link ERunType} JSON deserializer.
  */
 @SuppressWarnings("unused")
 @AutoService(IKreedzTypeAdapter.class)
-public final class StatusIndicatorJsonDeserializer implements JsonDeserializer<EStatusIndicator>, IKreedzTypeAdapter {
+public final class RunTypeJsonDeserializer implements JsonDeserializer<ERunType>, IKreedzTypeAdapter {
 
 	/**
-	 * Initialize a {@link StatusIndicatorJsonDeserializer} instance.
+	 * Initialize a {@link RunTypeJsonDeserializer} instance.
 	 */
-	public StatusIndicatorJsonDeserializer() {
+	public RunTypeJsonDeserializer() {
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public EStatusIndicator deserialize(JsonElement json, Type type, JsonDeserializationContext context) {
-		return EStatusIndicator.fromApiNameOrNull(context.deserialize(json, String.class));
+	public ERunType deserialize(JsonElement json, Type type, JsonDeserializationContext context) {
+		return ERunType.fromHasTeleports(context.deserialize(json, Boolean.class));
 	}
 }

@@ -14,35 +14,35 @@
  * limitations under the License.
  */
 
-package io.github.iwyfewwnt.kreedzsdk.deserializers;
+package io.github.iwyfewwnt.kreedzsdk.adapters;
 
 import com.google.auto.service.AutoService;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import io.github.iwyfewwnt.kreedzsdk.adapterapi.IKreedzTypeAdapter;
-import io.github.iwyfewwnt.kreedzsdk.structs.types.EBanType;
+import io.github.iwyfewwnt.kreedzsdk.structs.types.ETickrate;
 
 import java.lang.reflect.Type;
 
 /**
- * An {@link EBanType} JSON deserializer.
+ * An {@link ETickrate} JSON deserializer.
  */
 @SuppressWarnings("unused")
 @AutoService(IKreedzTypeAdapter.class)
-public final class BanTypeJsonDeserializer implements JsonDeserializer<EBanType>, IKreedzTypeAdapter {
+public final class TickrateJsonDeserializer implements JsonDeserializer<ETickrate>, IKreedzTypeAdapter {
 
 	/**
-	 * Initialize a {@link BanTypeJsonDeserializer} instance.
+	 * Initialize a {@link TickrateJsonDeserializer} instance.
 	 */
-	public BanTypeJsonDeserializer() {
+	public TickrateJsonDeserializer() {
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public EBanType deserialize(JsonElement json, Type type, JsonDeserializationContext context) {
-		return EBanType.fromApiNameOrNull(context.deserialize(json, String.class));
+	public ETickrate deserialize(JsonElement json, Type type, JsonDeserializationContext context) {
+		return ETickrate.fromIntOrNull(context.deserialize(json, Integer.class));
 	}
 }

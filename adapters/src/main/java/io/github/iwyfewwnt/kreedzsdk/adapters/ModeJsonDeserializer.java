@@ -14,35 +14,35 @@
  * limitations under the License.
  */
 
-package io.github.iwyfewwnt.kreedzsdk.deserializers;
+package io.github.iwyfewwnt.kreedzsdk.adapters;
 
 import com.google.auto.service.AutoService;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import io.github.iwyfewwnt.kreedzsdk.adapterapi.IKreedzTypeAdapter;
-import io.github.iwyfewwnt.kreedzsdk.structs.types.ETickrate;
+import io.github.iwyfewwnt.kreedzsdk.structs.types.EMode;
 
 import java.lang.reflect.Type;
 
 /**
- * An {@link ETickrate} JSON deserializer.
+ * An {@link EMode} JSON deserializer.
  */
 @SuppressWarnings("unused")
 @AutoService(IKreedzTypeAdapter.class)
-public final class TickrateJsonDeserializer implements JsonDeserializer<ETickrate>, IKreedzTypeAdapter {
+public final class ModeJsonDeserializer implements JsonDeserializer<EMode>, IKreedzTypeAdapter {
 
 	/**
-	 * Initialize a {@link TickrateJsonDeserializer} instance.
+	 * Initialize a {@link ModeJsonDeserializer} instance.
 	 */
-	public TickrateJsonDeserializer() {
+	public ModeJsonDeserializer() {
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ETickrate deserialize(JsonElement json, Type type, JsonDeserializationContext context) {
-		return ETickrate.fromIntOrNull(context.deserialize(json, Integer.class));
+	public EMode deserialize(JsonElement json, Type type, JsonDeserializationContext context) {
+		return EMode.fromApiNameOrNull(context.deserialize(json, String.class));
 	}
 }

@@ -14,35 +14,35 @@
  * limitations under the License.
  */
 
-package io.github.iwyfewwnt.kreedzsdk.deserializers;
+package io.github.iwyfewwnt.kreedzsdk.adapters;
 
 import com.google.auto.service.AutoService;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import io.github.iwyfewwnt.kreedzsdk.adapterapi.IKreedzTypeAdapter;
-import io.github.iwyfewwnt.kreedzsdk.structs.entities.inner.RunTime;
+import io.github.iwyfewwnt.kreedzsdk.structs.entities.inner.DataUpdater;
 
 import java.lang.reflect.Type;
 
 /**
- * A {@link RunTime} JSON deserializer.
+ * A {@link DataUpdater} JSON deserializer.
  */
 @SuppressWarnings("unused")
 @AutoService(IKreedzTypeAdapter.class)
-public final class RunTimeJsonDeserializer implements JsonDeserializer<RunTime>, IKreedzTypeAdapter {
+public final class DataUpdaterJsonDeserializer implements JsonDeserializer<DataUpdater>, IKreedzTypeAdapter {
 
 	/**
-	 * Initialize a {@link RunTimeJsonDeserializer} instance.
+	 * Initialize a {@link DataUpdaterJsonDeserializer} instance.
 	 */
-	public RunTimeJsonDeserializer() {
+	public DataUpdaterJsonDeserializer() {
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public RunTime deserialize(JsonElement json, Type type, JsonDeserializationContext context) {
-		return new RunTime(context.deserialize(json, Float.class));
+	public DataUpdater deserialize(JsonElement json, Type type, JsonDeserializationContext context) {
+		return new DataUpdater(context.deserialize(json, Long.class));
 	}
 }

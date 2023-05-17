@@ -14,35 +14,35 @@
  * limitations under the License.
  */
 
-package io.github.iwyfewwnt.kreedzsdk.deserializers;
+package io.github.iwyfewwnt.kreedzsdk.adapters;
 
 import com.google.auto.service.AutoService;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import io.github.iwyfewwnt.kreedzsdk.adapterapi.IKreedzTypeAdapter;
-import io.github.iwyfewwnt.kreedzsdk.structs.types.EDifficulty;
+import io.github.iwyfewwnt.steamid.SteamId;
 
 import java.lang.reflect.Type;
 
 /**
- * An {@link EDifficulty} JSON deserializer.
+ * A {@link SteamId} JSON deserializer.
  */
 @SuppressWarnings("unused")
 @AutoService(IKreedzTypeAdapter.class)
-public final class DifficultyJsonDeserializer implements JsonDeserializer<EDifficulty>, IKreedzTypeAdapter {
+public final class SteamIdJsonDeserializer implements JsonDeserializer<SteamId>, IKreedzTypeAdapter {
 
 	/**
-	 * Initialize a {@link DifficultyJsonDeserializer} instance.
+	 * Initialize a {@link SteamIdJsonDeserializer} instance.
 	 */
-	public DifficultyJsonDeserializer() {
+	public SteamIdJsonDeserializer() {
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public EDifficulty deserialize(JsonElement json, Type type, JsonDeserializationContext context) {
-		return EDifficulty.fromIdOrNull(context.deserialize(json, Integer.class));
+	public SteamId deserialize(JsonElement json, Type type, JsonDeserializationContext context) {
+		return SteamId.fromSteamAnyOrNull(context.deserialize(json, String.class));
 	}
 }
