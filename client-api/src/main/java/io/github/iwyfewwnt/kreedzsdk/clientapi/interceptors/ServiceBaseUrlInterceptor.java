@@ -30,7 +30,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * A method API host interceptor.
+ * A service base API URL interceptor.
  */
 @SuppressWarnings("NullableProblems")
 public final class ServiceBaseUrlInterceptor implements Interceptor {
