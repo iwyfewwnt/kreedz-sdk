@@ -255,7 +255,7 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	 * @return	player service
 	 */
 	public final PlayerService getPlayerService() {
-		return (PlayerService) this.getService(PlayerService.class);
+		return (PlayerService) this.getService(IPlayerService.class);
 	}
 
 	/**
@@ -267,7 +267,7 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	 * @return	record filter service
 	 */
 	public final RecordFilterService getRecordFilterService() {
-		return (RecordFilterService) this.getService(RecordFilterService.class);
+		return (RecordFilterService) this.getService(IRecordFilterService.class);
 	}
 
 	/**
