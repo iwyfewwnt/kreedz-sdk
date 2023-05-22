@@ -38,11 +38,6 @@ public final class DataUpdater implements Serializable, Cloneable {
 	private final Long id;
 
 	/**
-	 * A {@link #getAsServerId()} cache.
-	 */
-	private transient volatile Integer serverIdCache;
-
-	/**
 	 * A {@link #getAsSteamId()} cache.
 	 */
 	private transient volatile SteamId steamIdCache;
@@ -56,11 +51,6 @@ public final class DataUpdater implements Serializable, Cloneable {
 	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
-
-	/**
-	 * A {@link #serverIdCache} mutex.
-	 */
-	private transient Object serverIdCacheMutex;
 
 	/**
 	 * A {@link #steamIdCache} mutex.
@@ -81,7 +71,6 @@ public final class DataUpdater implements Serializable, Cloneable {
 	 * Initialize this mutex objects.
 	 */
 	private void initMutexObjects() {
-		this.serverIdCacheMutex = new Object();
 		this.steamIdCacheMutex = new Object();
 		this.hashCodeCacheMutex = new Object();
 		this.stringCacheMutex = new Object();
@@ -108,7 +97,6 @@ public final class DataUpdater implements Serializable, Cloneable {
 	private DataUpdater(DataUpdater that) {
 		this(that.id);
 
-		this.serverIdCache = that.serverIdCache;
 		this.steamIdCache = that.steamIdCache;
 
 		this.hashCodeCache = that.hashCodeCache;
@@ -130,10 +118,6 @@ public final class DataUpdater implements Serializable, Cloneable {
 	 * @return	server identifier or {@code null}
 	 */
 	public Integer getAsServerId() {
-		if (this.serverIdCache != null) {
-			return this.serverIdCache;
-		}
-
 		if (!this.isServer()) {
 			new UnsupportedOperationException("Not a server identifier")
 					.printStackTrace();
@@ -141,13 +125,7 @@ public final class DataUpdater implements Serializable, Cloneable {
 			return null;
 		}
 
-		synchronized (this.serverIdCacheMutex) {
-			if (this.serverIdCache != null) {
-				return this.serverIdCache;
-			}
-
-			return (this.serverIdCache = this.id.intValue());
-		}
+		return this.id.intValue();
 	}
 
 	/**
@@ -160,19 +138,21 @@ public final class DataUpdater implements Serializable, Cloneable {
 			return this.steamIdCache;
 		}
 
-		if (!this.isPerson()) {
-			new UnsupportedOperationException("Not a person identifier")
-					.printStackTrace();
-
-			return null;
-		}
-
 		synchronized (this.steamIdCacheMutex) {
 			if (this.steamIdCache != null) {
 				return this.steamIdCache;
 			}
 
-			return (this.steamIdCache = SteamId.fromSteam64OrNull(this.id));
+			SteamId steamId = SteamId.fromSteam64OrNull(this.id);
+
+			if (steamId == null) {
+				new UnsupportedOperationException("Not a person identifier")
+						.printStackTrace();
+
+				return null;
+			}
+
+			return (this.steamIdCache = steamId);
 		}
 	}
 

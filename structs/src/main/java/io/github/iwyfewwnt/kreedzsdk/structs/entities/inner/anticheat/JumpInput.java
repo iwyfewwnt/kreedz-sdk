@@ -90,18 +90,6 @@ public final class JumpInput implements Serializable, Cloneable {
 	private final boolean isPerf;
 
 	/**
-	 * A {@link #isBind()} cache.
-	 *
-	 * <p>Determines if this jump is a bind-jump.
-	 */
-	private transient volatile Boolean isBindCache;
-
-	/**
-	 * A {@link #getJumpChar()} cache.
-	 */
-	private transient volatile Character jumpCharCache;
-
-	/**
 	 * A {@link #toGokzString()} cache.
 	 */
 	private transient volatile String gokzStringCache;
@@ -120,16 +108,6 @@ public final class JumpInput implements Serializable, Cloneable {
 	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
-
-	/**
-	 * A {@link #isBindCache} mutex.
-	 */
-	private transient Object isBindCacheMutex;
-
-	/**
-	 * A {@link #jumpCharCache} mutex.
-	 */
-	private transient Object jumpCharCacheMutex;
 
 	/**
 	 * A {@link #gokzStringCache} mutex.
@@ -155,8 +133,6 @@ public final class JumpInput implements Serializable, Cloneable {
 	 * Initialize this mutex objects.
 	 */
 	private void initMutexObjects() {
-		this.isBindCacheMutex = new Object();
-		this.jumpCharCacheMutex = new Object();
 		this.gokzStringCacheMutex = new Object();
 		this.kztimerStringCacheMutex = new Object();
 		this.hashCodeCacheMutex = new Object();
@@ -217,9 +193,6 @@ public final class JumpInput implements Serializable, Cloneable {
 				that.isPerf
 		);
 
-		this.isBindCache = that.isBindCache;
-		this.jumpCharCache = that.jumpCharCache;
-
 		this.hashCodeCache = that.hashCodeCache;
 		this.stringCache = that.stringCache;
 	}
@@ -259,18 +232,8 @@ public final class JumpInput implements Serializable, Cloneable {
 	 * 			true - yes, false - no
 	 */
 	public boolean isBind() {
-		if (this.isBindCache != null) {
-			return this.isBindCache;
-		}
-
-		synchronized (this.isBindCacheMutex) {
-			if (this.isBindCache != null) {
-				return this.isBindCache;
-			}
-
-			return (this.isBindCache = this.preInputCount == -1
-					&& this.postInputCount == 0);
-		}
+		return this.preInputCount == -1
+				&& this.postInputCount == 0;
 	}
 
 	/**
@@ -279,18 +242,8 @@ public final class JumpInput implements Serializable, Cloneable {
 	 * @return	jump character.
 	 */
 	public char getJumpChar() {
-		if (this.jumpCharCache != null) {
-			return this.jumpCharCache;
-		}
-
-		synchronized (this.jumpCharCacheMutex) {
-			if (this.jumpCharCache != null) {
-				return this.jumpCharCache;
-			}
-
-			return (this.jumpCharCache = this.isPerf ? PERF_JUMP_CHAR
-					: NORMAL_JUMP_CHAR);
-		}
+		return this.isPerf ? PERF_JUMP_CHAR
+				: NORMAL_JUMP_CHAR;
 	}
 
 	/**

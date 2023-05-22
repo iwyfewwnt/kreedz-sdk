@@ -48,11 +48,6 @@ public final class ScrollPattern implements Serializable, Cloneable {
 	private transient volatile Integer perfJumpCountCache;
 
 	/**
-	 * A {@link #getPerfJumpRatio()} cache.
-	 */
-	private transient volatile Float perfJumpRatioCache;
-
-	/**
 	 * A {@link #getTotalPreInputCount()} cache.
 	 */
 	private transient volatile Integer totalPreInputCountCache;
@@ -61,26 +56,6 @@ public final class ScrollPattern implements Serializable, Cloneable {
 	 * A {@link #getTotalPostInputCount()} cache.
 	 */
 	private transient volatile Integer totalPostInputCountCache;
-
-	/**
-	 * A {@link #getTotalInputCount()} cache.
-	 */
-	private transient volatile Integer totalInputCountCache;
-
-	/**
-	 * A {@link #getAvgPreInputCount()} cache.
-	 */
-	private transient volatile Float avgPreInputCountCache;
-
-	/**
-	 * A {@link #getAvgPostInputCount()} cache.
-	 */
-	private transient volatile Float avgPostInputCountCache;
-
-	/**
-	 * A {@link #getTotalJumpCount()} cache.
-	 */
-	private transient volatile Float avgTotalInputCountCache;
 
 	/**
 	 * A {@link #toGokzString()} cache.
@@ -108,11 +83,6 @@ public final class ScrollPattern implements Serializable, Cloneable {
 	private transient Object perfJumpCountCacheMutex;
 
 	/**
-	 * A {@link #perfJumpRatioCache} mutex.
-	 */
-	private transient Object perfJumpRatioCacheMutex;
-
-	/**
 	 * A {@link #totalPreInputCountCache} mutex.
 	 */
 	private transient Object totalPreInputCountCacheMutex;
@@ -121,26 +91,6 @@ public final class ScrollPattern implements Serializable, Cloneable {
 	 * A {@link #totalPostInputCountCache} mutex.
 	 */
 	private transient Object totalPostInputCountCacheMutex;
-
-	/**
-	 * A {@link #totalInputCountCache} mutex.
-	 */
-	private transient Object totalInputCountCacheMutex;
-
-	/**
-	 * A {@link #avgPreInputCountCache} mutex.
-	 */
-	private transient Object avgPreInputCountCacheMutex;
-
-	/**
-	 * A {@link #avgPostInputCountCache} mutex.
-	 */
-	private transient Object avgPostInputCountCacheMutex;
-
-	/**
-	 * A {@link #avgTotalInputCountCache} mutex.
-	 */
-	private transient Object avgTotalInputCountCacheMutex;
 
 	/**
 	 * A {@link #gokzStringCache} mutex.
@@ -167,13 +117,8 @@ public final class ScrollPattern implements Serializable, Cloneable {
 	 */
 	private void initMutexObjects() {
 		this.perfJumpCountCacheMutex = new Object();
-		this.perfJumpRatioCacheMutex = new Object();
 		this.totalPreInputCountCacheMutex = new Object();
 		this.totalPostInputCountCacheMutex = new Object();
-		this.totalInputCountCacheMutex = new Object();
-		this.avgPreInputCountCacheMutex = new Object();
-		this.avgPostInputCountCacheMutex = new Object();
-		this.avgTotalInputCountCacheMutex = new Object();
 		this.gokzStringCacheMutex = new Object();
 		this.kztimerStringCacheMutex = new Object();
 		this.hashCodeCacheMutex = new Object();
@@ -239,13 +184,8 @@ public final class ScrollPattern implements Serializable, Cloneable {
 		this(that.jumpInputs);
 
 		this.perfJumpCountCache = that.perfJumpCountCache;
-		this.perfJumpRatioCache = that.perfJumpRatioCache;
 		this.totalPreInputCountCache = that.totalPreInputCountCache;
 		this.totalPostInputCountCache = that.totalPostInputCountCache;
-		this.totalInputCountCache = that.totalInputCountCache;
-		this.avgPreInputCountCache = that.avgPreInputCountCache;
-		this.avgPostInputCountCache = that.avgPostInputCountCache;
-		this.avgTotalInputCountCache = that.avgTotalInputCountCache;
 		this.gokzStringCache = that.gokzStringCache;
 		this.kztimerStringCache = that.kztimerStringCache;
 
@@ -300,23 +240,14 @@ public final class ScrollPattern implements Serializable, Cloneable {
 	 * @return	perf-jump ratio
 	 */
 	public float getPerfJumpRatio() {
-		if (this.perfJumpRatioCache != null) {
-			return this.perfJumpRatioCache;
+		int totalJumpCount = this.getTotalJumpCount();
+
+		if (totalJumpCount == 0) {
+			return 0f;
 		}
 
-		synchronized (this.perfJumpRatioCacheMutex) {
-			if (this.perfJumpRatioCache != null) {
-				return this.perfJumpRatioCache;
-			}
-
-			int totalJumpCount = this.getTotalJumpCount();
-			if (totalJumpCount == 0) {
-				return (this.perfJumpRatioCache = 0f);
-			}
-
-			int perfJumpCount = this.getPerfJumpCount();
-			return (this.perfJumpRatioCache = (float) perfJumpCount / totalJumpCount);
-		}
+		return this.getPerfJumpCount()
+				/ (float) totalJumpCount;
 	}
 
 	/**
@@ -367,20 +298,8 @@ public final class ScrollPattern implements Serializable, Cloneable {
 	 * @return	total input count
 	 */
 	public int getTotalInputCount() {
-		if (this.totalInputCountCache != null) {
-			return this.totalInputCountCache;
-		}
-
-		synchronized (this.totalInputCountCacheMutex) {
-			if (this.totalInputCountCache != null) {
-				return this.totalInputCountCache;
-			}
-
-			int totalPreInputCount = this.getTotalPreInputCount();
-			int totalPostInputCount = this.getTotalPostInputCount();
-
-			return (this.totalInputCountCache = totalPreInputCount + totalPostInputCount);
-		}
+		return this.getTotalPreInputCount()
+				+ this.getTotalPostInputCount();
 	}
 
 	/**
@@ -389,23 +308,14 @@ public final class ScrollPattern implements Serializable, Cloneable {
 	 * @return	average pre-input count
 	 */
 	public float getAvgPreInputCount() {
-		if (this.avgPreInputCountCache != null) {
-			return this.avgPreInputCountCache;
+		int totalJumpCount = this.getTotalJumpCount();
+
+		if (totalJumpCount == 0) {
+			return 0f;
 		}
 
-		synchronized (this.avgPreInputCountCacheMutex) {
-			if (this.avgPreInputCountCache != null) {
-				return this.avgPreInputCountCache;
-			}
-
-			int totalJumpCount = this.getTotalJumpCount();
-			if (totalJumpCount == 0) {
-				return (this.avgPreInputCountCache = 0f);
-			}
-
-			int totalPreInputCount = this.getTotalPreInputCount();
-			return (this.avgPreInputCountCache = totalPreInputCount / (float) totalJumpCount);
-		}
+		return this.getTotalPreInputCount()
+				/ (float) totalJumpCount;
 	}
 
 	/**
@@ -414,23 +324,14 @@ public final class ScrollPattern implements Serializable, Cloneable {
 	 * @return	average post-input count
 	 */
 	public float getAvgPostInputCount() {
-		if (this.avgPostInputCountCache != null) {
-			return this.avgPostInputCountCache;
+		int totalJumpCount = this.getTotalJumpCount();
+
+		if (totalJumpCount == 0) {
+			return 0f;
 		}
 
-		synchronized (this.avgPostInputCountCacheMutex) {
-			if (this.avgPostInputCountCache != null) {
-				return this.avgPostInputCountCache;
-			}
-
-			int totalJumpCount = this.getTotalJumpCount();
-			if (totalJumpCount == 0) {
-				return (this.avgPostInputCountCache = 0f);
-			}
-
-			int totalPostInputCount = this.getTotalPostInputCount();
-			return (this.avgPostInputCountCache = totalPostInputCount / (float) totalJumpCount);
-		}
+		return this.getTotalPostInputCount()
+				/ (float) totalJumpCount;
 	}
 
 	/**
@@ -439,23 +340,14 @@ public final class ScrollPattern implements Serializable, Cloneable {
 	 * @return	average total input count
 	 */
 	public float getAvgTotalInputCount() {
-		if (this.avgTotalInputCountCache != null) {
-			return this.avgTotalInputCountCache;
+		int totalJumpCount = this.getTotalJumpCount();
+
+		if (totalJumpCount == 0) {
+			return 0f;
 		}
 
-		synchronized (this.avgTotalInputCountCacheMutex) {
-			if (this.avgTotalInputCountCache != null) {
-				return this.avgTotalInputCountCache;
-			}
-
-			int totalJumpCount = this.getTotalJumpCount();
-			if (totalJumpCount == 0) {
-				return (this.avgTotalInputCountCache = 0f);
-			}
-
-			int totalInputCount = this.getTotalInputCount();
-			return (this.avgTotalInputCountCache = totalInputCount / (float) totalJumpCount);
-		}
+		return this.getTotalInputCount()
+				/ (float) totalJumpCount;
 	}
 
 	/**
