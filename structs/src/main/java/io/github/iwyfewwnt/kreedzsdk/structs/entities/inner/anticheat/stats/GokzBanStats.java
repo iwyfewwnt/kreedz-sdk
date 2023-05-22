@@ -89,7 +89,7 @@ public final class GokzBanStats extends BanStats implements Cloneable {
 					boolean isPerf = str.contains(JumpInput.PERF_JUMP_CHAR_STRING);
 					boolean isJump = str.contains(JumpInput.NORMAL_JUMP_CHAR_STRING);
 
-					if (isPerf && isJump || !isPerf && !isJump) {
+					if (isPerf == isJump) {
 						new IllegalStateException("isPerf & isJump boolean values are equal")
 								.printStackTrace();
 
