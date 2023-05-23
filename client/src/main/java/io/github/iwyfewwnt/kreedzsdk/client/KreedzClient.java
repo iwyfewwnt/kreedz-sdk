@@ -161,6 +161,10 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	 */
 	@Override
 	public final Object getService(Class<?> clazz) {
+		if (clazz == null) {
+			return null;
+		}
+
 		IKreedzService service = SERVICE_CACHE.get(clazz);
 
 		if (service != null) {
