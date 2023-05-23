@@ -43,7 +43,6 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.time.Duration;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
 /**
@@ -89,7 +88,7 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 	/**
 	 * A map of service wrapper/implementation instances by their service interface class.
 	 */
-	private static final Map<Class<?>, IKreedzService> SERVICE_CACHE = new ConcurrentHashMap<>();
+	private static final Map<Class<?>, IKreedzService> SERVICE_CACHE = new HashMap<>();
 
 	/**
 	 * A kreedz API base URL format string.
@@ -168,20 +167,28 @@ public class KreedzClient implements IKreedzClient, IRetrofitClient {
 			return service;
 		}
 
-		Class<? extends IKreedzService> serviceClass = SERVICE_CLASSES.get(clazz);
+		synchronized (SERVICE_CACHE) {
+			service = SERVICE_CACHE.get(clazz);
 
-		Objects.requireNonNull(serviceClass, "Unable to find a <IKreedzService> implementation");
+			if (service != null) {
+				return service;
+			}
 
-		service = UwReflect.newInstanceOrNull(serviceClass, new Object[] {this.retrofit});
+			Class<? extends IKreedzService> serviceClass = SERVICE_CLASSES.get(clazz);
 
-		if (service == null) {
-			service = UwReflect.newInstanceOrNull(serviceClass);
+			Objects.requireNonNull(serviceClass, "Unable to find a <IKreedzService> implementation");
+
+			service = UwReflect.newInstanceOrNull(serviceClass, new Object[] {this.retrofit});
+
+			if (service == null) {
+				service = UwReflect.newInstanceOrNull(serviceClass);
+			}
+
+			Objects.requireNonNull(service, "Unable to create a <"
+					+ serviceClass.getSimpleName() + "> instance");
+
+			SERVICE_CACHE.put(clazz, service);
 		}
-
-		Objects.requireNonNull(service, "Unable to create a <"
-				+ serviceClass.getSimpleName() + "> instance");
-
-		SERVICE_CACHE.put(clazz, service);
 
 		return service;
 	}
