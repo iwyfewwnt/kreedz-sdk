@@ -66,6 +66,18 @@ public final class DataUpdater implements Serializable, Cloneable {
 	}
 
 	/**
+	 * Override the {@code #readResolve} method to set up
+	 * the object cache mutexes after deserialization.
+	 *
+	 * @return	this instance
+	 */
+	private Object readResolve() {
+		this.initMutexObjects();
+
+		return this;
+	}
+
+	/**
 	 * Initialize a {@link DataUpdater} instance.
 	 *
 	 * @param id	entity identifier, may be null
