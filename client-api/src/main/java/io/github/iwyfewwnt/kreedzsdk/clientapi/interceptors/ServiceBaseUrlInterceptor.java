@@ -77,7 +77,7 @@ public final class ServiceBaseUrlInterceptor implements Interceptor {
 		}
 
 		Annotation httpMethodAnnotation
-				= UwReflect.getAnnotation(HTTP_METHOD_ANNOTATION_CLASSES, method);
+				= UwReflect.annotationOf(HTTP_METHOD_ANNOTATION_CLASSES, method);
 
 		if (httpMethodAnnotation == null) {
 			return chain.proceed(request);
