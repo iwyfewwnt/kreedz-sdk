@@ -38,11 +38,6 @@ public final class DataUpdater implements Serializable, Cloneable {
 	private final Long id;
 
 	/**
-	 * A {@link #getAsSteamId()} cache.
-	 */
-	private transient volatile SteamId steamIdCache;
-
-	/**
 	 * A {@link #hashCode()} cache.
 	 */
 	private transient volatile Integer hashCodeCache;
@@ -51,11 +46,6 @@ public final class DataUpdater implements Serializable, Cloneable {
 	 * A {@link #toString()} cache.
 	 */
 	private transient volatile String stringCache;
-
-	/**
-	 * A {@link #steamIdCache} mutex.
-	 */
-	private transient Object steamIdCacheMutex;
 
 	/**
 	 * A {@link #hashCodeCache} mutex.
@@ -71,7 +61,6 @@ public final class DataUpdater implements Serializable, Cloneable {
 	 * Initialize this mutex objects.
 	 */
 	private void initMutexObjects() {
-		this.steamIdCacheMutex = new Object();
 		this.hashCodeCacheMutex = new Object();
 		this.stringCacheMutex = new Object();
 	}
@@ -96,8 +85,6 @@ public final class DataUpdater implements Serializable, Cloneable {
 	 */
 	private DataUpdater(DataUpdater that) {
 		this(that.id);
-
-		this.steamIdCache = that.steamIdCache;
 
 		this.hashCodeCache = that.hashCodeCache;
 		this.stringCache = that.stringCache;
@@ -134,26 +121,14 @@ public final class DataUpdater implements Serializable, Cloneable {
 	 * @return	person identifier or {@code null}
 	 */
 	public SteamId getAsSteamId() {
-		if (this.steamIdCache != null) {
-			return this.steamIdCache;
+		SteamId steamId = SteamId.fromSteam64OrNull(this.id);
+
+		if (steamId == null) {
+			new UnsupportedOperationException("Not a person identifier")
+					.printStackTrace();
 		}
 
-		synchronized (this.steamIdCacheMutex) {
-			if (this.steamIdCache != null) {
-				return this.steamIdCache;
-			}
-
-			SteamId steamId = SteamId.fromSteam64OrNull(this.id);
-
-			if (steamId == null) {
-				new UnsupportedOperationException("Not a person identifier")
-						.printStackTrace();
-
-				return null;
-			}
-
-			return (this.steamIdCache = steamId);
-		}
+		return steamId;
 	}
 
 	/**
