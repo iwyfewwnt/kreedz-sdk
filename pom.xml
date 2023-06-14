@@ -96,13 +96,6 @@
 
         <uwutils.version>0.2.0-SNAPSHOT</uwutils.version>
 
-        <!-- Project Resources -->
-        <project.resources.dirPath>${user.dir}/resources</project.resources.dirPath>
-
-        <!-- Javadoc Stylesheet -->
-        <javadoc.stylesheet.fileName>javadoc-drakula.css</javadoc.stylesheet.fileName>
-        <javadoc.stylesheet.filePath>${project.resources.dirPath}/${javadoc.stylesheet.fileName}</javadoc.stylesheet.filePath>
-
         <!-- Maven Plugin Versions -->
         <maven.install.version>2.5.2</maven.install.version>
         <maven.surefire.version>3.0.0-M7</maven.surefire.version>
@@ -191,14 +184,6 @@
     </dependencies>
 
     <build>
-        <resources>
-            <resource>
-                <directory>${project.resources.dirPath}</directory>
-                <excludes>
-                    <exclude>${javadoc.stylesheet.fileName}</exclude>
-                </excludes>
-            </resource>
-        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -259,7 +244,6 @@
                         <version>${maven.javadoc.version}</version>
                         <configuration>
                             <doclint>all,-missing</doclint>
-                            <stylesheetfile>${javadoc.stylesheet.filePath}</stylesheetfile>
                         </configuration>
                         <executions>
                             <execution>
