@@ -86,7 +86,7 @@ public class GetRecordFiltersRequest implements IRequest, Cloneable {
 	/**
 	 * A {@link #hashCodeCache} mutex.
 	 */
-	protected transient Object hashCodeCaheMutex;
+	protected transient Object hashCodeCacheMutex;
 
 	/**
 	 * A {@link #stringCache} mutex.
@@ -97,7 +97,7 @@ public class GetRecordFiltersRequest implements IRequest, Cloneable {
 	 * Initialize this mutex objects.
 	 */
 	protected void initMutexObjects() {
-		this.hashCodeCaheMutex = new Object();
+		this.hashCodeCacheMutex = new Object();
 		this.stringCacheMutex = new Object();
 	}
 
@@ -210,7 +210,7 @@ public class GetRecordFiltersRequest implements IRequest, Cloneable {
 			return this.hashCodeCache;
 		}
 
-		synchronized (this.hashCodeCaheMutex) {
+		synchronized (this.hashCodeCacheMutex) {
 			if (this.hashCodeCache != null) {
 				return this.hashCodeCache;
 			}
