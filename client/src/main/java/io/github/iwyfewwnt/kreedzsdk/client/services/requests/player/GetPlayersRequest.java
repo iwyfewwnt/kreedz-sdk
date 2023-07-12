@@ -380,7 +380,7 @@ public final class GetPlayersRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setSteamIds(Collection<SteamId> steamIds) {
-			return this.setSteamIds(UwSet.toSetOrNull(steamIds));
+			return this.setSteamIds(UwSet.createOrNull(steamIds));
 		}
 
 		/**
@@ -390,7 +390,7 @@ public final class GetPlayersRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setSteamIds(SteamId... steamIds) {
-			return this.setSteamIds(UwSet.toSetOrNull(steamIds));
+			return this.setSteamIds(UwSet.createOrNull(steamIds));
 		}
 
 		/**
@@ -400,7 +400,7 @@ public final class GetPlayersRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setSteamIds(Stream<SteamId> steamIds) {
-			return this.setSteamIds(UwSet.toSetOrNull(steamIds));
+			return this.setSteamIds(UwSet.createOrNull(steamIds));
 		}
 
 		/**

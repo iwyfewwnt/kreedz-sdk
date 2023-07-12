@@ -101,7 +101,7 @@ public abstract class BaseRecordFiltersRequestManager<T extends BaseRecordFilter
 	 * @return		this instance
 	 */
 	public final T setIds(Collection<Integer> ids) {
-		return this.setIds(UwSet.toSetOrNull(ids));
+		return this.setIds(UwSet.createOrNull(ids));
 	}
 
 	/**
@@ -111,7 +111,7 @@ public abstract class BaseRecordFiltersRequestManager<T extends BaseRecordFilter
 	 * @return		this instance
 	 */
 	public final T setIds(Integer... ids) {
-		return this.setIds(UwSet.toSetOrNull(ids));
+		return this.setIds(UwSet.createOrNull(ids));
 	}
 
 	/**
@@ -121,7 +121,7 @@ public abstract class BaseRecordFiltersRequestManager<T extends BaseRecordFilter
 	 * @return		this instance
 	 */
 	public final T setIds(Stream<Integer> ids) {
-		return this.setIds(UwSet.toSetOrNull(ids));
+		return this.setIds(UwSet.createOrNull(ids));
 	}
 
 	/**
@@ -131,7 +131,7 @@ public abstract class BaseRecordFiltersRequestManager<T extends BaseRecordFilter
 	 * @return		this instance
 	 */
 	public final T setIds(IntStream ids) {
-		return this.setIds(UwSet.toSetOrNull(ids));
+		return this.setIds(UwSet.createOrNull(ids));
 	}
 
 	/**
@@ -152,7 +152,7 @@ public abstract class BaseRecordFiltersRequestManager<T extends BaseRecordFilter
 	 * @return			this instance
 	 */
 	public final T setMapIds(Collection<Integer> mapIds) {
-		return this.setMapIds(UwSet.toSetOrNull(mapIds));
+		return this.setMapIds(UwSet.createOrNull(mapIds));
 	}
 
 	/**
@@ -162,7 +162,7 @@ public abstract class BaseRecordFiltersRequestManager<T extends BaseRecordFilter
 	 * @return			this instance
 	 */
 	public final T setMapIds(Integer... mapIds) {
-		return this.setMapIds(UwSet.toSetOrNull(mapIds));
+		return this.setMapIds(UwSet.createOrNull(mapIds));
 	}
 
 	/**
@@ -172,7 +172,7 @@ public abstract class BaseRecordFiltersRequestManager<T extends BaseRecordFilter
 	 * @return			this instance
 	 */
 	public final T setMapIds(Stream<Integer> mapIds) {
-		return this.setMapIds(UwSet.toSetOrNull(mapIds));
+		return this.setMapIds(UwSet.createOrNull(mapIds));
 	}
 
 	/**
@@ -182,7 +182,7 @@ public abstract class BaseRecordFiltersRequestManager<T extends BaseRecordFilter
 	 * @return			this instance
 	 */
 	public final T setMapIds(IntStream mapIds) {
-		return this.setMapIds(UwSet.toSetOrNull(mapIds));
+		return this.setMapIds(UwSet.createOrNull(mapIds));
 	}
 
 	/**
@@ -203,7 +203,7 @@ public abstract class BaseRecordFiltersRequestManager<T extends BaseRecordFilter
 	 * @return			this instance
 	 */
 	public final T setStages(Collection<Integer> stages) {
-		return this.setStages(UwSet.toSetOrNull(stages));
+		return this.setStages(UwSet.createOrNull(stages));
 	}
 
 	/**
@@ -213,7 +213,7 @@ public abstract class BaseRecordFiltersRequestManager<T extends BaseRecordFilter
 	 * @return			this instance
 	 */
 	public final T setStages(Integer... stages) {
-		return this.setStages(UwSet.toSetOrNull(stages));
+		return this.setStages(UwSet.createOrNull(stages));
 	}
 
 	/**
@@ -223,7 +223,7 @@ public abstract class BaseRecordFiltersRequestManager<T extends BaseRecordFilter
 	 * @return			this instance
 	 */
 	public final T setStages(Stream<Integer> stages) {
-		return this.setStages(UwSet.toSetOrNull(stages));
+		return this.setStages(UwSet.createOrNull(stages));
 	}
 
 	/**
@@ -233,7 +233,7 @@ public abstract class BaseRecordFiltersRequestManager<T extends BaseRecordFilter
 	 * @return			this instance
 	 */
 	public final T setStages(IntStream stages) {
-		return this.setStages(UwSet.toSetOrNull(stages));
+		return this.setStages(UwSet.createOrNull(stages));
 	}
 
 	/**
@@ -254,7 +254,7 @@ public abstract class BaseRecordFiltersRequestManager<T extends BaseRecordFilter
 	 * @return			this instance
 	 */
 	public final T setModes(Collection<EMode> modes) {
-		return this.setModes(UwSet.toSetOrNull(modes));
+		return this.setModes(UwSet.createOrNull(modes));
 	}
 
 	/**
@@ -264,7 +264,7 @@ public abstract class BaseRecordFiltersRequestManager<T extends BaseRecordFilter
 	 * @return			this instance
 	 */
 	public final T setModes(EMode... modes) {
-		return this.setModes(UwSet.toSetOrNull(modes));
+		return this.setModes(UwSet.createOrNull(modes));
 	}
 
 	/**
@@ -274,7 +274,7 @@ public abstract class BaseRecordFiltersRequestManager<T extends BaseRecordFilter
 	 * @return			this instance
 	 */
 	public final T setModes(Stream<EMode> modes) {
-		return this.setModes(UwSet.toSetOrNull(modes));
+		return this.setModes(UwSet.createOrNull(modes));
 	}
 
 	/**
@@ -295,7 +295,7 @@ public abstract class BaseRecordFiltersRequestManager<T extends BaseRecordFilter
 	 * @return				this instance
 	 */
 	public final T setTickrates(Collection<ETickrate> tickrates) {
-		return this.setTickrates(UwSet.toSetOrNull(tickrates));
+		return this.setTickrates(UwSet.createOrNull(tickrates));
 	}
 
 	/**
@@ -305,7 +305,7 @@ public abstract class BaseRecordFiltersRequestManager<T extends BaseRecordFilter
 	 * @return				this instance
 	 */
 	public final T setTickrates(ETickrate... tickrates) {
-		return this.setTickrates(UwSet.toSetOrNull(tickrates));
+		return this.setTickrates(UwSet.createOrNull(tickrates));
 	}
 
 	/**
@@ -315,7 +315,7 @@ public abstract class BaseRecordFiltersRequestManager<T extends BaseRecordFilter
 	 * @return				this instance
 	 */
 	public final T setTickrates(Stream<ETickrate> tickrates) {
-		return this.setTickrates(UwSet.toSetOrNull(tickrates));
+		return this.setTickrates(UwSet.createOrNull(tickrates));
 	}
 
 	/**

@@ -58,27 +58,32 @@ public enum EBanType {
 	EXPLOITING(Group.OTHER, "exploiting", "Exploiting", "Exploit");
 
 	/**
+	 * A class instance of this class.
+	 */
+	private static final Class<EBanType> CLASS = EBanType.class;
+
+	/**
 	 * A simple name of this class.
 	 */
-	private static final String SIMPLE_NAME = EBanType.class.getSimpleName();
+	private static final String SIMPLE_NAME = CLASS.getSimpleName();
 
 	/**
 	 * An array of {@link EBanType} instances.
 	 */
-	private static final EBanType[] VALUES = UwEnum.values(EBanType.class);
+	private static final EBanType[] VALUES = UwEnum.values(CLASS);
 
 	/**
 	 * A map of {@link EBanType} instances by their API-name field.
 	 */
-	private static final Map<String, EBanType> MAP_BY_API_NAME = UwMap.newMapByFieldOrNull(
-			entry -> entry.apiName, EBanType.class
+	private static final Map<String, EBanType> MAP_BY_API_NAME = UwMap.createByFieldOrNull(
+			entry -> entry.apiName, VALUES
 	);
 
 	/**
 	 * A map of {@link EBanType} instances by their full name field.
 	 */
-	private static final Map<String, EBanType> MAP_BY_FULL_NAME = UwMap.newMapByFieldOrNull(
-			entry -> entry.fullName, EBanType.class
+	private static final Map<String, EBanType> MAP_BY_FULL_NAME = UwMap.createByFieldOrNull(
+			entry -> entry.fullName, VALUES
 	);
 
 	/**

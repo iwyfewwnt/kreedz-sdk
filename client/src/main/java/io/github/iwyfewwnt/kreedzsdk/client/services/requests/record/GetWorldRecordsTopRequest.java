@@ -411,7 +411,7 @@ public final class GetWorldRecordsTopRequest implements IRequest, Cloneable {
 		 * @return		this instance
 		 */
 		public Manager setIds(Collection<Integer> ids) {
-			return this.setIds(UwSet.toSetOrNull(ids));
+			return this.setIds(UwSet.createOrNull(ids));
 		}
 
 		/**
@@ -421,7 +421,7 @@ public final class GetWorldRecordsTopRequest implements IRequest, Cloneable {
 		 * @return		this instance
 		 */
 		public Manager setIds(Integer... ids) {
-			return this.setIds(UwSet.toSetOrNull(ids));
+			return this.setIds(UwSet.createOrNull(ids));
 		}
 
 		/**
@@ -431,7 +431,7 @@ public final class GetWorldRecordsTopRequest implements IRequest, Cloneable {
 		 * @return		this instance
 		 */
 		public Manager setIds(Stream<Integer> ids) {
-			return this.setIds(UwSet.toSetOrNull(ids));
+			return this.setIds(UwSet.createOrNull(ids));
 		}
 
 		/**
@@ -441,7 +441,7 @@ public final class GetWorldRecordsTopRequest implements IRequest, Cloneable {
 		 * @return		this instance
 		 */
 		public Manager setIds(IntStream ids) {
-			return this.setIds(UwSet.toSetOrNull(ids));
+			return this.setIds(UwSet.createOrNull(ids));
 		}
 
 		/**
@@ -462,7 +462,7 @@ public final class GetWorldRecordsTopRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setMapIds(Collection<Integer> mapIds) {
-			return this.setMapIds(UwSet.toSetOrNull(mapIds));
+			return this.setMapIds(UwSet.createOrNull(mapIds));
 		}
 
 		/**
@@ -472,7 +472,7 @@ public final class GetWorldRecordsTopRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setMapIds(Integer... mapIds) {
-			return this.setMapIds(UwSet.toSetOrNull(mapIds));
+			return this.setMapIds(UwSet.createOrNull(mapIds));
 		}
 
 		/**
@@ -482,7 +482,7 @@ public final class GetWorldRecordsTopRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setMapIds(Stream<Integer> mapIds) {
-			return this.setMapIds(UwSet.toSetOrNull(mapIds));
+			return this.setMapIds(UwSet.createOrNull(mapIds));
 		}
 
 		/**
@@ -492,7 +492,7 @@ public final class GetWorldRecordsTopRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setMapIds(IntStream mapIds) {
-			return this.setMapIds(UwSet.toSetOrNull(mapIds));
+			return this.setMapIds(UwSet.createOrNull(mapIds));
 		}
 
 		/**
@@ -513,7 +513,7 @@ public final class GetWorldRecordsTopRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setStages(Collection<Integer> stages) {
-			return this.setStages(UwSet.toSetOrNull(stages));
+			return this.setStages(UwSet.createOrNull(stages));
 		}
 
 		/**
@@ -523,7 +523,7 @@ public final class GetWorldRecordsTopRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setStages(Integer... stages) {
-			return this.setStages(UwSet.toSetOrNull(stages));
+			return this.setStages(UwSet.createOrNull(stages));
 		}
 
 		/**
@@ -533,7 +533,7 @@ public final class GetWorldRecordsTopRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setStages(Stream<Integer> stages) {
-			return this.setStages(UwSet.toSetOrNull(stages));
+			return this.setStages(UwSet.createOrNull(stages));
 		}
 
 		/**
@@ -543,7 +543,7 @@ public final class GetWorldRecordsTopRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setStages(IntStream stages) {
-			return this.setStages(UwSet.toSetOrNull(stages));
+			return this.setStages(UwSet.createOrNull(stages));
 		}
 
 		/**
@@ -564,7 +564,7 @@ public final class GetWorldRecordsTopRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setModes(Collection<EMode> modes) {
-			return this.setModes(UwSet.toSetOrNull(modes));
+			return this.setModes(UwSet.createOrNull(modes));
 		}
 
 		/**
@@ -574,7 +574,7 @@ public final class GetWorldRecordsTopRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setModes(EMode... modes) {
-			return this.setModes(UwSet.toSetOrNull(modes));
+			return this.setModes(UwSet.createOrNull(modes));
 		}
 
 		/**
@@ -584,7 +584,7 @@ public final class GetWorldRecordsTopRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setModes(Stream<EMode> modes) {
-			return this.setModes(UwSet.toSetOrNull(modes));
+			return this.setModes(UwSet.createOrNull(modes));
 		}
 
 		/**
@@ -605,7 +605,7 @@ public final class GetWorldRecordsTopRequest implements IRequest, Cloneable {
 		 * @return				this instance
 		 */
 		public Manager setTickrates(Collection<ETickrate> tickrates) {
-			return this.setTickrates(UwSet.toSetOrNull(tickrates));
+			return this.setTickrates(UwSet.createOrNull(tickrates));
 		}
 
 		/**
@@ -615,7 +615,7 @@ public final class GetWorldRecordsTopRequest implements IRequest, Cloneable {
 		 * @return				this instance
 		 */
 		public Manager setTickrates(ETickrate... tickrates) {
-			return this.setTickrates(UwSet.toSetOrNull(tickrates));
+			return this.setTickrates(UwSet.createOrNull(tickrates));
 		}
 
 		/**
@@ -625,7 +625,7 @@ public final class GetWorldRecordsTopRequest implements IRequest, Cloneable {
 		 * @return				this instance
 		 */
 		public Manager setTickrates(Stream<ETickrate> tickrates) {
-			return this.setTickrates(UwSet.toSetOrNull(tickrates));
+			return this.setTickrates(UwSet.createOrNull(tickrates));
 		}
 
 		/**

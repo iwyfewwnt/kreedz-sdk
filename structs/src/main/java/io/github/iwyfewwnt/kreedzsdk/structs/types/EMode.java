@@ -43,41 +43,46 @@ public enum EMode {
 	VNL(202, "kz_vanilla", "VanillaKZ", "VNL");
 
 	/**
+	 * A class instance of this class.
+	 */
+	private static final Class<EMode> CLASS = EMode.class;
+
+	/**
 	 * A simple name of this class.
 	 */
-	private static final String SIMPLE_NAME = EMode.class.getSimpleName();
+	private static final String SIMPLE_NAME = CLASS.getSimpleName();
 
 	/**
 	 * An array of {@link EMode} instances.
 	 */
-	private static final EMode[] VALUES = UwEnum.values(EMode.class);
+	private static final EMode[] VALUES = UwEnum.values(CLASS);
 
 	/**
 	 * A map of {@link EMode} instances by their API-identifier field.
 	 */
-	private static final Map<Integer, EMode> MAP_BY_ID = UwMap.newMapByFieldOrNull(
-			entry -> entry.id, EMode.class
+	private static final Map<Integer, EMode> MAP_BY_ID = UwMap.createByFieldOrNull(
+			entry -> entry.id, VALUES
 	);
 
 	/**
 	 * A map of {@link EMode} instances by their API-name field.
 	 */
-	private static final Map<String, EMode> MAP_BY_API_NAME = UwMap.newMapByFieldOrNull(
-			entry -> entry.apiName, EMode.class
+	private static final Map<String, EMode> MAP_BY_API_NAME = UwMap.createByFieldOrNull(
+			entry -> entry.apiName, VALUES
 	);
 
 	/**
 	 * A map of {@link EMode} instances by their full name field.
 	 */
-	private static final Map<String, EMode> MAP_BY_FULL_NAME = UwMap.newMapByFieldOrNull(
-			entry -> entry.fullName, EMode.class
+	private static final Map<String, EMode> MAP_BY_FULL_NAME = UwMap.createByFieldOrNull(
+			entry -> entry.fullName, VALUES
 	);
 
 	/**
 	 * A map of {@link EMode} instances by their short name field.
 	 */
-	private static final Map<String, EMode> MAP_BY_SHORT_NAME = UwMap.newMapByFieldOrNull(
-			entry -> entry.shortName, EMode.class
+	private static final Map<String, EMode> MAP_BY_SHORT_NAME = UwMap.createByFieldOrNull(
+			entry -> entry.shortName, VALUES
 	);
 
 	/**

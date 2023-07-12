@@ -427,7 +427,7 @@ public final class GetBansRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setBanTypes(Collection<EBanType> banTypes) {
-			return this.setBanTypes(UwSet.toSetOrNull(banTypes));
+			return this.setBanTypes(UwSet.createOrNull(banTypes));
 		}
 
 		/**
@@ -437,7 +437,7 @@ public final class GetBansRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setBanTypes(EBanType... banTypes) {
-			return this.setBanTypes(UwSet.toSetOrNull(banTypes));
+			return this.setBanTypes(UwSet.createOrNull(banTypes));
 		}
 
 		/**
@@ -447,7 +447,7 @@ public final class GetBansRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setBanTypes(Stream<EBanType> banTypes) {
-			return this.setBanTypes(UwSet.toSetOrNull(banTypes));
+			return this.setBanTypes(UwSet.createOrNull(banTypes));
 		}
 
 		/**

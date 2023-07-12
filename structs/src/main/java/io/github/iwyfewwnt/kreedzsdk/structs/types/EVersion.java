@@ -54,20 +54,25 @@ public enum EVersion {
 	public static final String FMT = "v%d.%d";
 
 	/**
+	 * A class instance of this class.
+	 */
+	private static final Class<EVersion> CLASS = EVersion.class;
+
+	/**
 	 * A simple name of this class.
 	 */
-	private static final String SIMPLE_NAME = EVersion.class.getSimpleName();
+	private static final String SIMPLE_NAME = CLASS.getSimpleName();
 
 	/**
 	 * An array of {@link EVersion} instances.
 	 */
-	private static final EVersion[] VALUES = UwEnum.values(EVersion.class);
+	private static final EVersion[] VALUES = UwEnum.values(CLASS);
 
 	/**
 	 * A map of {@link EVersion} instances by their API-name field.
 	 */
-	private static final Map<String, EVersion> MAP_BY_API_NAME = UwMap.newMapByFieldOrNull(
-			entry -> entry.apiName, EVersion.class
+	private static final Map<String, EVersion> MAP_BY_API_NAME = UwMap.createByFieldOrNull(
+			entry -> entry.apiName, VALUES
 	);
 
 	/**

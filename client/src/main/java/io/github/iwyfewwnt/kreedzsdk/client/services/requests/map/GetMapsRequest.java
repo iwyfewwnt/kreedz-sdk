@@ -422,7 +422,7 @@ public final class GetMapsRequest implements IRequest, Cloneable {
 		 * @return		this instance
 		 */
 		public Manager setIds(Collection<Integer> ids) {
-			return this.setIds(UwSet.toSetOrNull(ids));
+			return this.setIds(UwSet.createOrNull(ids));
 		}
 
 		/**
@@ -432,7 +432,7 @@ public final class GetMapsRequest implements IRequest, Cloneable {
 		 * @return		this instance
 		 */
 		public Manager setIds(Integer... ids) {
-			return this.setIds(UwSet.toSetOrNull(ids));
+			return this.setIds(UwSet.createOrNull(ids));
 		}
 
 		/**
@@ -442,7 +442,7 @@ public final class GetMapsRequest implements IRequest, Cloneable {
 		 * @return		this instance
 		 */
 		public Manager setIds(Stream<Integer> ids) {
-			return this.setIds(UwSet.toSetOrNull(ids));
+			return this.setIds(UwSet.createOrNull(ids));
 		}
 
 		/**
@@ -452,7 +452,7 @@ public final class GetMapsRequest implements IRequest, Cloneable {
 		 * @return		this instance
 		 */
 		public Manager setIds(IntStream ids) {
-			return this.setIds(UwSet.toSetOrNull(ids));
+			return this.setIds(UwSet.createOrNull(ids));
 		}
 
 		/**

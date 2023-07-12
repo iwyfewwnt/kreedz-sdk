@@ -41,20 +41,25 @@ public enum EApprovalStatus {
 	QUEUED(1);
 
 	/**
+	 * A class instance of this class.
+	 */
+	private static final Class<EApprovalStatus> CLASS = EApprovalStatus.class;
+
+	/**
 	 * A simple name of this class.
 	 */
-	private static final String SIMPLE_NAME = EApprovalStatus.class.getSimpleName();
+	private static final String SIMPLE_NAME = CLASS.getSimpleName();
 
 	/**
 	 * An array of {@link EApprovalStatus} instances.
 	 */
-	private static final EApprovalStatus[] VALUES = UwEnum.values(EApprovalStatus.class);
+	private static final EApprovalStatus[] VALUES = UwEnum.values(CLASS);
 
 	/**
 	 * A map of {@link EApprovalStatus} instances by their API-identifier field.
 	 */
-	private static final Map<Integer, EApprovalStatus> MAP_BY_ID = UwMap.newMapByFieldOrNull(
-			entry -> entry.id, EApprovalStatus.class
+	private static final Map<Integer, EApprovalStatus> MAP_BY_ID = UwMap.createByFieldOrNull(
+			entry -> entry.id, VALUES
 	);
 
 	/**

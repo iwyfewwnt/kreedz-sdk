@@ -46,27 +46,32 @@ public enum ETickrate {
 	T64(64.0f);
 
 	/**
+	 * A class instance of this class.
+	 */
+	private static final Class<ETickrate> CLASS = ETickrate.class;
+
+	/**
 	 * A simple name of this class.
 	 */
-	private static final String SIMPLE_NAME = ETickrate.class.getSimpleName();
+	private static final String SIMPLE_NAME = CLASS.getSimpleName();
 
 	/**
 	 * An array of {@link ETickrate} instances.
 	 */
-	private static final ETickrate[] VALUES = UwEnum.values(ETickrate.class);
+	private static final ETickrate[] VALUES = UwEnum.values(CLASS);
 
 	/**
 	 * A map of {@link ETickrate} instances by their float value field.
 	 */
-	private static final Map<Float, ETickrate> MAP_BY_FLOAT = UwMap.newMapByFieldOrNull(
-			entry -> entry.fltVal, ETickrate.class
+	private static final Map<Float, ETickrate> MAP_BY_FLOAT = UwMap.createByFieldOrNull(
+			entry -> entry.fltVal, VALUES
 	);
 
 	/**
 	 * A map of {@link ETickrate} instances by their integer value field.
 	 */
-	private static final Map<Integer, ETickrate> MAP_BY_INT = UwMap.newMapByFieldOrNull(
-			entry -> entry.intVal, ETickrate.class
+	private static final Map<Integer, ETickrate> MAP_BY_INT = UwMap.createByFieldOrNull(
+			entry -> entry.intVal, VALUES
 	);
 
 	/**

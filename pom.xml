@@ -94,7 +94,7 @@
         <auto-service.version>1.0.1</auto-service.version>
         <vavr-gson.version>0.2.0-SNAPSHOT</vavr-gson.version>
 
-        <uwutils.version>0.2.0-SNAPSHOT</uwutils.version>
+        <uwutils.version>0.2.1-SNAPSHOT</uwutils.version>
 
         <!-- Maven Plugin Versions -->
         <maven.install.version>2.5.2</maven.install.version>

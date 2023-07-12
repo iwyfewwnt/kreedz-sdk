@@ -161,7 +161,7 @@ public abstract class BaseGetJumpstatsRequestManager<T extends BaseGetJumpstatsR
 	 * @return			this instance
 	 */
 	public final T setSteamIds(Collection<SteamId> steamIds) {
-		return this.setSteamIds(UwSet.toSetOrNull(steamIds));
+		return this.setSteamIds(UwSet.createOrNull(steamIds));
 	}
 
 	/**
@@ -171,7 +171,7 @@ public abstract class BaseGetJumpstatsRequestManager<T extends BaseGetJumpstatsR
 	 * @return			this instance
 	 */
 	public final T setSteamIds(SteamId... steamIds) {
-		return this.setSteamIds(UwSet.toSetOrNull(steamIds));
+		return this.setSteamIds(UwSet.createOrNull(steamIds));
 	}
 
 	/**
@@ -181,7 +181,7 @@ public abstract class BaseGetJumpstatsRequestManager<T extends BaseGetJumpstatsR
 	 * @return			this instance
 	 */
 	public final T setSteamIds(Stream<SteamId> steamIds) {
-		return this.setSteamIds(UwSet.toSetOrNull(steamIds));
+		return this.setSteamIds(UwSet.createOrNull(steamIds));
 	}
 
 	/**

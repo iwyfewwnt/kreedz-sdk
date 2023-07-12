@@ -53,27 +53,32 @@ public enum EStatusIndicator {
 	NONE("none", "None");
 
 	/**
+	 * A class instance of this class.
+	 */
+	private static final Class<EStatusIndicator> CLASS = EStatusIndicator.class;
+
+	/**
 	 * A simple name of this class.
 	 */
-	private static final String SIMPLE_NAME = EStatusIndicator.class.getSimpleName();
+	private static final String SIMPLE_NAME = CLASS.getSimpleName();
 
 	/**
 	 * An array {@link EStatusIndicator} instances.
 	 */
-	private static final EStatusIndicator[] VALUES = UwEnum.values(EStatusIndicator.class);
+	private static final EStatusIndicator[] VALUES = UwEnum.values(CLASS);
 
 	/**
 	 * A map of {@link EStatusIndicator} instances by their API-name field.
 	 */
-	private static final Map<String, EStatusIndicator> MAP_BY_API_NAME = UwMap.newMapByFieldOrNull(
-			entry -> entry.apiName, EStatusIndicator.class
+	private static final Map<String, EStatusIndicator> MAP_BY_API_NAME = UwMap.createByFieldOrNull(
+			entry -> entry.apiName, VALUES
 	);
 
 	/**
 	 * A map of {@link EStatusIndicator} instances by their full name field.
 	 */
-	private static final Map<String, EStatusIndicator> MAP_BY_FULL_NAME = UwMap.newMapByFieldOrNull(
-			entry -> entry.fullName, EStatusIndicator.class
+	private static final Map<String, EStatusIndicator> MAP_BY_FULL_NAME = UwMap.createByFieldOrNull(
+			entry -> entry.fullName, VALUES
 	);
 
 	/**

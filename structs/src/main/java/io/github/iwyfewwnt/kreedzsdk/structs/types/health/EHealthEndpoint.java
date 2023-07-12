@@ -44,27 +44,32 @@ public enum EHealthEndpoint {
 	public static final String KEY_FMT = "%s_%s";
 
 	/**
+	 * A class instance of this class.
+	 */
+	private static final Class<EHealthEndpoint> CLASS = EHealthEndpoint.class;
+
+	/**
 	 * A simple name of this class.
 	 */
-	private static final String SIMPLE_NAME = EHealthEndpoint.class.getSimpleName();
+	private static final String SIMPLE_NAME = CLASS.getSimpleName();
 
 	/**
 	 * An array of {@link EHealthEndpoint} instances.
 	 */
-	private static final EHealthEndpoint[] VALUES = UwEnum.values(EHealthEndpoint.class);
+	private static final EHealthEndpoint[] VALUES = UwEnum.values(CLASS);
 
 	/**
 	 * A map of {@link EHealthEndpoint} instances by their API-name field.
 	 */
-	private static final Map<String, EHealthEndpoint> MAP_BY_NAME = UwMap.newMapByFieldOrNull(
-			entry -> entry.name, EHealthEndpoint.class
+	private static final Map<String, EHealthEndpoint> MAP_BY_NAME = UwMap.createByFieldOrNull(
+			entry -> entry.name, VALUES
 	);
 
 	/**
 	 * A map of {@link EHealthEndpoint} instances by their API-key field.
 	 */
-	private static final Map<String, EHealthEndpoint> MAP_BY_KEY = UwMap.newMapByFieldOrNull(
-			entry -> entry.key, EHealthEndpoint.class
+	private static final Map<String, EHealthEndpoint> MAP_BY_KEY = UwMap.createByFieldOrNull(
+			entry -> entry.key, VALUES
 	);
 
 	/**

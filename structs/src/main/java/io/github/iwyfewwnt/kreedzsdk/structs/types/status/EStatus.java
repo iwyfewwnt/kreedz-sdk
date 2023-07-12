@@ -88,27 +88,32 @@ public enum EStatus {
 	VERIFYING("verifying", "Verifying");
 
 	/**
+	 * A class instance of this class.
+	 */
+	private static final Class<EStatus> CLASS = EStatus.class;
+
+	/**
 	 * A simple name of this class.
 	 */
-	private static final String SIMPLE_NAME = EStatus.class.getSimpleName();
+	private static final String SIMPLE_NAME = CLASS.getSimpleName();
 
 	/**
 	 * An array of {@link EStatus} instances.
 	 */
-	private static final EStatus[] VALUES = UwEnum.values(EStatus.class);
+	private static final EStatus[] VALUES = UwEnum.values(CLASS);
 
 	/**
 	 * A map of {@link EStatus} instances by their API-name field.
 	 */
-	private static final Map<String, EStatus> MAP_BY_API_NAME = UwMap.newMapByFieldOrNull(
-			entry -> entry.apiName, EStatus.class
+	private static final Map<String, EStatus> MAP_BY_API_NAME = UwMap.createByFieldOrNull(
+			entry -> entry.apiName, VALUES
 	);
 
 	/**
 	 * A map of {@link EStatus} instances by their full name field.
 	 */
-	private static final Map<String, EStatus> MAP_BY_FULL_NAME = UwMap.newMapByFieldOrNull(
-			entry -> entry.fullName, EStatus.class
+	private static final Map<String, EStatus> MAP_BY_FULL_NAME = UwMap.createByFieldOrNull(
+			entry -> entry.fullName, VALUES
 	);
 
 	/**

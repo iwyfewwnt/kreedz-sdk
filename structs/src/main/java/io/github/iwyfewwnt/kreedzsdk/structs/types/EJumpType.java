@@ -63,41 +63,46 @@ public enum EJumpType {
 	LAJ(7, "ladderjump", "LadderJump", "LAJ");
 
 	/**
+	 * A class instance of this class.
+	 */
+	private static final Class<EJumpType> CLASS = EJumpType.class;
+
+	/**
 	 * A simple name of this class.
 	 */
-	private static final String SIMPLE_NAME = EJumpType.class.getSimpleName();
+	private static final String SIMPLE_NAME = CLASS.getSimpleName();
 
 	/**
 	 * An array of {@link EJumpType} instances.
 	 */
-	private static final EJumpType[] VALUES = UwEnum.values(EJumpType.class);
+	private static final EJumpType[] VALUES = UwEnum.values(CLASS);
 
 	/**
 	 * A map of {@link EJumpType} instances by their API-identifier field.
 	 */
-	private static final Map<Integer, EJumpType> MAP_BY_ID = UwMap.newMapByFieldOrNull(
-			entry -> entry.id, EJumpType.class
+	private static final Map<Integer, EJumpType> MAP_BY_ID = UwMap.createByFieldOrNull(
+			entry -> entry.id, VALUES
 	);
 
 	/**
 	 * A map of {@link EJumpType} instances by their API-name field.
 	 */
-	private static final Map<String, EJumpType> MAP_BY_API_NAME = UwMap.newMapByFieldOrNull(
-			entry -> entry.apiName, EJumpType.class
+	private static final Map<String, EJumpType> MAP_BY_API_NAME = UwMap.createByFieldOrNull(
+			entry -> entry.apiName, VALUES
 	);
 
 	/**
 	 * A map of {@link EJumpType} instances by their full name field.
 	 */
-	private static final Map<String, EJumpType> MAP_BY_FULL_NAME = UwMap.newMapByFieldOrNull(
-			entry -> entry.fullName, EJumpType.class
+	private static final Map<String, EJumpType> MAP_BY_FULL_NAME = UwMap.createByFieldOrNull(
+			entry -> entry.fullName, VALUES
 	);
 
 	/**
 	 * A map of {@link EJumpType} instances by their short name field.
 	 */
-	private static final Map<String, EJumpType> MAP_BY_SHORT_NAME = UwMap.newMapByFieldOrNull(
-			entry -> entry.shortName, EJumpType.class
+	private static final Map<String, EJumpType> MAP_BY_SHORT_NAME = UwMap.createByFieldOrNull(
+			entry -> entry.shortName, VALUES
 	);
 
 	/**

@@ -552,7 +552,7 @@ public final class GetPlayerRanksRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setSteamIds(Collection<SteamId> steamIds) {
-			return this.setSteamIds(UwSet.toSetOrNull(steamIds));
+			return this.setSteamIds(UwSet.createOrNull(steamIds));
 		}
 
 		/**
@@ -562,7 +562,7 @@ public final class GetPlayerRanksRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setSteamIds(SteamId... steamIds) {
-			return this.setSteamIds(UwSet.toSetOrNull(steamIds));
+			return this.setSteamIds(UwSet.createOrNull(steamIds));
 		}
 
 		/**
@@ -583,7 +583,7 @@ public final class GetPlayerRanksRequest implements IRequest, Cloneable {
 		 * @return					this instance
 		 */
 		public Manager setRecordFilterIds(Collection<Integer> recordFilterIds) {
-			return this.setRecordFilterIds(UwSet.toSetOrNull(recordFilterIds));
+			return this.setRecordFilterIds(UwSet.createOrNull(recordFilterIds));
 		}
 
 		/**
@@ -593,7 +593,7 @@ public final class GetPlayerRanksRequest implements IRequest, Cloneable {
 		 * @return					this instance
 		 */
 		public Manager setRecordFilterIds(Integer... recordFilterIds) {
-			return this.setRecordFilterIds(UwSet.toSetOrNull(recordFilterIds));
+			return this.setRecordFilterIds(UwSet.createOrNull(recordFilterIds));
 		}
 
 		/**
@@ -603,7 +603,7 @@ public final class GetPlayerRanksRequest implements IRequest, Cloneable {
 		 * @return					this instance
 		 */
 		public Manager setRecordFilterIds(Stream<Integer> recordFilterIds) {
-			return this.setRecordFilterIds(UwSet.toSetOrNull(recordFilterIds));
+			return this.setRecordFilterIds(UwSet.createOrNull(recordFilterIds));
 		}
 
 		/**
@@ -613,7 +613,7 @@ public final class GetPlayerRanksRequest implements IRequest, Cloneable {
 		 * @return					this instance
 		 */
 		public Manager setRecordFilterIds(IntStream recordFilterIds) {
-			return this.setRecordFilterIds(UwSet.toSetOrNull(recordFilterIds));
+			return this.setRecordFilterIds(UwSet.createOrNull(recordFilterIds));
 		}
 
 		/**
@@ -634,7 +634,7 @@ public final class GetPlayerRanksRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setMapIds(Collection<Integer> mapIds) {
-			return this.setMapIds(UwSet.toSetOrNull(mapIds));
+			return this.setMapIds(UwSet.createOrNull(mapIds));
 		}
 
 		/**
@@ -644,7 +644,7 @@ public final class GetPlayerRanksRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setMapIds(Integer... mapIds) {
-			return this.setMapIds(UwSet.toSetOrNull(mapIds));
+			return this.setMapIds(UwSet.createOrNull(mapIds));
 		}
 
 		/**
@@ -654,7 +654,7 @@ public final class GetPlayerRanksRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setMapIds(Stream<Integer> mapIds) {
-			return this.setMapIds(UwSet.toSetOrNull(mapIds));
+			return this.setMapIds(UwSet.createOrNull(mapIds));
 		}
 
 		/**
@@ -664,7 +664,7 @@ public final class GetPlayerRanksRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setMapIds(IntStream mapIds) {
-			return this.setMapIds(UwSet.toSetOrNull(mapIds));
+			return this.setMapIds(UwSet.createOrNull(mapIds));
 		}
 
 		/**
@@ -685,7 +685,7 @@ public final class GetPlayerRanksRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setStages(Collection<Integer> stages) {
-			return this.setStages(UwSet.toSetOrNull(stages));
+			return this.setStages(UwSet.createOrNull(stages));
 		}
 
 		/**
@@ -695,7 +695,7 @@ public final class GetPlayerRanksRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setStages(Integer... stages) {
-			return this.setStages(UwSet.toSetOrNull(stages));
+			return this.setStages(UwSet.createOrNull(stages));
 		}
 
 		/**
@@ -705,7 +705,7 @@ public final class GetPlayerRanksRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setStages(Stream<Integer> stages) {
-			return this.setStages(UwSet.toSetOrNull(stages));
+			return this.setStages(UwSet.createOrNull(stages));
 		}
 
 		/**
@@ -715,7 +715,7 @@ public final class GetPlayerRanksRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setStages(IntStream stages) {
-			return this.setStages(UwSet.toSetOrNull(stages));
+			return this.setStages(UwSet.createOrNull(stages));
 		}
 
 		/**
@@ -736,7 +736,7 @@ public final class GetPlayerRanksRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setModes(Collection<EMode> modes) {
-			return this.setModes(UwSet.toSetOrNull(modes));
+			return this.setModes(UwSet.createOrNull(modes));
 		}
 
 		/**
@@ -746,7 +746,7 @@ public final class GetPlayerRanksRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setModes(EMode... modes) {
-			return this.setModes(UwSet.toSetOrNull(modes));
+			return this.setModes(UwSet.createOrNull(modes));
 		}
 
 		/**
@@ -756,7 +756,7 @@ public final class GetPlayerRanksRequest implements IRequest, Cloneable {
 		 * @return			this instance
 		 */
 		public Manager setModes(Stream<EMode> modes) {
-			return this.setModes(UwSet.toSetOrNull(modes));
+			return this.setModes(UwSet.createOrNull(modes));
 		}
 
 		/**
@@ -777,7 +777,7 @@ public final class GetPlayerRanksRequest implements IRequest, Cloneable {
 		 * @return				this instance
 		 */
 		public Manager setTickrates(Collection<ETickrate> tickrates) {
-			return this.setTickrates(UwSet.toSetOrNull(tickrates));
+			return this.setTickrates(UwSet.createOrNull(tickrates));
 		}
 
 		/**
@@ -787,7 +787,7 @@ public final class GetPlayerRanksRequest implements IRequest, Cloneable {
 		 * @return				this instance
 		 */
 		public Manager setTickrates(ETickrate... tickrates) {
-			return this.setTickrates(UwSet.toSetOrNull(tickrates));
+			return this.setTickrates(UwSet.createOrNull(tickrates));
 		}
 
 		/**
@@ -797,7 +797,7 @@ public final class GetPlayerRanksRequest implements IRequest, Cloneable {
 		 * @return				this instance
 		 */
 		public Manager setTickrates(Stream<ETickrate> tickrates) {
-			return this.setTickrates(UwSet.toSetOrNull(tickrates));
+			return this.setTickrates(UwSet.createOrNull(tickrates));
 		}
 
 		/**

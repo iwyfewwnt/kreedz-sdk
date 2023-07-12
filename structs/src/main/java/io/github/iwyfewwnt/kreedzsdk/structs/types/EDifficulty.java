@@ -63,27 +63,32 @@ public enum EDifficulty {
 	DEATH(Group.PURPLE, 7, "Death");
 
 	/**
+	 * A class instance of this class.
+	 */
+	private static final Class<EDifficulty> CLASS = EDifficulty.class;
+
+	/**
 	 * A simple name of this class.
 	 */
-	private static final String SIMPLE_NAME = EDifficulty.class.getSimpleName();
+	private static final String SIMPLE_NAME = CLASS.getSimpleName();
 
 	/**
 	 * An array of {@link EDifficulty} instances.
 	 */
-	private static final EDifficulty[] VALUES = UwEnum.values(EDifficulty.class);
+	private static final EDifficulty[] VALUES = UwEnum.values(CLASS);
 
 	/**
 	 * A map of {@link EDifficulty} instances by their API-identifier field.
 	 */
-	private static final Map<Integer, EDifficulty> MAP_BY_ID = UwMap.newMapByFieldOrNull(
-			entry -> entry.id, EDifficulty.class
+	private static final Map<Integer, EDifficulty> MAP_BY_ID = UwMap.createByFieldOrNull(
+			entry -> entry.id, VALUES
 	);
 
 	/**
 	 * A map of {@link EDifficulty} instances by their full name field.
 	 */
-	private static final Map<String, EDifficulty> MAP_BY_FULL_NAME = UwMap.newMapByFieldOrNull(
-			entry -> entry.fullName, EDifficulty.class
+	private static final Map<String, EDifficulty> MAP_BY_FULL_NAME = UwMap.createByFieldOrNull(
+			entry -> entry.fullName, VALUES
 	);
 
 	/**
