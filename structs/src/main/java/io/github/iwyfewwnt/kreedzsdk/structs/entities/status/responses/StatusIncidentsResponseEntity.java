@@ -152,6 +152,7 @@ public final class StatusIncidentsResponseEntity implements Serializable, Clonea
 	 */
 	@Override
 	public String toString() {
+		//noinspection DuplicatedCode
 		if (this.stringCache != null) {
 			return this.stringCache;
 		}

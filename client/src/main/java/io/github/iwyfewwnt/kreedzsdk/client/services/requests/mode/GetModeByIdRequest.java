@@ -147,6 +147,7 @@ public final class GetModeByIdRequest implements IRequest, Cloneable {
 	 */
 	@Override
 	public String toString() {
+		//noinspection DuplicatedCode
 		if (this.stringCache != null) {
 			return this.stringCache;
 		}
