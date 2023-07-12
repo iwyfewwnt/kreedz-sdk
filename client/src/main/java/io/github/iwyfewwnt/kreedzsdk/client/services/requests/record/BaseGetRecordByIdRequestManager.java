@@ -25,6 +25,7 @@ import io.github.iwyfewwnt.uwretrofit.services.requests.impl.BaseRequestManager;
  * @param <U>	request type
  * @param <R>	response type
  */
+@SuppressWarnings("unused")
 public abstract class BaseGetRecordByIdRequestManager<T extends BaseGetRecordByIdRequestManager<T, U, R>, U extends GetRecordByIdRequest, R>
 		extends BaseRequestManager<T, U, R> {
 

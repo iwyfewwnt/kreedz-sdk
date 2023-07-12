@@ -21,6 +21,7 @@ import io.github.iwyfewwnt.kreedzsdk.structs.types.EVersion;
 /**
  * A kreedz client interface.
  */
+@SuppressWarnings("unused")
 public interface IKreedzClient {
 
 	/**
